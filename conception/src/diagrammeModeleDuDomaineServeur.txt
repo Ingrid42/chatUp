@@ -48,8 +48,8 @@ class Serveur {
 }
 
 UtilisateurHumain *-- IFiltre
-IFiltre <|-- FiltreMots
-IFiltre <|-- FiltreUtilisateurs
+IFiltre <|.. FiltreMots
+IFiltre <|.. FiltreUtilisateurs
 Session --* Utilisateur
 Utilisateur --* FiltreUtilisateurs
 Utilisateur <|- UtilisateurIA

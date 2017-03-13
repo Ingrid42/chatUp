@@ -1,63 +1,69 @@
 @startuml
-interface IFiltre
+interface IFiltre {
+  Object: getObject()
+}
+
 class FiltreMots {
-  listeMots
-  void: ajouterMot
+  - String: mot
 }
 
 class FiltreUtilisateurs {
-  void: ajouterUtilisateur
+
 }
 
 class Utilisateur {
-  pseudonyme
-  nom
-  prenom
-
+  - String: pseudonyme
+  - String: nom
+  - String: prenom
 }
 
 class UtilisateurIA {
-  Message: repondre(Message)
+  + Message: repondre(Message)
 }
 
 class UtilisateurHumain {
-  motDePasse
-  adresseMel
-  dateNaissance
-  motDePasseParental
-  photo
+  - String: motDePasse
+  - String: adresseMel
+  - Date: dateNaissance
+  - String: motDePasseParental
+  - String: photo
+
+  + void: addFiltre(IFiltre)
 }
 
 class Session {
-  socketClient
+  - Socket: socketClient
+
+  + bool: fermer()
 }
 
 class Discussion {
 }
 
 class Message {
-  texte
-  date
+  - String: texte
+  - Date: date
 }
 
 class DiscussionTexte {
-  void: addMessage(message)
+  + bool: addMessage(message)
 }
 
 class DiscussionAudio {
-  void: arreter()
+  + bool: demarrer()
+  + bool: arreter()
 }
 
 class Serveur {
-  socketServeur
+  - Socket: socketServeur
 
-  void: addUtilisateur(utilisateur)
-  Discussion: createDiscussion(listeUtilisateur)
+  + void: addUtilisateur(utilisateur)
+  + Discussion: createDiscussion(listeUtilisateur)
 }
 
 UtilisateurHumain *-- IFiltre
-IFiltre <|-- FiltreMots
-IFiltre <|-- FiltreUtilisateurs
+IFiltre <|.. FiltreMots
+IFiltre <|.. FiltreUtilisateurs
 Session --* Utilisateur
 Utilisateur --* FiltreUtilisateurs
 Utilisateur <|- UtilisateurIA

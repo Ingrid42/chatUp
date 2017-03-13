@@ -1,5 +1,7 @@
 @startuml
-interface IFiltre
+interface IFiltre {
+}
+
 class FiltreMot {
   mot
 }
@@ -23,6 +25,7 @@ class Session {
 }
 
 class Discussion {
+  
 }
 
 class Message {
@@ -38,8 +41,8 @@ class DiscussionAudio {
 
 
 Utilisateur *-- IFiltre
-IFiltre <|-- FiltreMot
-IFiltre <|-- FiltreUtilisateur
+IFiltre <|.. FiltreMot
+IFiltre <|.. FiltreUtilisateur
 Utilisateur *- Session
 Utilisateur --* FiltreUtilisateur
 Discussion <|-- DiscussionTexte
