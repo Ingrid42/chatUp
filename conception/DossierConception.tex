@@ -1,0 +1,114 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}	%dimension de la feuille
+\usepackage[utf8]{inputenc}%codage linux
+\usepackage[T1]{fontenc}%les fontes
+\usepackage[french]{babel}%caractères français
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{hyperref}%liens pdf
+\usepackage{listings}%pour mettre du code
+\usepackage{color}%pour la couleur dans le code
+\usepackage{graphicx}%pour \includegraphics
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\lstset{breaklines=true}
+\usepackage{verbatim}
+\usepackage{array}
+
+%%%%%%%%%%%%%%%%%%%% Presentation %%%%%%%%%%%%%%%%%%%
+\title{Informatique Répartie\\Dossier de Conception\\Sujet : Messagerie instantanée 2}
+\author{Ingrid FIQUET\\Morgane LEGROS\\Florian MARTIN\\Thibault THÉOLOGIEN\\Youssef ZERHOUNI ABDOU}
+\date{\today}
+
+
+\begin{document}
+\begin{titlepage}
+\vfill
+	\begin{figure}
+	\includegraphics[scale=0.3]{insarouen-logo.png}
+	\end{figure}
+
+\maketitle
+
+\vfill
+\noindent \hrulefill
+
+\end{titlepage}
+
+
+%%%%%%%%%%%%%%%%%%%% Corps %%%%%%%%%%%%%%%%%%%
+
+\newpage
+\tableofcontents
+\newpage
+
+\section*{Introduction}
+\newpage
+
+\section{Conception préliminaire}
+
+\subsection{Diagramme de modèle du domaine}
+
+\subsection{Diagramme de séquence système}
+
+\subsection{Diagramme d'activités de navigation}
+
+\subsection{Tableau d’Interaction}
+
+\textbf{Tableau d’interaction pour envoyer un message :} \\
+
+Action de début : Vouloir envoyer un message à une personne. \\
+
+\begin{tabular}{|p{8cm}|p{8cm}|}
+\hline 
+Action de l'utilisateur & Action du système\tabularnewline
+\hline 
+\hline 
+1) Entrer son login et mot de passe (A)  & \tabularnewline
+\hline 
+2) Valider  & 3) Vérifier le login et le mot de passe dans la base de données\tabularnewline
+\hline 
+4) Sélectionner une discussion commencée ou cliquer sur le "+" pour
+démarrer une conversation avec une nouvelle personne ou aller dans les contacts et cliquer sur l’Icône message en face de la personne correspondante & \tabularnewline
+\hline 
+5) Envoyer son message  & \tabularnewline
+\hline 
+\end{tabular}
+
+Action de fin  : Message affiché dans la discussion. \\
+
+Exception A : Si l'utilisateur n'a pas encore de compte, la première action est de cliquer sur pas encore inscrit, ce qui envoie l'utilisateur sur la page d'inscription où il remplie le formulaire et valide. 
+
+
+
+\subsection{Diagramme des classes de conception préliminaire}
+
+\subsection{Un découpage en packages et les signatures externes de chaque package}
+
+\section{Conception détaillée}
+
+%% Détailler par package les élements les constituant. 
+%% TODO :
+%% - Préciser les attributs et méthodes de classe de toutes les classes participantes et de les regrouper dans un diagramme de classes. 
+
+%% Les méthodes d’un package qui seront considérée comme non triviales devront être commentées et voir leur fonctionnement détaillé par du pseudo-code.
+
+
+
+
+
+
+
+%\begin{figure}[H]
+	%\centerline{\includegraphics[width=16.5cm]{insarouen-logo.png}}
+	%\caption{Cas d'utilisation}
+%\end{figure}
+
+%\begin{figure}[H]
+	%\centerline{\includegraphics[width=16.5cm]{insarouen-logo.png}}
+	%\caption{Modèle d'usage}
+%\end{figure}
+
+\end{document}
