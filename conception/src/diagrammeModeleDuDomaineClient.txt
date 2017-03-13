@@ -1,10 +1,10 @@
 @startuml
 interface IFiltre
-class FiltreMots {
+class FiltreMot {
   mot
 }
 
-class FiltreUtilisateurs {
+class FiltreUtilisateur {
 
 }
 
@@ -12,21 +12,14 @@ class Utilisateur {
   pseudonyme
   nom
   prenom
-}
-
-class UtilisateurIA {
-}
-
-class UtilisateurHumain {
-  motDePasse
   adresseMel
   dateNaissance
-  motDePasseParental
   photo
 }
 
 class Session {
   socketClient
+  socketServeur
 }
 
 class Discussion {
@@ -43,22 +36,15 @@ class DiscussionTexte {
 class DiscussionAudio {
 }
 
-class Serveur {
-  socketServeur
-}
 
-UtilisateurHumain *-- IFiltre
-IFiltre <|-- FiltreMots
-IFiltre <|-- FiltreUtilisateurs
-Session --* Utilisateur
-Utilisateur --* FiltreUtilisateurs
-Utilisateur <|- UtilisateurIA
-Utilisateur <|-- UtilisateurHumain
+Utilisateur *-- IFiltre
+IFiltre <|-- FiltreMot
+IFiltre <|-- FiltreUtilisateur
+Utilisateur *- Session
+Utilisateur --* FiltreUtilisateur
 Discussion <|-- DiscussionTexte
 Discussion <|-- DiscussionAudio
 Discussion - Utilisateur
 DiscussionTexte *--- Message
 Utilisateur --* Message
-Serveur -- Utilisateur
-Serveur *-- Discussion
 @enduml
