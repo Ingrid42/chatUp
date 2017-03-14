@@ -63,7 +63,7 @@
 	\section{Conception préliminaire}
 
 	\subsection{Diagramme de modèle du domaine}
-	Cette partie présente les diagramme de modèle du domaine du client et du serveur.
+	Cette partie présente les diagrammes de modèle du domaine du client et du serveur.
 	Le diagramme de Modèle du Domaine serveur montre la structure envisagée pour notre serveur.
 	On y trouve donc une entité Serveur chargée de la communication avec les clients.
 	Les autres entités représentent la structure des données pour le fonctionnement de notre application.
@@ -95,9 +95,9 @@
 	\newpage
 
 	\subsection{Diagramme d'activités de navigation}
-	Lorsque l'utilisateur arrive sur l'application, il arrive d'abord sur un "Page de login" où l'utilisateur à le choix entre :
+	Lorsque l'utilisateur arrive sur l'application, il arrive d'abord sur un "Page de login" où l'utilisateur a le choix entre :
 	\begin{itemize}
-		\item connexion : rentrer ses identifiants dans "pseudonyme" et "mot de passe" afin de se connecter en appuyant sur le bouton de balidation
+		\item connexion : rentrer ses identifiants dans "pseudonyme" et "mot de passe" afin de se connecter en appuyant sur le bouton de validation
 		\item inscription : créer un compte en cliquant sur "Pas encore inscrit ?".
 		Dans ce cas, l'utilisateur arrive sur la "Page d'inscription" où il est possible de rentrer ses identifiants "Pseudonyme", "Adresse mél", "Mot de passe", "Confirmation", "Nom", "Prénom", et "Date de naissance".
 		L'utilisateur s'inscrira en appuyant sur le bouton de validation.
@@ -109,7 +109,7 @@
 		\item "Page de conversation" : l'utilisateur peut cliquer sur une conversation déjà existante et dans ce cas il arrive sur une "Page de conversation"
 		\item "Page de paramètres" : l'utilisateur peut cliquer sur l'émoticone de paramètres et dans ce cas il arrive sur la "Page de paramètres"
 		\item "Page de contacts" : l'utilisateur peut cliquer sur l'émoticone des contacts, à gauche du nom de l'application, et dans ce cas il arrive sur la "Page de contacts"
-		\item "Nouvelle conversation" : l'utilisateur peut cliquer sur l'émoticone "+" afin de créer une nouvelle conversation, dans ce cas une pop-up s'ouvrira pour choisir un ou plusieurs utilisateurs, il validera et arriver sur une "Page de conversation" associée\\
+		\item "Nouvelle conversation" : l'utilisateur peut cliquer sur l'émoticone "+" afin de créer une nouvelle conversation, dans ce cas une pop-up s'ouvrira pour choisir un ou plusieurs utilisateurs, il validera et arrivera sur une "Page de conversation" associée\\
 	\end{itemize}
 
 	Lorsque l'utilisateur se situe sur une "Page de conversation", différentes possibilités s'offre à lui :
@@ -185,7 +185,7 @@
 
 	\subsection{Découpage en packages et les signatures externes de chaque package}
 	Les deux diagrammes suivants représentent le découpage en package de notre application.
-	Les package du coté serveur et client sont idépendants même si ils utilisent des classes communes puisqu'il ne sont pas dans le même langage.
+	Les packages du coté serveur et client sont idépendants même si ils utilisent des classes communes puisqu'il ne sont pas dans le même langage.
 	\begin{figure}[H]
 		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/packageServeur.png}}
 		\caption{Diagramme de package côté serveur}
@@ -201,8 +201,8 @@
 	\section{Conception détaillée}
 
 	\subsection{Diagrammes de classes}
-	Les diagrammes de classes présentés dans cette partie se basent sur les diagramme de modèle du domaine explicités précédemment.
-	Ainsi les entités ont été reportés en classes, avec les fonctions qui leur sont associées.
+	Les diagrammes de classes présentés dans cette partie se basent sur les diagrammes de modèle du domaine explicités précédemment.
+	Ainsi les entités ont été reportées en classes, avec les fonctions qui leur sont associées.
 	\begin{figure}[H]
 		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/classesServeur.png}}
 		\caption{Diagramme de classes côté serveur}
