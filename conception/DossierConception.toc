@@ -1,0 +1,9 @@
+\select@language {french}
+\contentsline {section}{\numberline {1}Conception pr\IeC {\'e}liminaire}{3}{section.1}
+\contentsline {subsection}{\numberline {1.1}Diagramme de mod\IeC {\`e}le du domaine}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Diagramme de s\IeC {\'e}quence syst\IeC {\`e}me}{6}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}Diagramme d'activit\IeC {\'e}s de navigation}{6}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Tableau d\IeC {\textquoteright }Interaction}{7}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Diagramme des classes de conception pr\IeC {\'e}liminaire}{8}{subsection.1.5}
+\contentsline {subsection}{\numberline {1.6}Un d\IeC {\'e}coupage en packages et les signatures externes de chaque package}{8}{subsection.1.6}
+\contentsline {section}{\numberline {2}Conception d\IeC {\'e}taill\IeC {\'e}e}{8}{section.2}
