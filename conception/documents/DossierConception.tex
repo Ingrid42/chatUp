@@ -63,20 +63,23 @@
 	\section{Conception préliminaire}
 
 	\subsection{Diagramme de modèle du domaine}
-	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/modeleDomaineClient.png}}
-		\caption{Diagramme de modèle du domaine côté client}
-	\end{figure}
 
 	\begin{figure}[H]
 		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/modeleDomaineServeur.png}}
 		\caption{Diagramme de modèle du domaine côté serveur}
 	\end{figure}
 
+	Ce diagramme de Modèle du Domaine présente la structure générale de notre application du côté du client.
+	Celui-ci réutilise la plupart des entités présentes dans le modèle du domaine du côté serveur.
+	Ainsi, nous avons une cohérence entre les données des deux côtés.
+	\begin{figure}[H]
+		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/modeleDomaineClient.png}}
+		\caption{Diagramme de modèle du domaine côté client}
+	\end{figure}
 
 	\subsection{Diagramme de séquence système}
 	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/sequenceSystemeEnvoiMessage.png}}
+		\centerline{\includegraphics[width=12.5cm]{../diagrammes/img/sequenceSystemeEnvoiMessage.png}}
 		\caption{Diagramme de séquence système de l'envoi de messages}
 	\end{figure}
 
@@ -121,27 +124,35 @@
 
 	\subsection{Diagramme des classes de conception préliminaire}
 	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/classesServeur.png}}
-		\caption{Diagramme de classe côté serveur}
-	\end{figure}
-
-	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/classesClient.png}}
-		\caption{Diagramme de classe côté client}
+		\centerline{\includegraphics[width=12.5cm]{../diagrammes/img/interaction.png}}
+		\caption{Diagramme d’interaction}
 	\end{figure}
 
 	\subsection{Un découpage en packages et les signatures externes de chaque package}
 
 
-
 	\section{Conception détaillée}
+
+	\subsection{Diagrammes de classes}
+
+	\begin{figure}[H]
+		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/classesServeur.png}}
+		\caption{Diagramme de classes côté serveur}
+	\end{figure}
+
+	Ce diagramme de classes représente la partie client de notre application, avec les attributs et méthodes des différentes classes.
+	Les getter et setter ne sont pas présents sur celui-ci mais seront présents sur tout les attributs des classes Message, Discussion et Utilisateur.
+	\begin{figure}[H]
+		\centerline{\includegraphics[width=16.5cm]{../diagrammes/img/classesClient.png}}
+		\caption{Diagramme de classes côté client}
+	\end{figure}
 
 	%% Détailler par package les élements les constituant.
 	%% TODO :
 	%% - Préciser les attributs et méthodes de classe de toutes les classes participantes et de les regrouper dans un diagramme de classes.
 
 	%% Les méthodes d’un package qui seront considérée comme non triviales devront être commentées et voir leur fonctionnement détaillé par du pseudo-code.
-	% 
+	%
 	% \begin{figure}[H]
 	% 	\centerline{\includegraphics[width=16.5cm]{diagClassServeur.png}}
 	% 	\caption{Diagramme de classes}
