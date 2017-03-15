@@ -1,3 +1,23 @@
-img {
-  border-radius: 30;
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.navbar {
+  background-color: #bc1272;
+  height: 8%;
+}
+
+
+.navbar > a > img {
+  width: 118px;
+  height: 118px;
+  border-radius: 118px;
+
+}
+
+.navbar-brand {
+font-size: 80px;
 }
