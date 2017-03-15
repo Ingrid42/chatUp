@@ -15,4 +15,22 @@ public class FiltreUtilisateur implements IFiltre {
 			return ((Utilisateur)objet).equals(this.utilisateur);
 		return false;
 	}
+
+	@Override
+	public boolean equals(Object objet) {
+		if (objet == this)
+			return true;
+
+		if (objet.getClass() != this.getClass())
+			return false;
+
+		return ((FiltreUtilisateur)objet).utilisateur.equals(this.utilisateur);
+	}
+
+	@Override
+	public int hashCode() {
+		return (this.utilisateur.hashCode() % 512) * 
+				this.utilisateur.hashCode();
+	}
+
 }
