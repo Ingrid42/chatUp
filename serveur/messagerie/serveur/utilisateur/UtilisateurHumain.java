@@ -29,7 +29,7 @@ public class UtilisateurHumain extends Utilisateur {
 		this.motDePasseParental = null;
 		this.photo = UtilisateurHumain.photoDefaut;
 
-		this.filtres = new HashSet();
+		this.filtres = new HashSet<IFiltre>();
 	}
 
 	public UtilisateurHumain setMotDePasse(String motDePasse) {
