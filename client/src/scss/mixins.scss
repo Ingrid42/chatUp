@@ -1,0 +1,5 @@
+@mixin calc($property, $expression) {
+  #{$property}: -moz-calc(#{$expression}) !important;
+  #{$property}: -webkit-calc(#{$expression}) !important;
+  #{$property}: calc(#{$expression}) !important;
+}

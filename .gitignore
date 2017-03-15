@@ -7,3 +7,5 @@
 *.class
 client/node_modules
 *.swp
+client/src/css
+client/.sass-cache
