@@ -9,8 +9,8 @@ public class FiltreMot implements IFiltre {
 
 	@Override
 	public boolean compare(Object objet) {
-		if (object instanceof String)
-			return ((String)object).equals(this.mot)
+		if (objet instanceof String)
+			return ((String)objet).equals(this.mot);
 		return false;
 	}
 }
