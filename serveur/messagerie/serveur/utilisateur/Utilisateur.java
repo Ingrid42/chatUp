@@ -1,14 +1,23 @@
 package messagerie.serveur.utilisateur;
 
+import messagerie.serveur.discussion.*;
+
+import java.util.List;
+import java.util.ArrayList;
+
 public class Utilisateur {
 	private String pseudonyme;
 	private String nom;
 	private String prenom;
 
+	private List<Discussion> discussions;
+
 	public Utilisateur(String pseudonyme, String nom, String prenom) {
 		this.pseudonyme = pseudonyme;
 		this.nom = nom;
 		this.prenom = prenom;
+
+		this.discussions = new ArrayList<Discussion>();
 	}
 
 	public String getPseudonyme() { return this.pseudonyme; }
@@ -23,6 +32,10 @@ public class Utilisateur {
 	public Utilisateur setPrenom(String prenom) { 
 		this.prenom = prenom; 
 		return this; 
+	}
+
+	public void addDiscussion(Discussion discussion) {
+		this.discussions.add(discussion);
 	}
 
 	@Override
