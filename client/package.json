@@ -1,0 +1,19 @@
+{
+  "name": "client_chatup",
+  "version": "1.0.0",
+  "description": "client de messagerie instantannée",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://monprojet.insa-rouen.fr/git/ir_messagerie.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
+    "jquery": "^3.1.1"
+  }
+}

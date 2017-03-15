@@ -5,3 +5,4 @@
 *.out
 *.pdf
 *.class
+client/node_modules
