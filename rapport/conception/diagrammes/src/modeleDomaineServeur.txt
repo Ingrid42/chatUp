@@ -1,0 +1,64 @@
+@startuml
+interface IFiltre
+class FiltreMots {
+  mot
+}
+
+class FiltreUtilisateurs {
+
+}
+
+class Utilisateur {
+  pseudonyme
+  nom
+  prenom
+}
+
+class UtilisateurIA {
+}
+
+class UtilisateurHumain {
+  motDePasse
+  adresseMel
+  dateNaissance
+  motDePasseParental
+  photo
+}
+
+class Session {
+  socketClient
+}
+
+class Discussion {
+}
+
+class Message {
+  texte
+  date
+}
+
+class DiscussionTexte {
+}
+
+class DiscussionAudio {
+}
+
+class Serveur {
+  socketServeur
+}
+
+UtilisateurHumain *-- IFiltre
+IFiltre <|.. FiltreMots
+IFiltre <|.. FiltreUtilisateurs
+Session --* Utilisateur
+Utilisateur --* FiltreUtilisateurs
+Utilisateur <|- UtilisateurIA
+Utilisateur <|-- UtilisateurHumain
+Discussion <|-- DiscussionTexte
+Discussion <|-- DiscussionAudio
+Discussion - Utilisateur
+DiscussionTexte *--- Message
+Utilisateur --* Message
+Serveur -- Utilisateur
+Serveur *-- Discussion
+@enduml

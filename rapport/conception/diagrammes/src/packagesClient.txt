@@ -1,0 +1,48 @@
+@startuml
+package messagerie{
+package messagerie.client{
+  package messagerie.client.filtre {
+    interface IFiltre
+    class FiltreMots {
+      mot
+    }
+
+   class FiltreUtilisateurs {
+   }
+
+  }
+package messagerie.client.utilisateur{
+  class Utilisateur {
+    pseudonyme
+    nom
+    prenom
+    adresseMel
+    dateNaissance
+    photo
+  }
+}
+
+  class Session {
+    socketClient
+    socketServeur
+  }
+
+  package messagerie.client.discussion {
+    class Discussion {
+    }
+
+    class Message {
+       texte
+       date
+    }
+
+    class DiscussionTexte {
+    }
+
+    class DiscussionAudio {
+    }
+  }
+  }
+
+}
+@enduml
