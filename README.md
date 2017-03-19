@@ -4,6 +4,7 @@
 ```bash
 $ cd client
 $ npm install #installer les dépendances
+$ gulp #compiler le projet
 $ node express.js #lancer le serveur web
 ```
 
