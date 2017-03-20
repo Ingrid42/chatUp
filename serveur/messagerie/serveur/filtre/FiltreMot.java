@@ -1,6 +1,7 @@
 package messagerie.serveur.filtre;
 
 public class FiltreMot implements IFiltre {
+	public final static long serialVersionUID = 211L;
 	private String mot;
 	
 	public FiltreMot(String mot) {

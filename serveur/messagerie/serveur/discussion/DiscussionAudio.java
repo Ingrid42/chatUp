@@ -4,6 +4,7 @@ import java.util.List;
 import messagerie.serveur.utilisateur.Utilisateur;
 
 public class DiscussionAudio extends Discussion{
+    public final static long serialVersionUID = 6854L;
     
     public DiscussionAudio(ArrayList<Utilisateur> utilisateurs){
         super(utilisateurs);

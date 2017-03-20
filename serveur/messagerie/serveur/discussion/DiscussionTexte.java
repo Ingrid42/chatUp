@@ -4,6 +4,8 @@ import java.util.List;
 import messagerie.serveur.utilisateur.Utilisateur;
 
 public class DiscussionTexte extends Discussion{
+    public final static long serialVersionUID = 7521L;
+
     private ArrayList<Message> messages;
     
     public DiscussionTexte(ArrayList<Utilisateur> utilisateurs){

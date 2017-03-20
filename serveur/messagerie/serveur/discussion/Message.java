@@ -1,7 +1,11 @@
 package messagerie.serveur.discussion;
+import java.io.Serializable;
+
 import messagerie.serveur.utilisateur.Utilisateur;
 
-public class Message{
+public class Message implements Serializable {
+    public final static long serialVersionUID = 1257L;
+
     private String message; 
     private Utilisateur utilisateur;
     

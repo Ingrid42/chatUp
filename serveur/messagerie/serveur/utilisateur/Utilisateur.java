@@ -5,7 +5,11 @@ import messagerie.serveur.discussion.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Utilisateur {
+import java.io.Serializable;
+
+public class Utilisateur implements Serializable {
+	public final static long serialVersionUID = 951L;
+
 	private String pseudonyme;
 	private String nom;
 	private String prenom;
