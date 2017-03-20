@@ -1,6 +1,8 @@
 package messagerie.serveur.filtre;
 
-public interface IFiltre {
+import java.io.Serializable;
+
+public interface IFiltre extends Serializable {
 	public boolean compare(Object objet);
 
 	@Override

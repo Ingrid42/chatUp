@@ -3,6 +3,8 @@ package messagerie.serveur.filtre;
 import messagerie.serveur.utilisateur.Utilisateur;
 
 public class FiltreUtilisateur implements IFiltre {
+	public final static long serialVersionUID = 147L;
+
 	private Utilisateur utilisateur;
 
 	public FiltreUtilisateur(Utilisateur utilisateur) {

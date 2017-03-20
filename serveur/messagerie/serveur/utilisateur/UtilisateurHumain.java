@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Date;
 
 public class UtilisateurHumain extends Utilisateur {
+	public final static long serialVersionUID = 2547L;
+
 	private static String photoDefaut = "defaut.png";
 
 	private String motDePasse;
