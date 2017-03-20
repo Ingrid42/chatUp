@@ -1,6 +1,6 @@
-let links = $('link[rel="import"]');
-let content;
-let el;
+var links = $('link[rel="import"]');
+var content;
+var el;
 
 for (var link of links) {
   content = link.import;
