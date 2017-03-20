@@ -12,7 +12,6 @@ var destination = './src';
 gulp.task('compileCSS', () =>
     sass(source + '/scss/index.scss', {
       sourcemap: false,
-      require: ["sass-json-vars"]
     })
     .on('error', sass.logError)
     .pipe(plugins.csscomb())
