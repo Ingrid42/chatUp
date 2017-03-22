@@ -4,17 +4,18 @@ form.form-inscription {
   width: 90%;
   text-align: center;
   padding: 20px;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: $space;
+  margin-right: $space;
+  @include shadowBox($gray-lighter);
 }
 
 form.form-inscription h2 {
   text-align: center;
-  color: black;
+  color: $font-color;
 }
 
 label {
-  color: black;
+  color: $font-color;
 }
 
 
