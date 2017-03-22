@@ -1,0 +1,154 @@
+// Messages Client -> Serveur
+
+{
+	"action" : "connexion",
+	"contenu" : {
+		"pseudonyme" : "TheLegend27",
+		"mot_de_passe" : "motDePasse"
+	}
+}
+
+{
+	"action" : "creer",
+	"contenu" : {
+		"pseudonyme" : "Orionis",
+		"mot_de_passe" : "motDePasse",
+		"nom" : "Zerhouni",
+		"prenom" : "Youssef",
+		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",
+		"date_naissance" : "28/01/1996"
+	}
+}
+
+{
+	"action" : "creer_discussion",
+	"contenu" : {
+		"utilisateurs" : ["Orionis", "TheLegend27", "Nistof"]
+	}
+}
+
+{
+	"action" : "envoyer_message",
+	"contenu" : {
+		"id_discussion" : 123,
+		"message" : "Hello! It's me!"
+	}
+}
+
+{
+	"action" : "get_utilisateurs",
+	"contenu" : {}
+}
+
+{
+	"action" : "modifier_profil",
+	"contenu" : {
+		"mot_de_passe" : "motDePasse",
+		"nom" : "Zerhouni",
+		"prenom" : "Youssef",
+		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",
+		"date_naissance" : "28/01/1996"
+	}
+}
+
+{
+	"action" : "get_profil",
+	"contenu" : {}
+}
+
+
+{
+	"action" : "add_filtre_mot",
+	"contenu" : {
+		"mot_de_passe_parental" : "motDePasse",
+		"mot" : "fuck"
+	}
+}
+
+{
+	"action" : "add_filtre_utilisateur",
+	"contenu" : {
+		"mot_de_passe_parental" : "motDePasse",
+		"utilisateur" : "PussySlayer69"
+	}
+}
+
+
+{
+	"action" : "set_controle_parental",
+	"contenu" : {
+		"mot_de_passe_parental" : "motDePasse",
+	}
+}
+
+
+
+// Messages Serveur -> Client
+
+{
+	"action" : "utilisateurs",
+	"contenu" : {
+		"utilisateurs" : [
+			{
+				"pseudonyme" : "Orionis",
+				"nom" : "Zerhouni",
+				"prenom" : "Youssef"
+			},
+			{
+				"pseudonyme" : "Nistof",
+				"nom" : "Martin",
+				"prenom" : "Florian"
+			}
+		]
+	}
+}
+
+{
+	"action" : "discussion",
+	"contenu" : {
+		"id_discussion" : 123,
+		"messages" : [
+			{
+				"pseudonyme" : "Orionis",
+				"message" : "Hello! It's me!"
+			},
+			{
+				"pseudonyme" : "Mario",
+				"message" : "It's me, Mario!"
+			}
+		]
+	}
+}
+
+{
+	"action" : "message",
+	"contenu" : {
+		"id_discussion" : 123,
+		"pseudonyme" : "Orionis",
+		"message" : "Hello! It's me!"
+	}
+}
+
+{
+	"action" : "profil",
+	"contenu" : {
+		"nom" : "Zerhouni",
+		"prenom" : "Youssef",
+		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",
+		"date_naissance" : "28/01/1996"
+	}
+}
+
+{
+	"action" : "get_filtres_utilisateur",
+	"contenu" : {
+		"utilisateurs" : ["PussySlayer69", "Pierrick"]
+	}
+}
+
+{
+	"action" : "get_filtres_mot",
+	"contenu" : {
+		"mots" : ["Fuck", "kill yourself", "kys"]
+	}
+}
