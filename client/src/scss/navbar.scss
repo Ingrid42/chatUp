@@ -1,6 +1,6 @@
 .navbar {
   background-color: $rose;
-  height: 5%;
+  height: $navbar_height;
 }
 
 .navbar > a > img {
@@ -11,5 +11,5 @@
 }
 
 .navbar-brand {
-font-size: 30px;
+  font-size: 30px;
 }

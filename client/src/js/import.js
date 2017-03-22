@@ -4,8 +4,7 @@ var el;
 
 for (var link of links) {
   content = link.import;
-  el = $(content).find("#component")[0];
-  console.log(el);
+  el = $(content).find(".component")[0];
   $("#import").append(el.cloneNode(true));
 }
 
