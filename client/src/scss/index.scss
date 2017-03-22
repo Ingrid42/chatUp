@@ -10,3 +10,12 @@ html, body {
   padding: 0px;
   margin: 0px;
 }
+
+#import {
+  height: 100%;
+  width: 100%;
+}
+
+.page {
+  @include calc("height", "100% - "$navbar_height);
+}
