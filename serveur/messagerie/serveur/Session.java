@@ -5,11 +5,11 @@ import java.io.IOException;
 
 public class Session implements Runnable{
 	private Socket socketClient;
-	private Application application;
+	private static Application application;
 
-	public Session(Socket socketClient, Application application) {
+	public Session(Socket socketClient) {
 		this.socketClient = socketClient;
-		this.application = application;
+		
 	}
 
 	public Socket getSocketClient() { return this.socketClient; }
@@ -26,5 +26,9 @@ public class Session implements Runnable{
 	public void run(){
 		// get user id and password
 		// check in the db if it exists
+	}
+
+	public static void setApplication(Application application) {
+		Session.application = application;
 	}
 }
