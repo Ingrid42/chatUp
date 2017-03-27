@@ -2,7 +2,7 @@
   display: flex;
 }
 
-form.form-inscription {
+form.formConnexion {
   background-color: $rose;
   border-radius: 40px;
   width: 90%;
@@ -14,7 +14,7 @@ form.form-inscription {
 
 }
 
-form.form-inscription h2 {
+form.formConnexion h2 {
   text-align: center;
   color: $font-color;
 }
@@ -24,13 +24,13 @@ label {
 }
 
 
-.input-group-addon {
+.groupButtonConnexion {
   width: 50px;
 }
 
 $formDim : 320px;
 
-form.form-inscription  {
+form.formConnexion  {
   width: $formDim;
   height: $formDim;
   @include calc(margin-left, "(100% - " + $formDim + ") / 2");
