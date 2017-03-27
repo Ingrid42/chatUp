@@ -9,7 +9,7 @@ public class Session implements Runnable{
 
 	public Session(Socket socketClient) {
 		this.socketClient = socketClient;
-		
+		System.out.println("Session créée");
 	}
 
 	public Socket getSocketClient() { return this.socketClient; }
