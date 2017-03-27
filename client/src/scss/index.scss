@@ -19,5 +19,11 @@ html, body {
 }
 
 .page {
-  @include calc("height", "100% - "$navbar_height);
+  @include calc("height", "100% - " + $navbar_height + " - " $space);
+  padding-top: 5%;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
 }

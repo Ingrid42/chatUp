@@ -21,11 +21,20 @@ public class Serveur {
 	private Application application;
 
 	public Serveur(){
+		System.out.println("Initializing server...");
+		if (initialize("serveur.save"))
+			System.out.println("Server restored to its previous state!");
+		else {
+			this.application = Application.getInstance();
+			System.out.println("Server initialized!");
+		}
+
+		Session.setApplication(this.application);
 		try {
 			server = new ServerSocket(4000, 100, InetAddress.getByName("localhost"));
 			int i = 0;
 			while(i<10){    
-				 Session auth = new Session(server.accept(), application);
+				 Session auth = new Session(server.accept());
 				 Thread t = new Thread(auth);
 				 t.start(); 
 				 i++;
@@ -36,35 +45,7 @@ public class Serveur {
 		catch (IOException e) {e.printStackTrace();}
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public void initialize(String fileName) {
+	public boolean initialize(String fileName) {
 		ObjectInputStream ois = null;
 		File fichier = new File(fileName);
 
@@ -76,12 +57,16 @@ public class Serveur {
 				if (ois != null) 
 					ois.close();
 
+				return true;
+
 			} catch(IOException e) {
 				e.printStackTrace();
 			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
+
+		return false;
 	}
 
 	public void enregistrer(String fileName) throws IOException{

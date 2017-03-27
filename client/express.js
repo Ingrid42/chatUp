@@ -8,6 +8,7 @@ app.use("/bootstrap/js", express.static('node_modules/bootstrap/dist/js'));
 app.use("/fonts", express.static('node_modules/font-awesome/fonts'));
 app.use("/jquery", express.static('node_modules/jquery/dist'));
 app.use("/tether", express.static('node_modules/tether/dist'));
+app.use("/socketio", express.static('node_modules/socket.io-client/dist/'));
 
 app.listen(port, () => {
   console.log('Server listening on port ' + port + '!')

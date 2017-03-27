@@ -3,3 +3,16 @@
   #{$property}: -webkit-calc(#{$expression}) !important;
   #{$property}: calc(#{$expression}) !important;
 }
+
+@mixin shadowBox($color) {
+  box-shadow: 0px 0px 10px 5px $color;
+}
+
+@mixin respond-to($media) {
+  @if $media == medium {
+    @media screen and (min-width: map-get($breakpoints, small)) { @content; }
+  }
+  @else if $media == large {
+    @media screen and (min-width: map-get($breakpoints, large)) { @content; }
+  }
+}
