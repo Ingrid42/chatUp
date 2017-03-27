@@ -1,15 +1,20 @@
-form.form-inscription {
+.blocConnexion {
+  display: flex;
+}
+
+form.formConnexion {
   background-color: $rose;
   border-radius: 40px;
   width: 90%;
   text-align: center;
   padding: 20px;
-  margin-left: $space;
-  margin-right: $space;
+  margin: auto;
   @include shadowBox($gray-lighter);
+  display: flex;
+
 }
 
-form.form-inscription h2 {
+form.formConnexion h2 {
   text-align: center;
   color: $font-color;
 }
@@ -19,6 +24,24 @@ label {
 }
 
 
-.input-group-addon {
+.groupButtonConnexion {
   width: 50px;
+}
+
+$formDim : 320px;
+
+form.formConnexion  {
+  width: $formDim;
+  height: $formDim;
+  @include calc(margin-left, "(100% - " + $formDim + ") / 2");
+  @include calc(margin-right, "(100% - " + $formDim + ") / 2");
+  position: absolute;
+  top:40px;
+  left:0;
+  right: 0;
+  margin: auto;
+}
+
+div.login {
+  margin: auto;
 }

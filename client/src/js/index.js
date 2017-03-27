@@ -6,4 +6,4 @@ const connexion = function() {
   socket.on('disconnect', function(){});
 }
 
-//$(document).ready(connexion);
+// $(document).ready(connexion);

@@ -4,6 +4,7 @@
 @import "./mixins.scss";
 @import "./navbar.scss";
 @import "./connexion.scss";
+@import "./inscription.scss";
 // @import "./inscription.scss";
 
 html, body {
@@ -26,4 +27,17 @@ html, body {
 .container {
   height: 100%;
   width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+
+.footer {
+  height: 20px;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  background-color: $rose;
 }
