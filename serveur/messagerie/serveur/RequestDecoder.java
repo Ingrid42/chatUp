@@ -1,10 +1,17 @@
 package messagerie.serveur;
 
+import messagerie.serveur.utilisateur.*;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import java.lang.reflect.Method;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class RequestDecoder {
 	private final static Method[] methods;
@@ -34,9 +41,7 @@ public class RequestDecoder {
 
 			requested.invoke(this, content);
 		}
-		catch (ParseException pe) {
-			pe.printStackTrace();
-		}
+		
 		catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,8 +51,21 @@ public class RequestDecoder {
 		System.out.println("CONNEXION");
 	}
 	
-	public void creer(JSONObject content) {
-		System.out.println("CREER");
+	public void creer(JSONObject content) throws ParseException  {
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+		try{
+			Session.getApplication().ajouterUtilisateur(new UtilisateurHumain(
+				(String)content.get("pseudonyme"),
+				(String)content.get("nom"),
+				(String)content.get("prenom"),
+				(String)content.get("mot_de_passe"),
+				(String)content.get("adresse_mel"),
+				format.parse((String)content.get("date_naissance"))
+			));
+		}catch (Exception pe) {
+			pe.printStackTrace();
+		}
+
 	}
 
 

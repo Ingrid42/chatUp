@@ -31,4 +31,6 @@ public class Session implements Runnable{
 	public static void setApplication(Application application) {
 		Session.application = application;
 	}
+
+	public static Application getApplication() { return Session.application; }
 }
