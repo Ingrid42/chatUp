@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import messagerie.serveur.utilisateur.Utilisateur;
+import messagerie.serveur.exception.*;
+
 import java.io.Serializable;
 
 public class Discussion implements Serializable {
@@ -13,7 +15,10 @@ public class Discussion implements Serializable {
     private int id;
     private List<Utilisateur> utilisateurs ;
 
-    public Discussion(List<Utilisateur> utilisateurs){
+    public Discussion(List<Utilisateur> utilisateurs) throws DiscussionException {
+        if (utilisateurs.size() < 2)
+            throw new DiscussionException("Une discussion doit avoir au minimum 2 utilisateurs.");
+        
         this.id = Discussion.idIncr++;
         this.utilisateurs = new ArrayList<Utilisateur>(utilisateurs);
 

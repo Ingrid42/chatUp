@@ -90,16 +90,31 @@ public class RequestDecoder {
 	}
 
 	public void creer_discussion(JSONObject content) {
-		//try {
-			List<Utilisateur> utilisateurs = new ArrayList<>();
-			JSONArray pseudonymes = (JSONArray)content.get("utilisateurs");
+		Discussion discussion = null;
+		List<Utilisateur> utilisateurs = new ArrayList<>();
 
-			//Discussion discussion = new DiscussionTexte();
-		/*}
+		try {
+			JSONArray pseudonymes = (JSONArray)content.get("utilisateurs");
+			for (Object p : pseudonymes)
+				utilisateurs.add(Session.getApplication().getUtilisateur((String)p));
+
+			discussion = new DiscussionTexte(utilisateurs);
+			Session.getApplication().ajouterDiscussion(discussion);
+
+			// TODO Traitement pour renvoyer la confirmation au client
+		}
+		catch (DiscussionException de) {
+			System.err.println(de.getMessage());
+			if (discussion != null) {
+				for (Utilisateur u : utilisateurs)
+					u.removeDiscussion(discussion);
+			}
+			// TODO Traitement pour renvoyer l'erreur au client
+		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
 			// TODO Traitement pour renvoyer l'erreur au client
-		}*/
+		}
 	}
 
 	public void envoyer_message(JSONObject content) {

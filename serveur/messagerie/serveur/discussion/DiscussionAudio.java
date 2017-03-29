@@ -1,12 +1,14 @@
 package messagerie.serveur.discussion;
 import java.util.ArrayList;
 import java.util.List;
+
 import messagerie.serveur.utilisateur.Utilisateur;
+import messagerie.serveur.exception.*;
 
 public class DiscussionAudio extends Discussion{
     public final static long serialVersionUID = 6854L;
     
-    public DiscussionAudio(List<Utilisateur> utilisateurs){
+    public DiscussionAudio(List<Utilisateur> utilisateurs) throws DiscussionException {
         super(utilisateurs);
     }
     
