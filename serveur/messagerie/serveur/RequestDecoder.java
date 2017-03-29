@@ -41,7 +41,7 @@ public class RequestDecoder {
 
 			requested.invoke(this, content);
 		}
-		
+
 		catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -49,8 +49,22 @@ public class RequestDecoder {
 
 	public void connexion(JSONObject content) {
 		System.out.println("CONNEXION");
+		try{
+			String pseudo = (String)content.get("pseudonyme");
+			String mdp = (String)content.get("mot_de_passe");
+			UtilisateurHumain utilisateur = this.session.getApplication.getUtilisateur(pseudo)
+			if(utilisateur.verifieMotDePasse(mdp)){
+				this.session.setUtilisateur(utilisateur) ;
+			}
+			// TODO traitement si mot de passe eroné
+		} catch (UtilisateurException ue) {
+			System.err.println(ue.getMessage());
+			// TODO Traitement pour renvoyer l'erreur au client si on ne trouve pas le client
+		} catch (Exception pe) {
+			pe.printStackTrace();
+		}
 	}
-	
+
 	public void creer(JSONObject content) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 		try{
