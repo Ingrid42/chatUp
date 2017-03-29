@@ -121,10 +121,10 @@ public class RequestDecoder {
 		// on ne peut envoyer le msg que si la session a un utilisateur
 		if (this.session.getUtilisateur() != null){
 			try{
-				String id = (String)content.getInt("id_discussion");
-				String message = (String)content.get("message");
-				Message message = new Message(this.session.getUtilisateur(), message )
-				((DiscussionTexte)Session.getApplication().getDiscussion(id)).addMessage()) ;
+				int id = Integer.parseInt((String)content.get("id_discussion"));
+				String texteMessage = (String)content.get("message");
+				Message message = new Message(this.session.getUtilisateur(), texteMessage ) ;
+				((DiscussionTexte)Session.getApplication().getDiscussion(id)).addMessage(message) ;
 				// TODO traitement si message non envoyé
 			} catch (Exception pe) {
 				pe.printStackTrace();
