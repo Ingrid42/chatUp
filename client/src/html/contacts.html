@@ -1,17 +1,36 @@
-<div class="component page">
+<div class="component page hidden">
   <div class="container">
-      <button type="button" class="btn btn-secondary button" disabled>
-        <div class="contact-case vcenter">
-          <i class="fa fa-users contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->
-          <div class="contact-name">Pierre, Paul</div> <!-- Nom du contact -->
-          <i class="fa fa-circle contact-notification pull-right" aria-hidden="true"></i> <!-- pull-right ne fonctionne pas à cause du vcenter de la div -->
+    <div class="row">
+      <div class="col-lg-7 col-md-10 col-xs-12 center-block">
+        <div>
+          <div class="contact vcenter pull-left">
+            <i class="fa fa-user contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->
+            <div class="contact-name">Pierre</div> <!-- Nom du contact -->
+          </div>
+          <div class="pull-right">
+            <button type="button" class="btn btn-secondary text-center button-icon" disabled>
+              <i class="fa fa-phone fa-2x" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary text-center button-icon" disabled>
+              <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
-      </button>
-      <button type="button" class="btn btn-secondary button" disabled>
-        <div class="contact-case vcenter">
-          <i class="fa fa-user contact-icon pull-left" aria-hidden="true"></i>
-          <div class="contact-name">Jack</div>
+        <div>
+          <div class="contact vcenter pull-left">
+            <i class="fa fa-user contact-icon pull-left" aria-hidden="true"></i>
+            <div class="contact-name">Jack</div>
+          </div>
+          <div class="pull-right">
+            <button type="button" class="btn btn-secondary text-center button-icon" disabled>
+              <i class="fa fa-phone fa-2x" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary text-center button-icon" disabled>
+              <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
-      </button>
+      </div>
+    </div>
   </div>
 </div>

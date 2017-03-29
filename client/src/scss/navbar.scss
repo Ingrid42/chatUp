@@ -10,10 +10,18 @@
 }
 
 .navbar > a > button {
-  border-radius: 118px;
-  height: 60px;
+  border-radius: $button_size;
+  height: $button_size;
+  width: $button_size;
 }
 
 .navbar-brand {
   font-size: 30px;
+  margin-right: 0px !important;
+}
+
+.titre {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
 }
