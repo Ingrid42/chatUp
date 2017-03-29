@@ -24,6 +24,13 @@ public class Application implements Serializable {
 		this.utilisateurs.put(utilisateur.getPseudonyme(), utilisateur);
 	}
 
+	public synchronized Utilisateur getUtilisateur(String pseudonyme) throws UtilisateurException {
+		Utilisateur utilisateur = this.utilisateurs.get(pseudonyme);
+		if (utilisateur == null)
+			throw new UtilisateurException(String.format("L'utilisateur '%s' n'existe pas.", pseudonyme));
+		return utilisateur;
+	}
+
 	public static Application getInstance() {
 		if (Application.application == null)
 			return new Application();

@@ -1,6 +1,7 @@
 package messagerie.serveur;
 
 import messagerie.serveur.utilisateur.*;
+import messagerie.serveur.discussion.*;
 import messagerie.serveur.exception.*;
 
 import org.json.simple.JSONObject;
@@ -12,6 +13,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class RequestDecoder {
 	private final static Method[] methods;
@@ -76,6 +80,8 @@ public class RequestDecoder {
 				(String)content.get("adresse_mel"),
 				format.parse((String)content.get("date_naissance"))
 			));
+
+			// TODO Traitement pour renvoyer la confirmation au client
 		} catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
 			// TODO Traitement pour renvoyer l'erreur au client
@@ -85,6 +91,16 @@ public class RequestDecoder {
 	}
 
 	public void creer_discussion(JSONObject content) {
+		//try {
+			List<Utilisateur> utilisateurs = new ArrayList<>();
+			JSONArray pseudonymes = (JSONArray)content.get("utilisateurs");
+
+			//Discussion discussion = new DiscussionTexte();
+		/*}
+		catch (UtilisateurException ue) {
+			System.err.println(ue.getMessage());
+			// TODO Traitement pour renvoyer l'erreur au client
+		}*/
 	}
 
 	public void envoyer_message(JSONObject content) {
