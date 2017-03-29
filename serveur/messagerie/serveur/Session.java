@@ -2,10 +2,12 @@ package messagerie.serveur;
 
 import java.net.Socket;
 import java.io.IOException;
+import messagerie.serveur.utilisateur.Utilisateur;
 
 public class Session implements Runnable{
 	private Socket socketClient;
 	private static Application application;
+	private Utilisateur utilisateur ;
 
 	public Session(Socket socketClient) {
 		this.socketClient = socketClient;
@@ -33,4 +35,11 @@ public class Session implements Runnable{
 	}
 
 	public static Application getApplication() { return Session.application; }
+
+	public void setUtilisateur(Utilisateur utilisateur){
+		this.utilisateur = utilisateur ;
+	}
+	public Utilisateur getUtilisateur(){
+		return this.utilisateur ;
+	}
 }

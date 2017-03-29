@@ -1,24 +1,46 @@
 var path = require('path');
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
-var livereload = require('gulp-livereload');
-var sass = require('gulp-ruby-sass');
+
+plugins.livereload = require('gulp-livereload');
+plugins.sass = require('gulp-ruby-sass');
+plugins.webpack = require('webpack-stream');
 
 var source = './src';
-var destination = './src';
+var destination = './dist';
 
+var configWebpack = {
+  output: {
+    filename: 'bundle.js'
+  },
+  module: {
+    loaders: [
+      {
+        test : /\.jsx?$/,
+        include : path.resolve(__dirname, 'src/js'),
+        loader : 'babel'
+      }
+    ]
+  }
+};
 
+gulp.task('webpack', function() {
+  return gulp.src(source + '/js/index.js')
+  .pipe(plugins.webpack(configWebpack))
+  .pipe(gulp.dest(destination + '/js'))
+  .pipe(plugins.livereload());
+});
 
 gulp.task('compileCSS', () =>
-    sass(source + '/scss/index.scss', {
+    plugins.sass(source + '/scss/index.scss', {
       sourcemap: false,
     })
-    .on('error', sass.logError)
+    .on('error', plugins.sass.logError)
     .pipe(plugins.csscomb())
     .pipe(plugins.cssbeautify({indent: '  '}))
     .pipe(plugins.autoprefixer())
     .pipe(gulp.dest(destination + '/css/'))
-    .pipe(livereload())
+    .pipe(plugins.livereload())
 );
 
 gulp.task('minifyCSS', function () {
@@ -31,12 +53,24 @@ gulp.task('minifyCSS', function () {
 });
 
 
-gulp.task('watchHTML', function() {
-  return gulp.src(source + '/index.html').pipe(livereload())
+gulp.task('copyHTML', function() {
+  return gulp.src(source + '/index.html')
+  .pipe(gulp.dest(destination))
+  .pipe(plugins.livereload());
 });
 
-gulp.task('watchJS', function() {
-  return gulp.src(source + '/js/*.js').pipe(livereload())
+
+gulp.task('copyIMG', function() {
+  return gulp.src(source + '/img/*')
+  .pipe(gulp.dest(destination + '/img/'))
+  .pipe(plugins.livereload());
+});
+
+
+gulp.task('copyHTMLDependancies', function() {
+  return gulp.src(source + '/html/*.html')
+  .pipe(gulp.dest(destination + '/html'))
+  .pipe(plugins.livereload());
 });
 
 
@@ -51,15 +85,16 @@ gulp.task('minifyJS', function() {
 
 
 gulp.task('watch', function () {
-  livereload.listen();
+  plugins.livereload.listen();
   gulp.watch(source + '/scss/*.scss', ['compileCSS', 'minifyCSS']);
-  gulp.watch(source + '/index.html', ['watchHTML']);
-  gulp.watch(source + '/html/*.html', ['watchHTML']);
-  gulp.watch(source + '/js/*.js', ['watchJS']);
+  gulp.watch(source + '/index.html', ['copyHTML']);
+  gulp.watch(source + '/html/*.html', ['copyHTMLDependancies']);
+  gulp.watch(source + '/js/*.js', ['webpack']);
+  gulp.watch(source + '/js/classes/*.js', ['webpack']);
 });
 
 
-gulp.task('build', ['compileCSS']);
+gulp.task('build', ['copyHTML', 'copyHTMLDependancies', 'copyIMG', 'compileCSS', 'webpack']);
 gulp.task('minify', ['minifyCSS']);
 gulp.task('all', ['build',  'minify']);
 gulp.task('default', ['all']);
