@@ -1,10 +1,10 @@
 package messagerie.serveur;
 
 import messagerie.serveur.utilisateur.*;
+import messagerie.serveur.exception.*;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
-import org.json.simple.parser.ParseException;
 import org.json.simple.parser.JSONParser;
 import java.lang.reflect.Method;
 
@@ -51,7 +51,7 @@ public class RequestDecoder {
 		System.out.println("CONNEXION");
 	}
 	
-	public void creer(JSONObject content) throws ParseException  {
+	public void creer(JSONObject content) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 		try{
 			Session.getApplication().ajouterUtilisateur(new UtilisateurHumain(
@@ -62,12 +62,37 @@ public class RequestDecoder {
 				(String)content.get("adresse_mel"),
 				format.parse((String)content.get("date_naissance"))
 			));
-		}catch (Exception pe) {
+		} catch (UtilisateurException ue) {
+			System.err.println(ue.getMessage());
+			// TODO Traitement pour renvoyer l'erreur au client
+		} catch (Exception pe) {
 			pe.printStackTrace();
 		}
-
 	}
 
+	public void creer_discussion(JSONObject content) {
+	}
+
+	public void envoyer_message(JSONObject content) {
+	}
+
+	public void get_utilisateurs(JSONObject content) {
+	}
+
+	public void modifier_profil(JSONObject content) {
+	}
+
+	public void get_profil(JSONObject content) {
+	}
+
+	public void add_filtre_mot(JSONObject content) {
+	}
+
+	public void add_filtre_utilisateur(JSONObject content) {
+	}
+
+	public void set_controle_parental(JSONObject content) {
+	}
 
 	public static void main(String[] args) {
 		RequestDecoder rd = new RequestDecoder(null);
