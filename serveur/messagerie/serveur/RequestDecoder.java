@@ -52,7 +52,6 @@ public class RequestDecoder {
 	}
 
 	public void connexion(JSONObject content) {
-		System.out.println("CONNEXION");
 		try{
 			String pseudo = (String)content.get("pseudonyme");
 			String mdp = (String)content.get("mot_de_passe");
@@ -104,6 +103,19 @@ public class RequestDecoder {
 	}
 
 	public void envoyer_message(JSONObject content) {
+		// on ne peut envoyer le msg que si la session a un utilisateur
+		if (this.session.getUtilisateur() != null){
+			try{
+				String id = (String)content.getInt("id_discussion");
+				String message = (String)content.get("message");
+				Message message = new Message(this.session.getUtilisateur(), message )
+				((DiscussionTexte)Session.getApplication().getDiscussion(id)).addMessage()) ;
+				// TODO traitement si message non envoyé
+			} catch (Exception pe) {
+				pe.printStackTrace();
+			}
+		}
+		// TODO si celui qui envoie le message n'existe pas
 	}
 
 	public void get_utilisateurs(JSONObject content) {
