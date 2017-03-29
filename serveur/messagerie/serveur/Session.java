@@ -2,6 +2,7 @@ package messagerie.serveur;
 
 import java.net.Socket;
 import java.io.IOException;
+import messagerie.serveur.utilisateur.Utilisateur;
 
 public class Session implements Runnable{
 	private Socket socketClient;

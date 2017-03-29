@@ -56,7 +56,7 @@ public class RequestDecoder {
 		try{
 			String pseudo = (String)content.get("pseudonyme");
 			String mdp = (String)content.get("mot_de_passe");
-			UtilisateurHumain utilisateur = this.session.getApplication.getUtilisateur(pseudo)
+			UtilisateurHumain utilisateur = (UtilisateurHumain)Session.getApplication().getUtilisateur(pseudo);
 			if(utilisateur.verifieMotDePasse(mdp)){
 				this.session.setUtilisateur(utilisateur) ;
 			}
