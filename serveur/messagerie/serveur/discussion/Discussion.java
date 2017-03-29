@@ -21,7 +21,9 @@ public class Discussion implements Serializable {
 			u.addDiscussion(this);
     }
 
-    public List<Utilisateur> getUtilisateur(){
+    public List<Utilisateur> getUtilisateurs(){
         return this.utilisateurs ;
     }
+
+    public long getId() { return this.id; }
 }
