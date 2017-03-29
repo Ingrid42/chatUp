@@ -47,7 +47,6 @@ public class RequestDecoder {
 
 			requested.invoke(this, content);
 		}
-
 		catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -62,15 +61,17 @@ public class RequestDecoder {
 				this.session.setUtilisateur(utilisateur) ;
 			}
 			// TODO traitement si mot de passe eroné
-		} catch (UtilisateurException ue) {
+		}
+		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
 			// TODO Traitement pour renvoyer l'erreur au client si on ne trouve pas le client
-		} catch (Exception pe) {
+		}
+		catch (Exception pe) {
 			pe.printStackTrace();
 		}
 	}
 
-	public void creer(JSONObject content) {
+	public void creer_utilisateur(JSONObject content) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 		try{
 			Session.getApplication().ajouterUtilisateur(new UtilisateurHumain(
@@ -82,12 +83,14 @@ public class RequestDecoder {
 				format.parse((String)content.get("date_naissance"))
 			));
 
-			// TODO Traitement pour renvoyer la confirmation au client
-		} catch (UtilisateurException ue) {
+			// TODO Traitement pour renvoyer la confirmation au client (creer_utilisateur_reponse)
+		}
+		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
 			// TODO Traitement pour renvoyer l'erreur au client
-		} catch (Exception pe) {
-			pe.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -103,7 +106,7 @@ public class RequestDecoder {
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
 
-			// TODO Traitement pour renvoyer la confirmation au client
+			// TODO Traitement pour renvoyer la confirmation au client (creer_discussion_reponse)
 		}
 		catch (DiscussionException de) {
 			System.err.println(de.getMessage());
@@ -117,6 +120,10 @@ public class RequestDecoder {
 			System.err.println(ue.getMessage());
 			// TODO Traitement pour renvoyer l'erreur au client
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void envoyer_message(JSONObject content) {
@@ -139,6 +146,28 @@ public class RequestDecoder {
 	}
 
 	public void modifier_profil(JSONObject content) {
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+
+		try {
+			Utilisateur utilisateur = this.session.getUtilisateur();
+			if (!(utilisateur instanceof UtilisateurHumain))
+				throw new UtilisateurException("Seul un UtilisateurHumain peut être modifié.");
+		
+			UtilisateurHumain utilHumain = (UtilisateurHumain)utilisateur;
+			utilHumain.setMotDePasse((String)content.get("mot_de_passe"))
+					  .setAdresseMel((String)content.get("adresse_mel"))
+					  .setDateNaissance(format.parse((String)content.get("date_naissance")))
+					  .setNom((String)content.get("nom"))
+					  .setPrenom((String)content.get("prenom"));
+
+			// TODO Traitement pour renvoyer la confirmation au client (modifier_profil_reponse)
+		}
+		catch (UtilisateurException ue) {
+			System.err.println(ue.getMessage());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void get_profil(JSONObject content) {
