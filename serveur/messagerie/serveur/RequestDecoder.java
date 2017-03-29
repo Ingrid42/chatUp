@@ -17,6 +17,8 @@ import java.util.Locale;
 import java.util.List;
 import java.util.ArrayList;
 
+import messagerie.serveur.filtre.FiltreMot;
+
 public class RequestDecoder {
 	private final static Method[] methods;
 
@@ -143,6 +145,23 @@ public class RequestDecoder {
 	}
 
 	public void add_filtre_mot(JSONObject content) {
+		if (this.session.getUtilisateur() != null){
+			try{
+				this.session.getUtilisateur();
+				String mdp = (String)content.get("mot_de_passe_parental");
+				String mot = (String)content.get("mot");
+
+				UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur() ;
+				if (utilisateur.verifieMotDePasseParental(mdp)){
+					utilisateur.ajouterFiltre(new FiltreMot(mot)) ;
+					// TODO Traitement pour renvoyer la confirmation au client
+				}
+				// TODO Traitement si bad mdp parental
+			} catch (Exception pe) {
+				pe.printStackTrace();
+			}
+		}
+		// TODO si celui qui envoie le message n'existe pas
 	}
 
 	public void add_filtre_utilisateur(JSONObject content) {
