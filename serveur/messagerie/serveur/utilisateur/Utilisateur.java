@@ -42,6 +42,10 @@ public class Utilisateur implements Serializable {
 		this.discussions.add(discussion);
 	}
 
+	public void removeDiscussion(Discussion discussion) {
+		this.discussions.remove(discussion);
+	}
+
 	@Override
 	public int hashCode() {
 		return (this.pseudonyme.hashCode() % 256) * 
