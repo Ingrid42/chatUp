@@ -91,16 +91,22 @@ public class RequestDecoder {
 	}
 
 	public void creer_discussion(JSONObject content) {
-		//try {
+		try {
 			List<Utilisateur> utilisateurs = new ArrayList<>();
 			JSONArray pseudonymes = (JSONArray)content.get("utilisateurs");
+			for (Object p : pseudonymes)
+				utilisateurs.add(Session.getApplication().getUtilisateur((String)p));
 
-			//Discussion discussion = new DiscussionTexte();
-		/*}
+			Discussion discussion = new DiscussionTexte(utilisateurs);
+		}
+		catch (DiscussionException de) {
+			System.err.println(de.getMessage());
+			// TODO Traitement pour renvoyer l'erreur au client
+		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
 			// TODO Traitement pour renvoyer l'erreur au client
-		}*/
+		}
 	}
 
 	public void envoyer_message(JSONObject content) {
