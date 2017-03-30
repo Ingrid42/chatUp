@@ -19,3 +19,5 @@ class Utilisateur {
     }
   }
 }
+
+export default Utilisateur;
