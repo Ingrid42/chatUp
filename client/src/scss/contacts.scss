@@ -6,7 +6,7 @@
   margin-bottom: $contact_marging;
   @include calc(width, "98% - ( " + $button_size + " * 2 ) " + " - ( " + $button_margin + " * 2 ) ");
   height : $button_size;
-  opacity: 0.65;
+  opacity: $opacity;
   padding-left: $contact_padding;
   padding-right: $contact_padding;
   min-width: 120px;
@@ -25,7 +25,7 @@
   height : $button_size;
   width: $button_size;
   margin-top: $contact_marging;
-  opacity: 0.65;
+  opacity: $opacity;
   margin-left: $button_margin;
 }
 
