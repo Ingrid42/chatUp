@@ -2,7 +2,8 @@
   border: 1px solid;
   border-color: $rose !important;
   border-radius: 40px;
-  margin-top: 10px;
+  margin-top: $contact_marging;
+  margin-bottom: $contact_marging;
   @include calc(width, "98% - ( " + $button_size + " * 2 ) " + " - ( " + $button_margin + " * 2 ) ");
   height : $button_size;
   opacity: 0.65;
@@ -11,13 +12,19 @@
   min-width: 120px;
 }
 
+.contact-case {
+  border-color: $gray !important;
+  border-bottom: 1px solid;
+  overflow: auto;
+}
+
 .button-icon {
   border: 1px solid;
   border-color: $rose !important;
   border-radius: $button_size;
   height : $button_size;
   width: $button_size;
-  margin-top: 10px;
+  margin-top: $contact_marging;
   opacity: 0.65;
   margin-left: $button_margin;
 }
