@@ -1,6 +1,8 @@
 .navbar {
   background-color: $rose;
   height: $navbar_height;
+  width: 100%;
+  position :fixed;
 }
 
 .navbar > a > img {
