@@ -6,14 +6,6 @@ class Message {
     this.texte = texte;
     this.date = date;
   }
-
-  getJSON() {
-    return {
-      "emetteur": this.emetteur,
-      "texte": this.texte,
-      "date": this.date
-    }
-  }
 }
 
 export default Message;
