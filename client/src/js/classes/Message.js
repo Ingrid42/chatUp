@@ -5,6 +5,7 @@ class Message {
     this.emetteur = emetteur;
     this.texte = texte;
     this.date = date;
+    this.utilisateurs = [];
   }
 }
 
