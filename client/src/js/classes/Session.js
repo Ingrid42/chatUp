@@ -1,7 +1,10 @@
+import Utilisateur from './Utilisateur.js';
+
 class Session {
   constructor() {
     this.socket = require('socket.io-client');
     this.IPServer = 'http://localhost:4000';
+    this.utilisateur = null;
   }
 
   initConnexion() {
@@ -24,6 +27,15 @@ class Session {
 
   _onConnexion(data) {
     console.log(data);
+    this.utilisateur = new Utilisateur(
+      data.pseudonyme,
+      data.nom,
+      data.prenom,
+      data.adresseMel,
+      data.dateNaissance,
+      data.photo
+    );
+    console.log(this.utilisateur);
   }
 
 }
