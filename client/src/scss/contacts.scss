@@ -1,8 +1,39 @@
-.button {
+.contact {
+  border: 1px solid;
   border-color: $rose !important;
   border-radius: 40px;
-  height : 50px;
-  margin-top: 3%;
+  margin-top: $contact_marging;
+  margin-bottom: $contact_marging;
+  @include calc(width, "98% - ( " + $button_size + " * 2 ) " + " - ( " + $button_margin + " * 2 ) ");
+  height : $button_size;
+  opacity: $opacity;
+  padding-left: $contact_padding;
+  padding-right: $contact_padding;
+  min-width: 120px;
+}
+
+.contact-case {
+  border-color: $gray !important;
+  border-bottom: 1px solid;
+  overflow: auto;
+}
+
+.button-icon {
+  border: 1px solid;
+  border-color: $rose !important;
+  border-radius: $button_size;
+  height : $button_size;
+  width: $button_size;
+  margin-top: $contact_marging;
+  opacity: $opacity;
+  margin-left: $button_margin;
+}
+
+.messagerie {
+  border-color: $rose !important;
+  border-radius: $button_size;
+  height : $button_size;
+  margin-top: 10px;
   width: 100%;
 }
 
@@ -17,4 +48,16 @@
 
 .contact-icon {
   padding-right: 15px;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.new-conversation {
+  margin-top: $contact_padding;
+  // position: fixed;
+  // bottom: $new-conversation_position;
 }
