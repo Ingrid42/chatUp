@@ -1,6 +1,7 @@
 package messagerie.serveur.utilisateur;
 
 import messagerie.serveur.filtre.*;
+import messagerie.serveur.Session;
 
 import java.util.Set;
 import java.util.HashSet;
@@ -17,6 +18,8 @@ public class UtilisateurHumain extends Utilisateur {
 	private String motDePasseParental;
 	private String photo;
 
+	private Session session;
+
 	private Set<IFiltre> filtres;
 
 	public UtilisateurHumain(String pseudonyme, String nom, String prenom,
@@ -30,6 +33,8 @@ public class UtilisateurHumain extends Utilisateur {
 
 		this.motDePasseParental = null;
 		this.photo = UtilisateurHumain.photoDefaut;
+
+		this.session = null;
 
 		this.filtres = new HashSet<IFiltre>();
 	}
@@ -59,6 +64,11 @@ public class UtilisateurHumain extends Utilisateur {
 		return this;
 	}
 
+	public UtilisateurHumain setSession(Session session) {
+		this.session = session;
+		return this;
+	}
+
 	public boolean verifieMotDePasse(String motDePasse) {
 		return motDePasse.equals(this.motDePasse);
 	}
@@ -72,6 +82,7 @@ public class UtilisateurHumain extends Utilisateur {
 	public String getAdresseMel() { return this.adresseMel; }
 	public String getPhoto() { return this.photo; }
 	public Date getDateNaissance() { return this.dateNaissance; }
+	public Session getSession() { return this.session; }
 
 	public boolean ajouterFiltre(IFiltre filtre) {
 		return this.filtres.add(filtre);

@@ -58,9 +58,10 @@ public class RequestDecoder {
 			String mdp = (String)content.get("mot_de_passe");
 			UtilisateurHumain utilisateur = (UtilisateurHumain)Session.getApplication().getUtilisateur(pseudo);
 			if(utilisateur.verifieMotDePasse(mdp)){
-				this.session.setUtilisateur(utilisateur) ;
+				this.session.setUtilisateur(utilisateur);
+				utilisateur.setSession(this.session);
 			}
-			// TODO traitement si mot de passe eroné
+			// TODO else: traitement si mot de passe eroné
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());

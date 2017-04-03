@@ -2,7 +2,7 @@ package messagerie.serveur;
 
 import java.net.Socket;
 import java.io.IOException;
-import messagerie.serveur.utilisateur.Utilisateur;
+import messagerie.serveur.utilisateur.*;
 
 public class Session implements Runnable{
 	private Socket socketClient;
@@ -19,6 +19,9 @@ public class Session implements Runnable{
 	public boolean fermer() {
 		try {
 			this.socketClient.close();
+
+			if (this.utilisateur instanceof UtilisateurHumain)
+				((UtilisateurHumain)this.utilisateur).setSession(null);
 		}
 		catch (IOException ioe) {
 			return false;
