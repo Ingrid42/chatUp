@@ -64,6 +64,8 @@ public class UtilisateurHumain extends Utilisateur {
 	}
 
 	public boolean verifieMotDePasseParental(String motDePasseParental) {
+		if (this.motDePasseParental == null)
+			return (motDePasseParental == null ? true : false);
 		return motDePasseParental.equals(this.motDePasseParental);
 	}
 
@@ -77,5 +79,14 @@ public class UtilisateurHumain extends Utilisateur {
 
 	public boolean retirerFiltre(IFiltre filtre) {
 		return this.filtres.remove(filtre);
+	}
+
+	public boolean peutVoir(Object object) {
+		for (IFiltre f : filtres) {
+			if (f.compare(object))
+				return false;
+		}
+
+		return true;
 	}
 }
