@@ -7,17 +7,6 @@ class Utilisateur {
     this.dateNaissance = dateNaissance;
     this.photo = photo;
   }
-
-  getJSON() {
-    return {
-      "pseudonyme": this.pseudonyme,
-      "nom": this.nom,
-      "prenom": this.prenom,
-      "adresseMel": this.adresseMel,
-      "dateNaissance": this.dateNaissance,
-      "photo": this.photo
-    }
-  }
 }
 
 export default Utilisateur;

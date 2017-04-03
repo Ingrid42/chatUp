@@ -6,7 +6,6 @@ const init = function () {
   var toolbox = new Toolbox();
   var session = new Session();
   var utilisateur = new Utilisateur("ttheologien", "Théologien", "Thibault", "thibault.theologien@insa-rouen.fr", "04/12/1995", "none");
-  console.log(utilisateur.getJSON());
   toolbox.importFiles();
 }
 
