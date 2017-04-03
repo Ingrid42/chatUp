@@ -20,7 +20,7 @@ html, body {
 }
 
 .page {
-  @include calc("height", "100% - " + $navbar_height + " - " $space);
+  @include calc("height", "100% - " + $navbar_height + " - " + $space);
   padding-top: 5%;
 }
 

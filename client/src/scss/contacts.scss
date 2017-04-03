@@ -58,6 +58,9 @@
 
 .new-conversation {
   margin-top: $contact_padding;
-  // position: fixed;
-  // bottom: $new-conversation_position;
+}
+
+.messagerie-page {
+  @include calc("height", "100% - " + $button_size );
+  overflow: auto;
 }
