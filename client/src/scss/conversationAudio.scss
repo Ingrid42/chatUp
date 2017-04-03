@@ -1,0 +1,25 @@
+.conversation-audio {
+
+  .contact-picture {
+    border: 1px solid;
+    border-color: $rose !important;
+    border-radius: $button_size;
+    height : $button_size;
+    width: $button_size;
+    opacity: $opacity;
+  }
+
+  .contact-name {
+    font-size: 30px;
+  }
+
+  .button-icon {
+    background-color: $rose;
+    border-color: black;
+    opacity : 1;
+    border-radius: $button_size_little;
+    height : $button_size_little;
+    width: $button_size_little;
+  }
+
+}
