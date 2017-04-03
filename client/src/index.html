@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <title>Connexion</title>
+  <title>Connexion</title>
 
-    <link href="./css/index.css" rel="stylesheet">
+  <link href="./css/index.css" rel="stylesheet">
 
-    <link rel="import" href="html/navbar.html">
-    <link rel="import" href="html/connexion.html">
-    <link rel="import" href="html/footer.html">
-    <link rel="import" href="html/inscription.html">
+  <link rel="import" href="html/navbar.html">
+  <link rel="import" href="html/connexion.html">
+  <link rel="import" href="html/footer.html">
+  <link rel="import" href="html/inscription.html">
+    <link rel="import" href="html/navbarContacts.html">
+    <link rel="import" href="html/contacts.html">
+    <link rel="import" href="html/navbarMessagerie.html">
+    <link rel="import" href="html/messagerie.html">
 
-    <script src="/jquery/jquery.min.js" charset="utf-8"></script>
-    <script src="/tether/js/tether.min.js" charset="utf-8"></script>
-    <script src="/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-    <script src="/socketio/socket.io.min.js" charset="utf-8"></script>
-  </head>
+  <script src="/jquery/jquery.min.js" charset="utf-8"></script>
+  <script src="/tether/js/tether.min.js" charset="utf-8"></script>
+  <script src="/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+  <script src="/socketio/socket.io.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-  <body>
-    <div id="import"></div>
-  </body>
-  <script src="js/bundle.js" charset="utf-8"></script>
+  <script>
+  	$(document).ready(function(){
+  		var date_input=$('input[name="date"]'); //our date input has the name "date"
+  		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+  		date_input.datepicker({
+  			format: 'mm/dd/yyyy',
+  			container: container,
+  			todayHighlight: true,
+  			autoclose: true,
+  		})
+  	})
+  </script>
+
+</head>
+
+<body>
+  <div id="import"></div>
+</body>
+
+<script src="js/import.js" charset="utf-8"></script>
+<script src="js/index.js" charset="utf-8"></script>
 </html>

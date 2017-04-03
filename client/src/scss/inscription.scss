@@ -7,6 +7,7 @@ form.formInscription {
   margin: auto;
   @include shadowBox($gray-lighter);
   display: flex;
+  overflow: auto;
 }
 
 form.formInscription h2 {
@@ -14,8 +15,14 @@ form.formInscription h2 {
   color: $font-color;
 }
 
+div.inscription {
+  width: 290px;
+}
+
+
+
 .input-group-addon {
-  width: 50px;
+  width: 40px;
 }
 
 label {
@@ -26,7 +33,7 @@ $formDim : 320px;
 
 form.formInscription  {
   width: $formDim;
-  height: $formDim;
+  height: 500px;
   //overflow-y: auto;
   text-align: center;
   @include calc(margin-left, "(100% - " + $formDim + ") / 2");
