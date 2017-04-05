@@ -81,6 +81,13 @@
 	}
 }
 
+{
+	"action" : "desactiver_controle_parental",
+	"contenu" : {
+		"mot_de_passe_parental" : "motDePasse",
+	}
+}
+
 
 
 // Messages Serveur -> Client

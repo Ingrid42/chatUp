@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.List;
 import java.util.ArrayList;
 
-import messagerie.serveur.filtre.FiltreMot;
+import messagerie.serveur.filtre.*;
 
 public class RequestDecoder {
 	private final static Method[] methods;
@@ -58,9 +58,10 @@ public class RequestDecoder {
 			String mdp = (String)content.get("mot_de_passe");
 			UtilisateurHumain utilisateur = (UtilisateurHumain)Session.getApplication().getUtilisateur(pseudo);
 			if(utilisateur.verifieMotDePasse(mdp)){
-				this.session.setUtilisateur(utilisateur) ;
+				this.session.setUtilisateur(utilisateur);
+				utilisateur.setSession(this.session);
 			}
-			// TODO traitement si mot de passe eroné
+			// TODO else: traitement si mot de passe eroné
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
@@ -176,16 +177,15 @@ public class RequestDecoder {
 	public void add_filtre_mot(JSONObject content) {
 		if (this.session.getUtilisateur() != null){
 			try{
-				this.session.getUtilisateur();
 				String mdp = (String)content.get("mot_de_passe_parental");
 				String mot = (String)content.get("mot");
 
-				UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur() ;
+				UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 				if (utilisateur.verifieMotDePasseParental(mdp)){
-					utilisateur.ajouterFiltre(new FiltreMot(mot)) ;
+					utilisateur.ajouterFiltre(new FiltreMot(mot));
 					// TODO Traitement pour renvoyer la confirmation au client
 				}
-				// TODO Traitement si bad mdp parental
+				// TODO else: Traitement si bad mdp parental
 			} catch (Exception pe) {
 				pe.printStackTrace();
 			}
@@ -194,9 +194,54 @@ public class RequestDecoder {
 	}
 
 	public void add_filtre_utilisateur(JSONObject content) {
+		try {
+			String mdp = (String)content.get("mot_de_passe_parental");
+			String nom = (String)content.get("mot");
+
+			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
+			if (utilisateur.verifieMotDePasseParental(mdp)){
+				Utilisateur utilisateurBanni = Session.getApplication().getUtilisateur(nom);
+				utilisateur.ajouterFiltre(new FiltreUtilisateur(utilisateurBanni));
+				// TODO Traitement pour renvoyer la confirmation au client
+			}
+			// TODO else: Traitement si bad mdp parental
+		}
+		catch (Exception pe) {
+			pe.printStackTrace();
+		}
 	}
 
 	public void set_controle_parental(JSONObject content) {
+		try {
+			String mdp = (String)content.get("mot_de_passe_parental");
+
+			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
+			if (utilisateur.verifieMotDePasseParental(null)) {
+				utilisateur.setMotDePasseParental(mdp);
+				// TODO envoyer la confirmation
+			}
+			// TODO else: Renvoyer une erreur
+			
+		}
+		catch (Exception pe) {
+			pe.printStackTrace();
+		}
+	}
+
+	public void desactiver_controle_parental(JSONObject content) {
+		try {
+			String mdp = (String)content.get("mot_de_passe_parental");
+
+			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
+			if (utilisateur.verifieMotDePasseParental(mdp)){
+				utilisateur.setMotDePasseParental(null);
+				// TODO Envoyer la confirmation
+			}
+			// TODO else: Renvoyer une erreur
+		}
+		catch (Exception pe) {
+			pe.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
