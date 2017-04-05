@@ -55,6 +55,7 @@ public class Session implements Runnable{
 
 			if (this.utilisateur instanceof UtilisateurHumain)
 				((UtilisateurHumain)this.utilisateur).setSession(null);
+			System.out.println("Serveur correctement fermé.");
 		}
 		catch (IOException ioe) {
 			return false;
