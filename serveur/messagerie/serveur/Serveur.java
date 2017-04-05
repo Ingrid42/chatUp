@@ -16,8 +16,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 
+import javax.websocket.DeploymentException;
+import org.glassfish.tyrus.server.Server;
+
 public class Serveur {
-	private ServerSocket server;
+	//private ServerSocket server;
+	private Server serveur;
 	private Application application;
 
 	public Serveur(){
@@ -30,9 +34,9 @@ public class Serveur {
 		}
 
 		Session.setApplication(this.application);
-		try {
+		/*try {
 			server = new ServerSocket(4000, 100, InetAddress.getByName("localhost"));
-			while(true){    
+			while(true) {
 				 Session auth = new Session(server.accept());
 				 Thread t = new Thread(auth);
 				 t.start();
@@ -40,7 +44,9 @@ public class Serveur {
 
 		} 
 		catch (UnknownHostException e) {e.printStackTrace();} 
-		catch (IOException e) {e.printStackTrace();}
+		catch (IOException e) {e.printStackTrace();}*/
+
+		this.serveur = new Server("localhost", 4000, "/", null, Session.class);
 	}
 
 	public boolean initialize(String fileName) {
@@ -82,7 +88,18 @@ public class Serveur {
 		}
 	}
 
+	public void start() throws DeploymentException {
+		this.serveur.start();
+	}
+
 	public static void main(String[] args) {
-		Serveur serveur = new Serveur();
+		try {
+			Serveur serveur = new Serveur();
+			serveur.start();	
+		}
+		catch (DeploymentException de) {
+			de.printStackTrace();
+		}
+		
 	}
 }

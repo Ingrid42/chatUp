@@ -15,7 +15,14 @@ import java.security.NoSuchAlgorithmException;
 import messagerie.serveur.RequestDecoder;
 import messagerie.serveur.utilisateur.*;
 
-public class Session implements Runnable{
+import javax.websocket.Endpoint;
+import javax.websocket.CloseReason;
+import javax.websocket.EndpointConfig;
+import javax.websocket.MessageHandler;
+import javax.websocket.RemoteEndpoint;
+
+/*
+public class Session implements Runnable {
 	private Socket socketClient;
 	private static Application application;
 	private Utilisateur utilisateur ;
@@ -30,8 +37,9 @@ public class Session implements Runnable{
 		System.out.println("Session créée");
 	}
 
-	public boolean handshake() throws IOException, NoSuchAlgorithmException {
+	public boolean handshake() throws IOException, NoSuchAlgorithmException, Exception {
 		String inputMessage = new Scanner(input, "UTF-8").useDelimiter("\\r\\n\\r\\n").next();
+		System.out.println(inputMessage);
 		Matcher get = Pattern.compile("^GET").matcher(inputMessage);
 
 		if (get.find()) {
@@ -61,21 +69,25 @@ public class Session implements Runnable{
 	}
 
 	public void recevoirMessage() throws IOException {
+		System.out.println("Attente d'un message");
 		String inputMessage = new Scanner(input, "UTF-8").next();
 		System.out.println(inputMessage);
-		/*String inputMessage = new Scanner(input, "UTF-8").useDelimiter("\\r\\n\\r\\n").next();
+		//decoderMessageEntree(inputMessage);
+		//System.out.println(inputMessage);
+		System.out.println("Message reçu!");
+		// String inputMessage = new Scanner(input, "UTF-8").useDelimiter("\\r\\n\\r\\n").next();
 
-		if (get.find()) {
-			this.decodeur.decode(inputMessage);
-		}
-		else {
+		// if (get.find()) {
+		// 	this.decodeur.decode(inputMessage);
+		// }
+		// else {
 
-		}*/
+		// }
 	}
 
 	public synchronized void envoyerMessage(String message) {
-		/*output.write(message);
-		output.flush();*/
+		// output.write(message);
+		// output.flush();
 	}
 
 	public Socket getSocketClient() { return this.socketClient; }
@@ -106,18 +118,20 @@ public class Session implements Runnable{
 
 			this.handshake();
 
-			do {
-				this.recevoirMessage();
-			} while ( this.socketClient != null);
+			// do {
+			// 	this.recevoirMessage();
+			// } while ( this.socketClient != null);
+			// String message = "Salut";
+			// this.output.write(message.getBytes(), 0, message.length());
 		}
 		catch (IOException ioe) {
 			System.err.println("ERREUR : Impossible de recevoir un message de la part de ce client.");
-			System.err.println(ioe.getMessage());
+			ioe.printStackTrace();
 			System.err.println("Fermeture de la session.");
 		}
 		catch (Exception e) {
 			System.err.println("ERREUR : Une erreur inattendue est survenue!");
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 			System.err.println("Fermeture de la session.");
 		}
 		finally {
@@ -136,5 +150,69 @@ public class Session implements Runnable{
 	}
 	public Utilisateur getUtilisateur(){
 		return this.utilisateur ;
+	}
+}
+*/
+
+// https://www.jmdoudoux.fr/java/dej/chap-api_websocket.htm#api_websocket-6
+public class Session extends Endpoint {
+	private static Application application;
+	private Utilisateur utilisateur ;
+	private RequestDecoder decodeur;
+
+	public Session() {
+		super();
+		this.decodeur = new RequestDecoder(this);
+		System.out.println("Session créée");
+	}
+
+	public static void setApplication(Application application) {
+		Session.application = application;
+	}
+
+	public static Application getApplication() { return Session.application; }
+
+	public void setUtilisateur(Utilisateur utilisateur){
+		this.utilisateur = utilisateur ;
+	}
+
+	public Utilisateur getUtilisateur(){
+		return this.utilisateur ;
+	}
+
+	@Override
+	public void onOpen(javax.websocket.Session session, EndpointConfig config) {
+
+	}
+
+	@Override
+	public void onClose(javax.websocket.Session session, CloseReason closeReason) {
+
+	}
+
+	@Override
+	public void onError(javax.websocket.Session session, Throwable throwable) {
+
+	}
+
+	public boolean fermer() {
+		// try {
+		// 	this.input.close();
+		// 	this.output.close();
+		// 	this.socketClient.close();
+
+		// 	this.input = null;
+		// 	this.output = null;
+		// 	this.socketClient = null;
+
+		// 	if (this.utilisateur instanceof UtilisateurHumain)
+		// 		((UtilisateurHumain)this.utilisateur).setSession(null);
+			System.out.println("Serveur correctement fermé.");
+			return true;
+		// }
+		// catch (IOException ioe) {
+		// 	return false;
+		// }
+		// return true;
 	}
 }
