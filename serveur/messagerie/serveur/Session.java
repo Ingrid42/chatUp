@@ -3,8 +3,14 @@ package messagerie.serveur;
 import java.net.Socket;
 import java.io.IOException;
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.xml.bind.DatatypeConverter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import messagerie.serveur.RequestDecoder;
 import messagerie.serveur.utilisateur.*;
@@ -14,8 +20,8 @@ public class Session implements Runnable{
 	private static Application application;
 	private Utilisateur utilisateur ;
 	private RequestDecoder decodeur;
-	private BufferedReader input;
-	private PrintWriter output;
+	private InputStream input;
+	private OutputStream output;
 
 	public Session(Socket socketClient) {
 		this.socketClient = socketClient;
@@ -24,21 +30,52 @@ public class Session implements Runnable{
 		System.out.println("Session créée");
 	}
 
-	public void recevoirMessage() throws IOException {
-		StringBuilder inputMessage = new StringBuilder();
-		while (!input.ready()) { try { this.wait(1000); } catch (InterruptedException ie) {} } // Wait one second before checking if a message is received
+	public boolean handshake() throws IOException, NoSuchAlgorithmException {
+		String inputMessage = new Scanner(input, "UTF-8").useDelimiter("\\r\\n\\r\\n").next();
+		Matcher get = Pattern.compile("^GET").matcher(inputMessage);
 
-		// Read the entire message
-		while (input.ready()) {
-			inputMessage.append(input.readLine());
+		if (get.find()) {
+			Matcher match = Pattern.compile("Sec-WebSocket-Key: (.*)").matcher(inputMessage);
+    		match.find();
+   			byte[] response = ("HTTP/1.1 101 Switching Protocols\r\n"
+								+ "Connection: Upgrade\r\n"
+								+ "Upgrade: websocket\r\n"
+								+ "Sec-WebSocket-Accept: "
+								+ DatatypeConverter.printBase64Binary(
+										MessageDigest
+										.getInstance("SHA-1")
+										.digest((match.group(1) + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
+												.getBytes("UTF-8"))
+								)
+								+ "\r\n\r\n")
+								.getBytes("UTF-8");
+
+    		output.write(response, 0, response.length);
+			System.out.println("Connexion établie!");
 		}
+		else {
+			System.err.println("ERREUR : Connexion non établie!");
+			return false;
+		}
+		return true;
+	}
 
-		this.decodeur.decode(inputMessage.toString());
+	public void recevoirMessage() throws IOException {
+		String inputMessage = new Scanner(input, "UTF-8").next();
+		System.out.println(inputMessage);
+		/*String inputMessage = new Scanner(input, "UTF-8").useDelimiter("\\r\\n\\r\\n").next();
+
+		if (get.find()) {
+			this.decodeur.decode(inputMessage);
+		}
+		else {
+
+		}*/
 	}
 
 	public synchronized void envoyerMessage(String message) {
-		output.write(message);
-		output.flush();
+		/*output.write(message);
+		output.flush();*/
 	}
 
 	public Socket getSocketClient() { return this.socketClient; }
@@ -64,18 +101,24 @@ public class Session implements Runnable{
 	}
 	public void run(){
 		try {
-			this.input = new BufferedReader(new InputStreamReader(this.socketClient.getInputStream()));
-			this.output = new PrintWriter(this.socketClient.getOutputStream(), true);
+			this.input = this.socketClient.getInputStream();
+			this.output = this.socketClient.getOutputStream();
 
-			String inputMessage = null;
-			String outputMessage = null;
-			
+			this.handshake();
+
 			do {
 				this.recevoirMessage();
 			} while ( this.socketClient != null);
 		}
 		catch (IOException ioe) {
-			System.err.println("ERREUR : Impossible de recevoir un message de la part de ce client, fermeture de la session.");
+			System.err.println("ERREUR : Impossible de recevoir un message de la part de ce client.");
+			System.err.println(ioe.getMessage());
+			System.err.println("Fermeture de la session.");
+		}
+		catch (Exception e) {
+			System.err.println("ERREUR : Une erreur inattendue est survenue!");
+			System.err.println(e.getMessage());
+			System.err.println("Fermeture de la session.");
 		}
 		finally {
 			this.fermer();
