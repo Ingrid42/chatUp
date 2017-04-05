@@ -1,3 +1,7 @@
+import FiltreMot from "./FiltreMot.js";
+import FiltreUtilisateur from "./FiltreUtilisateur.js";
+import Discussion from "./Discussion.js";
+
 class Utilisateur {
   constructor(pseudonyme, nom, prenom, adresseMel, dateNaissance, photo) {
     this.pseudonyme = pseudonyme;
@@ -6,17 +10,9 @@ class Utilisateur {
     this.adresseMel = adresseMel;
     this.dateNaissance = dateNaissance;
     this.photo = photo;
-  }
-
-  getJSON() {
-    return {
-      "pseudonyme": this.pseudonyme,
-      "nom": this.nom,
-      "prenom": this.prenom,
-      "adresseMel": this.adresseMel,
-      "dateNaissance": this.dateNaissance,
-      "photo": this.photo
-    }
+    this.filtreMot = new FiltreMot();
+    this.filtreUtilisateur = new FiltreUtilisateur();
+    this.discussion = [];
   }
 }
 

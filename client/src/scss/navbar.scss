@@ -2,7 +2,6 @@
   background-color: $rose;
   height: $navbar_height;
   width: 100%;
-  position :fixed;
 }
 
 .navbar > a > img {
@@ -18,7 +17,7 @@
 }
 
 .navbar-brand {
-  font-size: 40px;
+  font-size: 35px;
   margin-right: 0px !important;
   font-weight: bold;
   color: white !important;

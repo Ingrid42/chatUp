@@ -1,0 +1,25 @@
+.conversation {
+  .contact-picture {
+    border: 1px solid;
+    border-color: $rose !important;
+    border-radius: $button_size;
+    height : $button_size;
+    width: $button_size;
+    opacity: $opacity;
+
+    .contact-picture-icon {
+      height: 100% !important;
+      position: relative;
+      @include calc("top", "50% - " + $icon_size + " / 2 "); /* 50% - 1/2 of icon height */
+    }
+  }
+
+  .contact-name {
+    font-size: 20px;
+    padding-left: 10px;
+  }
+
+  .conversation-header {
+    height: $button_size;
+  }
+}

@@ -5,14 +5,7 @@ class Message {
     this.emetteur = emetteur;
     this.texte = texte;
     this.date = date;
-  }
-
-  getJSON() {
-    return {
-      "emetteur": this.emetteur,
-      "texte": this.texte,
-      "date": this.date
-    }
+    this.utilisateurs = [];
   }
 }
 
