@@ -123,7 +123,7 @@ public class RequestDecoder {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void envoyer_message(JSONObject content) {
@@ -134,6 +134,8 @@ public class RequestDecoder {
 				String texteMessage = (String)content.get("message");
 				Message message = new Message(this.session.getUtilisateur(), texteMessage ) ;
 				((DiscussionTexte)Session.getApplication().getDiscussion(id)).addMessage(message) ;
+				// TODO envoi de l'etat
+				// TODO envoi de message au utilisateurs
 				// TODO traitement si message non envoyé
 			} catch (Exception pe) {
 				pe.printStackTrace();
@@ -143,6 +145,7 @@ public class RequestDecoder {
 	}
 
 	public void get_utilisateurs(JSONObject content) {
+		// TODO encode tous les utilisateurs
 	}
 
 	public void modifier_profil(JSONObject content) {
@@ -152,7 +155,7 @@ public class RequestDecoder {
 			Utilisateur utilisateur = this.session.getUtilisateur();
 			if (!(utilisateur instanceof UtilisateurHumain))
 				throw new UtilisateurException("Seul un UtilisateurHumain peut être modifié.");
-		
+
 			UtilisateurHumain utilHumain = (UtilisateurHumain)utilisateur;
 			utilHumain.setMotDePasse((String)content.get("mot_de_passe"))
 					  .setAdresseMel((String)content.get("adresse_mel"))
