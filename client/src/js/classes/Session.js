@@ -22,6 +22,7 @@ class Session {
   }
 
   emit(message, data) {
+    console.log("Envoi d'un message");
     this.socket.emit(message, data);
   }
 
