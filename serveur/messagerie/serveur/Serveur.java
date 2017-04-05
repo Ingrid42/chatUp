@@ -32,12 +32,10 @@ public class Serveur {
 		Session.setApplication(this.application);
 		try {
 			server = new ServerSocket(4000, 100, InetAddress.getByName("localhost"));
-			int i = 0;
-			while(i<10){    
+			while(true){    
 				 Session auth = new Session(server.accept());
 				 Thread t = new Thread(auth);
-				 t.start(); 
-				 i++;
+				 t.start();
 			}
 
 		} 
