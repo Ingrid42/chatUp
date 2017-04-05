@@ -1,6 +1,6 @@
 .blocConnexion {
   display: flex;
-  height:100%;
+  height: 100%;
 }
 
 form.formConnexion h2 {
@@ -12,11 +12,6 @@ label {
   color: $font-color;
 }
 
-
-.groupButtonConnexion {
-  width: 50px;
-}
-
 form.formConnexion  {
   background-color: $rose;
   border-radius: 40px;
@@ -26,15 +21,10 @@ form.formConnexion  {
   height: $formDim;
   @include shadowBox($gray-lighter);
   display: flex;
-  // @include calc(margin-left, "(100% - " + $formDim + ") / 2");
-  // @include calc(margin-right, "(100% - " + $formDim + ") / 2");
-  // position: absolute;
-  // top:40px;
-  // left:0;
-  // right: 0;
   margin: auto;
 }
 
 div.login {
   margin: auto;
+  overflow: auto;
 }
