@@ -14,7 +14,7 @@ public class Application implements Serializable {
 	private static Application application;
 	private Map<String, Utilisateur> utilisateurs;
 	private Map<Long, Discussion> discussions;
-	
+
 	private Application() {
 		this.utilisateurs = new HashMap<String, Utilisateur>();
 		this.discussions = new HashMap<Long, Discussion>();
@@ -45,6 +45,9 @@ public class Application implements Serializable {
 		if (discussion == null)
 			throw new DiscussionException(String.format("La discussion ayant pour id %l n'existe pas.", id));
 		return discussion;
+	}
+	public Map<String, Utilisateur> getUtilisateurs(){
+		return this.utilisateurs ;
 	}
 
 	public static Application getInstance() {

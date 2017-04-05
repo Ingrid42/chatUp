@@ -132,7 +132,7 @@ public class RequestDecoder {
 			try{
 				int id = Integer.parseInt((String)content.get("id_discussion"));
 				String texteMessage = (String)content.get("message");
-				Message message = new Message(this.session.getUtilisateur(), texteMessage ) ;
+				Message message = new Message(this.session.getUtilisateur(), texteMessage, id) ;
 				((DiscussionTexte)Session.getApplication().getDiscussion(id)).addMessage(message) ;
 				// TODO envoi de l'etat
 				// TODO envoi de message au utilisateurs
