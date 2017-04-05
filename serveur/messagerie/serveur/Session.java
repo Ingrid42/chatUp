@@ -38,6 +38,7 @@ public class Session implements Runnable{
 
 	public synchronized void envoyerMessage(String message) {
 		output.write(message);
+		output.flush();
 	}
 
 	public Socket getSocketClient() { return this.socketClient; }
