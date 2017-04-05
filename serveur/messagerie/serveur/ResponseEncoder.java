@@ -2,7 +2,9 @@ package messagerie.serveur;
 
 
 import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
 import messagerie.serveur.utilisateur.*;
+import messagerie.serveur.discussion.*;
 
 public class ResponseEncoder {
 	private Session session ;
@@ -26,7 +28,7 @@ public class ResponseEncoder {
 		content.put("prenom", user.getPrenom());
 		content.put("adresse_mel", user.getAdresseMel());
 		content.put("date_naissance", user.getDateNaissance());
-		obj_etat.put("content", content);
+		obj_etat.put("contenu", content);
 
 		return obj_etat ;
 	}
@@ -48,17 +50,35 @@ public class ResponseEncoder {
 		return state_response(state, "envoyer_message_response" ).toString();
 	}
 
-  public String utilisateurs(){
-    JSONObject obj = new JSONObject();
+
+	public String envoyer_message(Message msg){
+		JSONObject obj = new JSONObject();
+		obj.put("action", "message") ;
 		JSONObject content = new JSONObject();
-		obj.put("action", "utilisateurs") ;
-		//content.put("utilisateurs", ) ;
-
-
-
-
+		content.put("id_discussion", msg.getId()) ;
+		content.put("pseudonyme", msg.getUtilisateur().getPseudonyme()) ;
+		content.put("message", msg.getMessage()) ;
 		obj.put("contenu", content);
 		return obj.toString() ;
-  }
+	}
 
+	public String utilisateurs(){
+		JSONObject obj = new JSONObject();
+		obj.put("action", "utilisateurs") ;
+
+		JSONArray array_users = new JSONArray();
+		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
+			JSONObject userObject = new JSONObject();
+			userObject.put("pseudonyme", u.getPseudonyme());
+			userObject.put("nom", u.getNom());
+			userObject.put("prenom", u.getPrenom());
+
+			array_users.add(userObject) ;
+		}
+		JSONObject content = new JSONObject();
+		content.put("utilisateurs", array_users);
+		obj.put("contenu", content);
+
+		return obj.toString() ;
+	}
 }
