@@ -20,6 +20,7 @@
   <link rel="import" href="html/conversationAudio.html">
   <link rel="import" href="html/navbarConversation.html">
   <link rel="import" href="html/conversation.html">
+  <link rel="import" href="html/parametre.html">
 
   <script src="/jquery/jquery.min.js" charset="utf-8"></script>
   <script src="/tether/js/tether.min.js" charset="utf-8"></script>
@@ -29,17 +30,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
   <script>
-  	$(document).ready(function(){
-  		var date_input=$('input[name="date"]'); //our date input has the name "date"
-  		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-  		date_input.datepicker({
-  			format: 'mm/dd/yyyy',
-  			container: container,
-  			todayHighlight: true,
-  			autoclose: true,
-  		})
-  	})
+
+  function changeImage(){
+    console.log("test");
+  }
   </script>
+
+
 
 </head>
 

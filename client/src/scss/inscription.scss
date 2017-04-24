@@ -1,43 +1,45 @@
-form.formInscription {
-  background-color: $rose;
-  border-radius: 40px;
-  width: 90%;
-  text-align: center;
-  padding: 20px;
-  margin: auto;
-  @include shadowBox($gray-lighter);
-  display: flex;
-  overflow: auto;
-}
-
 form.formInscription h2 {
   text-align: center;
   color: $font-color;
-}
-
-div.inscription {
-  width: 290px;
-}
-
-
-
-.input-group-addon {
-  width: 40px;
 }
 
 label {
   color: $font-color;
 }
 
-$formDim : 320px;
+div.inscription {
+  margin: auto;
+  overflow: auto;
+}
+
+.input-group-addon {
+  width: $input-group-addon_width;
+}
 
 form.formInscription  {
-  width: $formDim;
-  height: 500px;
-  //overflow-y: auto;
+  background-color: $rose;
+  border-radius: 40px;
   text-align: center;
-  @include calc(margin-left, "(100% - " + $formDim + ") / 2");
-  @include calc(margin-right, "(100% - " + $formDim + ") / 2");
-
+  padding: 20px;
+  width: $formDim;
+  @include shadowBox($gray-lighter);
+  display: flex;
   margin: auto;
+}
+
+.form-date {
+  font-size: 1rem;
+  color:#464a4c;
+  border-radius: .25rem;
+  background-image: none;
+  background-clip: padding-box;
+  line-height: 1.25;
+  height: 38px;
+  @include calc(width, "100% - " + $input-group-addon_width);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  border: 1px solid rgba(0, 0, 0, .15);
+  padding-left: 12px;
+  padding-right: 12px;
 }

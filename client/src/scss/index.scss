@@ -8,6 +8,8 @@
 @import "./contacts.scss";
 @import "./conversationAudio.scss";
 @import "./conversation.scss";
+@import "./parametre.scss";
+
 
 html, body {
   height: 100%;
@@ -23,7 +25,7 @@ html, body {
 
 .page {
   @include calc("height", "100% - " + $navbar_height + " - " + $space);
-  padding-top: 5%;
+  padding-top: $padding_top;
 }
 
 .container {

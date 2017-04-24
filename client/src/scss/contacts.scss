@@ -1,7 +1,7 @@
 .contact {
-  border: 1px solid;
-  border-color: $rose !important;
-  border-radius: 40px;
+  // border: 1px solid;
+  // border-color: $rose !important;
+  // border-radius: 40px;
   margin-top: $contact_margin;
   margin-bottom: $contact_margin;
   @include calc(width, "98% - ( " + $button_size + " * 2 ) " + " - ( " + $button_margin_left + " * 2 ) ");
@@ -54,10 +54,6 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-
-.new-conversation {
-
 }
 
 .messagerie-page {

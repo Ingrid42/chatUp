@@ -5,15 +5,19 @@
 }
 
 .navbar > a > img {
-  width: $button_size;
-  height: $button_size;
+  width: $button_size_little;
+  height: $button_size_little;
   border-radius: 118px;
 }
 
 .navbar > a > button {
-  border-radius: $button_size;
-  height: $button_size;
-  width: $button_size;
+  border-radius: $button_size_little;
+  height: $button_size_little;
+  width: $button_size_little;
+}
+
+.button-left {
+  margin-right: 10px;
 }
 
 .navbar-brand {
