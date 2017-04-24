@@ -2,7 +2,7 @@
   <div class="container blocParam">
     <div class="full-width">
       <h1 class="text-center color">Edition profil</h1>
-      <div class="col-lg-10 col-md-12 col-sm-12 col-xs-12 center-block">
+      <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 center-block">
         <div class="custom-form">
           <div class="text-center bg-form">
             <div class="img-section">
@@ -15,22 +15,27 @@
           </div>
           <div class="col-lg-12 col-md-12">
             <input type="text" class="form-control form-input" value="" placeholder="Pseudo" disabled id="name">
-            <!-- <span class="fa fa-user-o input-place"></span> -->
           </div>
           <div class="col-lg-12 col-md-12">
             <input type="text" class="form-control form-input" value="" placeholder="Email" disabled id="email">
-            <!-- <span class="fa fa-envelope input-place"></span> -->
           </div>
           <div class="col-lg-12 col-md-12 text-center">
             <button class="btn btn-info btn-lg custom-btn" id="submit"><span class="fa fa-save"></span> Enregistrer</button></br></br>
           </div>
         </div>
       </div>
-      <div class="separation"></div>
+      <div class="separation center-block"></div>
       <div class="ctrlParental">
-        <label for="">Gérer le contrôle parental : </label>
-        <input type="checkbox" data-toggle="toggle">
+        <div class="titre">Gérer le contrôle parental : </div>
+        <div class="onoffswitch droite center-block">
+          <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+          <label class="onoffswitch-label" for="myonoffswitch">
+            <span class="onoffswitch-inner"></span>
+            <span class="onoffswitch-switch"></span>
+          </label>
+        </div>
       </div>
+      <div class="separation center-block"></div>
 
 
     </div>

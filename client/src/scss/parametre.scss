@@ -1,5 +1,4 @@
 /********************************** PARAMETRE *****************************************/
-
 .full-width{
     float:left;
     width:100%;
@@ -9,7 +8,6 @@
 .imgCircle{
   border-radius: 50%;
 }
-
 
 .form-control{
   padding: 10px 50px;
@@ -22,65 +20,64 @@
 }
 
 .Profile-input-file{
-
-    width:180px;
-    left:33%;
-    position: absolute;
-    top: 0px;
-    z-index: 999;
-    opacity: 0 !important;
+  width:180px;
+  left:33%;
+  position: absolute;
+  top: 0px;
+  z-index: 999;
+  opacity: 0 !important;
 }
 
 .bg-form{
-    float:left;
-    width:100%;
-    position:relative;
-    margin-top: 0px;
-    margin-bottom: 18px;
+  float:left;
+  width:100%;
+  position:relative;
+  margin-top: 0px;
+  margin-bottom: 18px;
 }
 
 .custom-form{
   float: left;
   width:100%;
   border-radius: 20px;
-  box-shadow: 0 0 16px #fff;
+  // box-shadow: 0 0 16px #fff;
   overflow: hidden;
 }
 .img-section{
-    float: left;width: 100%;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    background: $rose;
-    position: relative;
+  float: left;width: 100%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background: $rose;
+  position: relative;
 }
 .img-section h4{
   color:#fff;
 }
 #PicUpload{
-    color: #ffffff;
-    width: 180px;
-    background: rgba(255,255,255,0.4);
-    padding: 100px;
-    position: absolute;
-    left: 30.5%;
-    border-radius: 50%;
-    display: none;
-    top:15px;
+  color: #ffffff;
+  width: 180px;
+  // background: rgba(255,255,255,0.4);
+  padding: 100px;
+  position: absolute;
+  left: 30.5%;
+  border-radius: 50%;
+  display: none;
+  top:15px;
 }
 .camera{
-    font-size: 50px;
-    color: #333;
+  font-size: 50px;
+  color: #333;
 }
 .custom-btn{
-    margin-top: 15px;
-    border-radius: 0px;
-    padding: 10px 60px;
-    margin-bottom: 15px;
+  margin-top: 15px;
+  border-radius: 0px;
+  padding: 10px 60px;
+  margin-bottom: 15px;
 }
 
 .color{
-    color:black;
-    margin-bottom: 20px;
+  color:black;
+  margin-bottom: 20px;
 }
 
 .blocParam, .custom-form {
@@ -88,14 +85,69 @@
   padding: 0;
 }
 
+
 /********************************** FILTRE *****************************************/
 .separation {
   border: 2px solid $rose;
-  width: 100%;
+  width: 60%;
   display:flex;
 }
 
 .ctrlParental {
-  margin-left: 100px;
   margin-top: 50px;
+  margin-bottom: 50px;
+  // display: inline-flex;
+  text-align: center;
+}
+
+.titre {
+  margin-bottom: 8px;
+}
+
+
+.onoffswitch {
+
+    position: relative; width: 106px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #FFFFFF; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 38px; padding: 0; line-height: 38px;
+    font-size: 16px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 16px;
+    background-color: $rose; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 16px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 10px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 64px;
+    border: 2px solid #FFFFFF; border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
 }
