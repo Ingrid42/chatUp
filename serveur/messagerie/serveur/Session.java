@@ -20,6 +20,11 @@ import javax.websocket.CloseReason;
 import javax.websocket.EndpointConfig;
 import javax.websocket.MessageHandler;
 import javax.websocket.RemoteEndpoint;
+import javax.websocket.server.ServerEndpoint;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnClose;
+import javax.websocket.OnOpen;
 
 /*
 public class Session implements Runnable {
@@ -155,10 +160,13 @@ public class Session implements Runnable {
 */
 
 // https://www.jmdoudoux.fr/java/dej/chap-api_websocket.htm#api_websocket-6
-public class Session extends Endpoint {
+
+@ServerEndpoint("/")
+public class Session {
 	private static Application application;
-	private Utilisateur utilisateur ;
+	private Utilisateur utilisateur;
 	private RequestDecoder decodeur;
+	private javax.websocket.Session session;
 
 	public Session() {
 		super();
@@ -180,18 +188,26 @@ public class Session extends Endpoint {
 		return this.utilisateur ;
 	}
 
-	@Override
-	public void onOpen(javax.websocket.Session session, EndpointConfig config) {
-
+	@OnOpen
+	public void onOpen(javax.websocket.Session session) {
+		System.out.println("IL EST OPEN");
+		this.session = session;
 	}
 
-	@Override
-	public void onClose(javax.websocket.Session session, CloseReason closeReason) {
-
+	@OnMessage
+	public void onMessage(String message) throws IOException {
+		System.out.println("ON A UN PUTAIN DE MESSAGE MAGLE : ");
+		System.out.println(message);
+		this.session.getBasicRemote().sendText("Hey magle");
 	}
 
-	@Override
-	public void onError(javax.websocket.Session session, Throwable throwable) {
+	@OnClose
+	public void onClose(javax.websocket.Session session) {
+		System.out.println("Et... Il est parti :'(");
+	}
+
+	@OnError
+	public void onError(Throwable throwable) {
 
 	}
 

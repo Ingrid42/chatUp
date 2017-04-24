@@ -1,20 +1,21 @@
 package messagerie.serveur;
 
 import messagerie.serveur.utilisateur.Utilisateur;
-import java.io.IOException;
-import java.io.Serializable;
+
 import java.net.UnknownHostException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 import javax.websocket.DeploymentException;
 import org.glassfish.tyrus.server.Server;
@@ -24,7 +25,7 @@ public class Serveur {
 	private Server serveur;
 	private Application application;
 
-	public Serveur(){
+	public Serveur() {
 		System.out.println("Initializing server...");
 		if (initialize("serveur.save"))
 			System.out.println("Server restored to its previous state!");
@@ -92,14 +93,40 @@ public class Serveur {
 		this.serveur.start();
 	}
 
+	public void stop() throws DeploymentException {
+		
+		this.serveur.stop();
+	}
+
 	public static void main(String[] args) {
+		Serveur serveur = null;
+
 		try {
-			Serveur serveur = new Serveur();
-			serveur.start();	
+			serveur = new Serveur();
+			serveur.start();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Appuyez sur une touche pour stopper le serveur...");
+			reader.readLine();
 		}
 		catch (DeploymentException de) {
 			de.printStackTrace();
 		}
-		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if (serveur != null) {
+					serveur.enregistrer("sauvegarde.save");
+					serveur.stop();
+				}
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+			catch (DeploymentException de) {
+				de.printStackTrace();
+			}
+		}
 	}
 }
