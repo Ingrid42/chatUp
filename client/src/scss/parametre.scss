@@ -89,7 +89,7 @@
 /********************************** FILTRE *****************************************/
 .separation {
   border: 2px solid $rose;
-  width: 60%;
+  width: 63%;
   display:flex;
 }
 
@@ -151,3 +151,23 @@
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px;
 }
+
+.zoneTexte {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.label-file {
+    cursor: pointer;
+    color: #00b1ca;
+    font-weight: bold;
+}
+.label-file:hover {
+    color: #25a5c4;
+}
+
+// et on masque le input
+// .input-file {
+//     display: none;
+// }

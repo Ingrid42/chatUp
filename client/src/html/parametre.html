@@ -8,8 +8,11 @@
             <div class="img-section">
               <img src="/img/Logo.png" class="imgCircle" alt="Profile picture">
               <div class="col-lg-12">
-                <h4 class="text-right col-lg-12"><span class="fa fa-edit"></span> Editer photo</h4>
-                <input type="file" id="image-input" onclick='changeImage()' class="form-control form-input Profile-input-file">
+                <!-- <h4 class="text-right col-lg-12"><span class="fa fa-edit"></span> Editer photo</h4>
+                <input type="file" id="image-input" onclick='changeImage()' class="form-control form-input Profile-input-file"> -->
+
+                <label for="file" class="label-file">Choisir une image</label>
+                <input id="file" class="input-file" type="file">
               </div>
             </div>
           </div>
@@ -36,7 +39,23 @@
         </div>
       </div>
       <div class="separation center-block"></div>
-
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 center-block">
+        <form class="zoneTexte">
+          <div class="form-group">
+            <label for="exampleTextarea">Liste des mots interdits</label>
+            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="separation center-block"></div>
+      <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 center-block">
+        <form class="center-block">
+          <div class="zoneTexte">
+            <label for="exampleTextarea">Liste des contacts bloqués</label>
+            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+          </div>
+        </form>
+      </div>
 
     </div>
   </div>
