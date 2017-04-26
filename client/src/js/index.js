@@ -1,29 +1,44 @@
 import Session from "./classes/Session.js"
 import Toolbox from "./classes/Toolbox.js";
 
-const init = function () {
+const init = function() {
   var toolbox = new Toolbox();
-  var session = new Session('localhost:4000');
+  // var session = new Session('localhost:4000');
   toolbox.importFiles();
 
-
-  emit(session)
-
+  onEvent();
   // session.initConnexion();
 }
 
-function emit(session) {
-  var message = {
-    "message": "yolo"
-  }
-  console.log("Sleep");
-  sleep(2000);
-  session.emit("test", message);
-}
+const onEvent = function() {
+  $('#image-input').on('click', function() {
 
-function sleep( sleepDuration ){
-    var now = new Date().getTime();
-    while(new Date().getTime() < now + sleepDuration){ /* do nothing */ }
+  });
+
+  $('#switchToConnexion').on('click', function() {
+    $('#pageConnexion').addClass('hidden');
+    $('#navbar').addClass('hidden');
+    $('#pageMessagerie').removeClass('hidden');
+    $('#navbarMessagerie').removeClass('hidden');
+  });
+
+  $('#switchToInscription').on('click', function() {
+    $('#pageConnexion').addClass('hidden');
+    $('#pageInscription').removeClass('hidden');
+  });
+
+  $('.switchToParameters').on('click', function() {
+    $('#pageMessagerie').addClass('hidden');
+    $('#navbarMessagerie').addClass('hidden')
+    $('#pageParametres').removeClass('hidden');
+  });
+
+  $('.switchToContacts').on('click', function() {
+    $('#pageMessagerie').addClass('hidden');
+    $('#navbarMessagerie').addClass('hidden')
+    $('#pageContacts').removeClass('hidden');
+    $('#navbarContacts').removeClass('hidden');
+  });
 }
 
 $(document).ready(init)
