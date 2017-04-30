@@ -28,7 +28,7 @@ const onEvent = function() {
   $('#switchToInscription').on('click', function() {
     hide();
     $('#pageInscription').removeClass('hidden');
-    $('#navbarInscription').removeClass('hidden');
+    $('#navbarAccueil').removeClass('hidden');
   });
 
   $('.switchToParameters').on('click', function() {
