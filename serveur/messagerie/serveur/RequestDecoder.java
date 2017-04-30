@@ -19,7 +19,15 @@ import java.util.ArrayList;
 
 import messagerie.serveur.filtre.*;
 
+/**
+ * Cette classe est chargée de décoder les requêtes
+ * envoyées par le client au seveur.
+ */
 public class RequestDecoder {
+	/**
+	 * Méthodes de la classe pour simplifier l'appel aux différentes méthodes selon l'action 
+	 * indiquée dans la requête.
+	 */
 	private final static Method[] methods;
 
 	static {
@@ -27,16 +35,25 @@ public class RequestDecoder {
 		methods = requestDecoder.getMethods();
 	}
 
+	/**
+	 * Session d'où provient la requête
+	 */
 	private Session session ;
 
-
+	/**
+	 * Crée un objet RequestDecoder permettant de décoder des requêtes JSON.
+	 * @param session Session d'où provient les requêtes.
+	 */
 	public RequestDecoder(Session session){
 		this.session = session ;
 	}
 
+	/**
+	 * Transforme une chaine de caractère en objet JSON et appelle l'action associée.
+	 * @param json Chaine à décoder
+	 */
 	public void decode(String json){
 		JSONParser parser = new JSONParser() ;
-		String parsingString = "{\"1\" : \"2\", \"3\" : 4}";
 
 		try{
 			JSONObject obj =  (JSONObject)parser.parse(json);
@@ -52,6 +69,10 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Connexion d'un utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void connexion(JSONObject content) {
 		try{
 			String pseudo = (String)content.get("pseudonyme");
@@ -72,6 +93,10 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Création d'un utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void creer_utilisateur(JSONObject content) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 		try{
@@ -95,6 +120,10 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Création d'une discussion.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void creer_discussion(JSONObject content) {
 		Discussion discussion = null;
 		List<Utilisateur> utilisateurs = new ArrayList<>();
@@ -127,6 +156,10 @@ public class RequestDecoder {
 
 	}
 
+	/**
+	 * Envoi d'un message aux utilisateurs d'une discussion.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void envoyer_message(JSONObject content) {
 		// on ne peut envoyer le msg que si la session a un utilisateur
 		if (this.session.getUtilisateur() != null){
@@ -136,7 +169,7 @@ public class RequestDecoder {
 				Message message = new Message(this.session.getUtilisateur(), texteMessage, id) ;
 				((DiscussionTexte)Session.getApplication().getDiscussion(id)).addMessage(message) ;
 				// TODO envoi de l'etat
-				// TODO envoi de message au utilisateurs
+				// TODO envoi de message aux utilisateurs
 				// TODO traitement si message non envoyé
 			} catch (Exception pe) {
 				pe.printStackTrace();
@@ -145,10 +178,18 @@ public class RequestDecoder {
 		// TODO si celui qui envoie le message n'existe pas
 	}
 
+	/**
+	 * Envoi de la liste des utilisateurs au client.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void get_utilisateurs(JSONObject content) {
 		// TODO encode tous les utilisateurs
 	}
 
+	/**
+	 * Modification du profil d'un utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void modifier_profil(JSONObject content) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 
@@ -174,9 +215,17 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Envoi du profil d'un utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void get_profil(JSONObject content) {
 	}
 
+	/**
+	 * Filtrer un mot pour l'utilisateur correspondant à la session active.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void add_filtre_mot(JSONObject content) {
 		if (this.session.getUtilisateur() != null){
 			try{
@@ -196,6 +245,10 @@ public class RequestDecoder {
 		// TODO si celui qui envoie le message n'existe pas
 	}
 
+	/**
+	 * Filtrer un utilisateur pour l'utilisateur correspondant à la session active.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void add_filtre_utilisateur(JSONObject content) {
 		try {
 			String mdp = (String)content.get("mot_de_passe_parental");
@@ -214,6 +267,10 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Activer le contrôle parental.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void set_controle_parental(JSONObject content) {
 		try {
 			String mdp = (String)content.get("mot_de_passe_parental");
@@ -231,6 +288,10 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Désactiver le contrôle parental.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void desactiver_controle_parental(JSONObject content) {
 		try {
 			String mdp = (String)content.get("mot_de_passe_parental");

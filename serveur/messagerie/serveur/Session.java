@@ -26,174 +26,89 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnClose;
 import javax.websocket.OnOpen;
 
-/*
-public class Session implements Runnable {
-	private Socket socketClient;
-	private static Application application;
-	private Utilisateur utilisateur ;
-	private RequestDecoder decodeur;
-	private InputStream input;
-	private OutputStream output;
-
-	public Session(Socket socketClient) {
-		this.socketClient = socketClient;
-		this.decodeur = new RequestDecoder(this);
-		
-		System.out.println("Session créée");
-	}
-
-	public boolean handshake() throws IOException, NoSuchAlgorithmException, Exception {
-		String inputMessage = new Scanner(input, "UTF-8").useDelimiter("\\r\\n\\r\\n").next();
-		System.out.println(inputMessage);
-		Matcher get = Pattern.compile("^GET").matcher(inputMessage);
-
-		if (get.find()) {
-			Matcher match = Pattern.compile("Sec-WebSocket-Key: (.*)").matcher(inputMessage);
-    		match.find();
-   			byte[] response = ("HTTP/1.1 101 Switching Protocols\r\n"
-								+ "Connection: Upgrade\r\n"
-								+ "Upgrade: websocket\r\n"
-								+ "Sec-WebSocket-Accept: "
-								+ DatatypeConverter.printBase64Binary(
-										MessageDigest
-										.getInstance("SHA-1")
-										.digest((match.group(1) + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
-												.getBytes("UTF-8"))
-								)
-								+ "\r\n\r\n")
-								.getBytes("UTF-8");
-
-    		output.write(response, 0, response.length);
-			System.out.println("Connexion établie!");
-		}
-		else {
-			System.err.println("ERREUR : Connexion non établie!");
-			return false;
-		}
-		return true;
-	}
-
-	public void recevoirMessage() throws IOException {
-		System.out.println("Attente d'un message");
-		String inputMessage = new Scanner(input, "UTF-8").next();
-		System.out.println(inputMessage);
-		//decoderMessageEntree(inputMessage);
-		//System.out.println(inputMessage);
-		System.out.println("Message reçu!");
-		// String inputMessage = new Scanner(input, "UTF-8").useDelimiter("\\r\\n\\r\\n").next();
-
-		// if (get.find()) {
-		// 	this.decodeur.decode(inputMessage);
-		// }
-		// else {
-
-		// }
-	}
-
-	public synchronized void envoyerMessage(String message) {
-		// output.write(message);
-		// output.flush();
-	}
-
-	public Socket getSocketClient() { return this.socketClient; }
-
-	public boolean fermer() {
-		try {
-			this.input.close();
-			this.output.close();
-			this.socketClient.close();
-
-			this.input = null;
-			this.output = null;
-			this.socketClient = null;
-
-			if (this.utilisateur instanceof UtilisateurHumain)
-				((UtilisateurHumain)this.utilisateur).setSession(null);
-			System.out.println("Serveur correctement fermé.");
-		}
-		catch (IOException ioe) {
-			return false;
-		}
-		return true;
-	}
-	public void run(){
-		try {
-			this.input = this.socketClient.getInputStream();
-			this.output = this.socketClient.getOutputStream();
-
-			this.handshake();
-
-			// do {
-			// 	this.recevoirMessage();
-			// } while ( this.socketClient != null);
-			// String message = "Salut";
-			// this.output.write(message.getBytes(), 0, message.length());
-		}
-		catch (IOException ioe) {
-			System.err.println("ERREUR : Impossible de recevoir un message de la part de ce client.");
-			ioe.printStackTrace();
-			System.err.println("Fermeture de la session.");
-		}
-		catch (Exception e) {
-			System.err.println("ERREUR : Une erreur inattendue est survenue!");
-			e.printStackTrace();
-			System.err.println("Fermeture de la session.");
-		}
-		finally {
-			this.fermer();
-		}
-	}
-
-	public static void setApplication(Application application) {
-		Session.application = application;
-	}
-
-	public static Application getApplication() { return Session.application; }
-
-	public void setUtilisateur(Utilisateur utilisateur){
-		this.utilisateur = utilisateur ;
-	}
-	public Utilisateur getUtilisateur(){
-		return this.utilisateur ;
-	}
-}
-*/
 
 // https://www.jmdoudoux.fr/java/dej/chap-api_websocket.htm#api_websocket-6
 
+/**
+ * Classe chargée de représenter la session d'un client. Elle est donc chargée
+ * des communications client/serveur.
+ */
 @ServerEndpoint("/")
 public class Session {
+	/**
+	 * Instance d'application utilisée pour requêter les données.
+	 */
 	private static Application application;
+
+	/**
+	 * Utilisateur propriétaire de la session.
+	 */
 	private Utilisateur utilisateur;
+
+	/**
+	 * Décodeur utilisé pour la gestion des requêtes client.
+	 */
 	private RequestDecoder decodeur;
+
+	/**
+	 * Objet session (WebSocket)
+	 */
 	private javax.websocket.Session session;
 
+	/**
+	 * Création d'une session.
+	 */
 	public Session() {
 		super();
 		this.decodeur = new RequestDecoder(this);
 		System.out.println("Session créée");
 	}
 
+	/**
+	 * Définir l'instance d'Application utilisée par toutes les sessions.
+	 * @param applciation Instance d'Application utilisée.
+	 */
 	public static void setApplication(Application application) {
 		Session.application = application;
 	}
 
+	/**
+	 * Récupérer l'instance d'Application utilisée pour toutes les sessions.
+	 * @return Instance d'Application utilisée.
+	 */
 	public static Application getApplication() { return Session.application; }
 
+	/**
+	 * Définir l'utilisateur propriétaire de cette session.
+	 * @param utilisateur Utilisateur propriétaire de la session.
+	 */
 	public void setUtilisateur(Utilisateur utilisateur){
 		this.utilisateur = utilisateur ;
 	}
 
+	/**
+	 * Récupérer l'utilisateur propriétaire de la session.
+	 * @return Utilisateur propriétaire de la session.
+	 */
 	public Utilisateur getUtilisateur(){
 		return this.utilisateur ;
 	}
 
+	/**
+	 * Action effectué à l'ouverture de la session.
+	 * @param session -
+	 */
 	@OnOpen
 	public void onOpen(javax.websocket.Session session) {
 		System.out.println("IL EST OPEN");
 		this.session = session;
 	}
 
+	/**
+	 * Action effectué lors de la réception d'un message de la part d'un client.
+	 * @param message Message reçu.
+	 * @throws IOException Si la réponse au message n'a pas pu être envoyée.
+	 */
 	@OnMessage
 	public void onMessage(String message) throws IOException {
 		System.out.println("ON A UN PUTAIN DE MESSAGE MAGLE : ");
@@ -201,16 +116,28 @@ public class Session {
 		this.session.getBasicRemote().sendText("Hey magle");
 	}
 
+	/**
+	 * Action effectué à la fermeture de la session.
+	 * @param session -
+	 */
 	@OnClose
 	public void onClose(javax.websocket.Session session) {
 		System.out.println("Et... Il est parti :'(");
 	}
 
+	/**
+	 * Action effectué si une erreur survient entre le client et le serveur.
+	 * @param throwable Erreur qui est survenue.
+	 */
 	@OnError
 	public void onError(Throwable throwable) {
 
 	}
 
+	/**
+	 * Action effectué à la fermeture de la session.
+	 * @return Vrai si la session est correctement fermée. Faux sinon.
+	 */
 	public boolean fermer() {
 		// try {
 		// 	this.input.close();
