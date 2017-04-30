@@ -48,6 +48,13 @@ const onEvent = function() {
     $('#pageMessagerie').removeClass('hidden');
     $('#navbarMessagerie').removeClass('hidden');
   });
+
+  $('.messagerie').on('click', function() {
+    console.log("swicth to conv");
+    hide();
+    $('#pageConversation').removeClass('hidden');
+    $('#navbarConversation').removeClass('hidden');
+  })
 }
 
 $(document).ready(init)
