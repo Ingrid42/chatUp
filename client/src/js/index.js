@@ -10,34 +10,43 @@ const init = function() {
   // session.initConnexion();
 }
 
+const hide = function() {
+  $('div[id^="page"]').addClass('hidden');
+  $('div[id^="navbar"]').addClass('hidden');
+}
+
 const onEvent = function() {
   $('#image-input').on('click', function() {
-
   });
 
   $('#switchToConnexion').on('click', function() {
-    $('#pageConnexion').addClass('hidden');
-    $('#navbar').addClass('hidden');
+    hide();
     $('#pageMessagerie').removeClass('hidden');
     $('#navbarMessagerie').removeClass('hidden');
   });
 
   $('#switchToInscription').on('click', function() {
-    $('#pageConnexion').addClass('hidden');
+    hide();
     $('#pageInscription').removeClass('hidden');
+    $('#navbarInscription').removeClass('hidden');
   });
 
   $('.switchToParameters').on('click', function() {
-    $('#pageMessagerie').addClass('hidden');
-    $('#navbarMessagerie').addClass('hidden')
+    hide();
     $('#pageParametres').removeClass('hidden');
+    $('#navbarParametres').removeClass('hidden');
   });
 
   $('.switchToContacts').on('click', function() {
-    $('#pageMessagerie').addClass('hidden');
-    $('#navbarMessagerie').addClass('hidden')
+    hide();
     $('#pageContacts').removeClass('hidden');
     $('#navbarContacts').removeClass('hidden');
+  });
+
+  $('.switchToMessagerie').on('click', function() {
+    hide();
+    $('#pageMessagerie').removeClass('hidden');
+    $('#navbarMessagerie').removeClass('hidden');
   });
 }
 
