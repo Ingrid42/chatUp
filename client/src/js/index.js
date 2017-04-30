@@ -49,10 +49,17 @@ const onEvent = function() {
     $('#navbarMessagerie').removeClass('hidden');
   });
 
-  $('.messagerie').on('click', function() {
+  $('.switchToConversationTextuelle').on('click', function() {
     console.log("swicth to conv");
     hide();
     $('#pageConversation').removeClass('hidden');
+    $('#navbarConversation').removeClass('hidden');
+  });
+
+  $('.switchToConversationAudio').on('click', function() {
+    console.log("swicth to conv");
+    hide();
+    $('#pageConversationAudio').removeClass('hidden');
     $('#navbarConversation').removeClass('hidden');
   })
 }
