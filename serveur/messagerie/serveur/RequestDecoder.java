@@ -41,11 +41,17 @@ public class RequestDecoder {
 	private Session session ;
 
 	/**
+	 * Encodeur pour les réponses.
+	 */
+	private ResponseEncoder encodeur;
+
+	/**
 	 * Crée un objet RequestDecoder permettant de décoder des requêtes JSON.
 	 * @param session Session d'où provient les requêtes.
 	 */
 	public RequestDecoder(Session session){
 		this.session = session ;
+		this.encodeur = new ResponseEncoder(session);
 	}
 
 	/**
@@ -81,12 +87,20 @@ public class RequestDecoder {
 			if(utilisateur.verifieMotDePasse(mdp)){
 				this.session.setUtilisateur(utilisateur);
 				utilisateur.setSession(this.session);
+				this.session.envoyerMessage(
+					this.encodeur.connexionResponse(true)
+				);
 			}
-			// TODO else: traitement si mot de passe eroné
+			else 
+				this.session.envoyerMessage(
+					this.encodeur.connexionResponse(false)
+				);
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			// TODO Traitement pour renvoyer l'erreur au client si on ne trouve pas le client
+			this.session.envoyerMessage(
+				this.encodeur.connexionResponse(false)
+			);
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
@@ -109,11 +123,15 @@ public class RequestDecoder {
 				format.parse((String)content.get("date_naissance"))
 			));
 
-			// TODO Traitement pour renvoyer la confirmation au client (creer_utilisateur_reponse)
+			this.session.envoyerMessage(
+				this.encodeur.creerUtilisateurResponse(true)
+			);
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			// TODO Traitement pour renvoyer l'erreur au client
+			this.session.envoyerMessage(
+				this.encodeur.creerUtilisateurResponse(false)
+			);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -135,8 +153,9 @@ public class RequestDecoder {
 
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
-
-			// TODO Traitement pour renvoyer la confirmation au client (creer_discussion_reponse)
+			this.session.envoyerMessage(
+				this.encodeur.creeDiscussionResponse(true)
+			);
 		}
 		catch (DiscussionException de) {
 			System.err.println(de.getMessage());
@@ -144,11 +163,15 @@ public class RequestDecoder {
 				for (Utilisateur u : utilisateurs)
 					u.removeDiscussion(discussion);
 			}
-			// TODO Traitement pour renvoyer l'erreur au client
+			this.session.envoyerMessage(
+				this.encodeur.creeDiscussionResponse(false)
+			);
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			// TODO Traitement pour renvoyer l'erreur au client
+			this.session.envoyerMessage(
+				this.encodeur.creeDiscussionResponse(false)
+			);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -183,7 +206,9 @@ public class RequestDecoder {
 	 * @param content Requête reçue par le serveur.
 	 */
 	public void get_utilisateurs(JSONObject content) {
-		// TODO encode tous les utilisateurs
+		this.session.envoyerMessage(
+			this.encodeur.getUtilisateursResponse();
+		);
 	}
 
 	/**

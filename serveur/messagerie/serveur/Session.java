@@ -100,20 +100,20 @@ public class Session {
 	 */
 	@OnOpen
 	public void onOpen(javax.websocket.Session session) {
-		System.out.println("IL EST OPEN");
+		System.out.println("Ouverture d'une session.");
 		this.session = session;
 	}
 
 	/**
 	 * Action effectué lors de la réception d'un message de la part d'un client.
 	 * @param message Message reçu.
-	 * @throws IOException Si la réponse au message n'a pas pu être envoyée.
 	 */
 	@OnMessage
-	public void onMessage(String message) throws IOException {
-		System.out.println("ON A UN PUTAIN DE MESSAGE MAGLE : ");
+	public void onMessage(String message) {
+		System.out.println("Réception d'un message...");
 		System.out.println(message);
-		this.session.getBasicRemote().sendText("Hey magle");
+		System.out.println("\nTraitement...");
+		this.decodeur.decode(message);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class Session {
 	 */
 	@OnClose
 	public void onClose(javax.websocket.Session session) {
-		System.out.println("Et... Il est parti :'(");
+		System.out.println("Fermeture d'une session.");
 	}
 
 	/**
@@ -132,6 +132,15 @@ public class Session {
 	@OnError
 	public void onError(Throwable throwable) {
 
+	}
+
+	/**
+	 * Envoyer un message au client propriétaire de cette session.
+	 * @param message Message à envoyer.
+	 * @throws IOException Se dééclenche si le message n'a pas pu être envoyé.
+	 */
+	public void envoyerMessage(String message) throws IOException {
+		this.session.getBasicRemote().sendText(message);
 	}
 
 	/**
