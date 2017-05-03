@@ -121,35 +121,34 @@ public class RequestDecoder {
 	 * @param content Requête reçue par le serveur.
 	 */
 	public void creer_utilisateur(JSONObject content) {
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
 		try{
-			Session.getApplication().ajouterUtilisateur(new UtilisateurHumain(
-				(String)content.get("pseudonyme"),
-				(String)content.get("nom"),
-				(String)content.get("prenom"),
-				(String)content.get("mot_de_passe"),
-				(String)content.get("adresse_mel"),
-				format.parse((String)content.get("date_naissance"))
-			));
+			UtilisateurHumain utilisateur = new UtilisateurHumain(
+												(String)content.get("pseudonyme"),
+												(String)content.get("nom"),
+												(String)content.get("prenom"),
+												(String)content.get("mot_de_passe"),
+												(String)content.get("adresse_mel"),
+												format.parse((String)content.get("date_naissance"))
+											);
+
+			Session.getApplication().ajouterUtilisateur(utilisateur);
 
 			this.session.envoyerMessage(
-				this.encodeur.creerUtilisateurResponse(true)
+				this.encodeur.creerUtilisateurResponse(true, utilisateur)
 			);
 		}
-		catch (UtilisateurException ue) {
-			System.err.println(ue.getMessage());
+		catch (Exception e) {
+			System.err.println(e.getMessage());
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.creerUtilisateurResponse(false)
+					this.encodeur.creerUtilisateurResponse(false, null)
 				);
 			}
 			catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -172,36 +171,17 @@ public class RequestDecoder {
 				this.encodeur.creerDiscussionResponse(true)
 			);
 		}
-		catch (DiscussionException de) {
-			System.err.println(de.getMessage());
-			if (discussion != null) {
-				for (Utilisateur u : utilisateurs)
-					u.removeDiscussion(discussion);
-			}
-
-			try {
-				this.session.envoyerMessage(
-					this.encodeur.creerDiscussionResponse(false)
-				);
-			}
-			catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
-		}
-		catch (UtilisateurException ue) {
-			System.err.println(ue.getMessage());
-
-			try {
-				this.session.envoyerMessage(
-					this.encodeur.creerDiscussionResponse(false)
-				);
-			}
-			catch (IOException ioe) {
-				ioe.printStackTrace();
-			}
-		}
 		catch (Exception e) {
-			e.printStackTrace();
+			System.err.println(e.getMessage());
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.creerDiscussionResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
 
 	}
@@ -212,42 +192,40 @@ public class RequestDecoder {
 	 */
 	public void envoyer_message(JSONObject content) {
 		// On ne peut envoyer le msg que si la session a un utilisateur
-		if (this.session.getUtilisateur() != null){
-			try{
-				int id = Integer.parseInt((String)content.get("id_discussion"));
-				String texteMessage = (String)content.get("message");
-				Message message = new Message(this.session.getUtilisateur(), texteMessage, id) ;
+		try{
+			if (this.session.getUtilisateur() == null)
+				throw new UtilisateurException("Impossible d'envoyer un message pour un utilisateur non connecté.");
 
-				DiscussionTexte discussion = ((DiscussionTexte)Session.getApplication().getDiscussion(id));
-				if (discussion.possedeUtilisateur(this.session.getUtilisateur()))
-					discussion.addMessage(message);
-				else
-					throw new DiscussionException("L'utilisateur n'est pas dans la conversation. Impossible d'envoyer un message.");
+			int id = Integer.parseInt((String)content.get("id_discussion"));
+			String texteMessage = (String)content.get("message");
+			Message message = new Message(this.session.getUtilisateur(), texteMessage, id) ;
 
-				
-				// TODO envoi de l'etat
-				// TODO envoi de message aux utilisateurs
-				for (Utilisateur u : discussion.getUtilisateurs())
-					if (!u.equals(discussion.getUtilisateurs()))
-						u.envoyerMessage(this.encodeur.encoderMessage(message));
+			DiscussionTexte discussion = ((DiscussionTexte)Session.getApplication().getDiscussion(id));
+			if (discussion.possedeUtilisateur(this.session.getUtilisateur()))
+				discussion.addMessage(message);
+			else
+				throw new DiscussionException("L'utilisateur n'est pas dans la conversation. Impossible d'envoyer un message.");
+
+			
+			this.session.envoyerMessage(
+				this.encodeur.envoyerMessageResponse(true)
+			);
+			for (Utilisateur u : discussion.getUtilisateurs())
+				if (!u.equals(discussion.getUtilisateurs()))
+					u.envoyerMessage(this.encodeur.encoderMessage(message));
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.envoyerMessageResponse(false)
+				);
 			}
-			catch(DiscussionException de) {
-				System.err.println(de.getMessage());
-
-				try {
-					this.session.envoyerMessage(
-						this.encodeur.envoyerMessageResponse(false)
-					);
-				}
-				catch (IOException ioe) {
-					ioe.printStackTrace();
-				}
-			} 
-			catch (Exception pe) {
-				pe.printStackTrace();
+			catch (IOException ioe) {
+				ioe.printStackTrace();
 			}
 		}
-		// TODO si celui qui envoie le message n'existe pas
 	}
 
 	/**
@@ -357,9 +335,24 @@ public class RequestDecoder {
 			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 			if (utilisateur.verifieMotDePasseParental(null)) {
 				utilisateur.setMotDePasseParental(mdp);
-				// TODO envoyer la confirmation
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.setControleParentalResponse(true)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+			}else{
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.setControleParentalResponse(false)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			}
-			// TODO else: Renvoyer une erreur
 			
 		}
 		catch (Exception pe) {
@@ -378,9 +371,26 @@ public class RequestDecoder {
 			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 			if (utilisateur.verifieMotDePasseParental(mdp)){
 				utilisateur.setMotDePasseParental(null);
-				// TODO Envoyer la confirmation
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.desactiverControleParentalResponse(true)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			}
-			// TODO else: Renvoyer une erreur
+			else{
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.desactiverControleParentalResponse(false)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+				
+			}
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
