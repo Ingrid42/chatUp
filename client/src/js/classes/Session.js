@@ -1,13 +1,15 @@
 import Utilisateur from './Utilisateur.js';
+import Navigateur from './Navigateur.js';
 require('socket.io-client');
 
 class Session {
-  constructor(IPServer) {
+  constructor(IPServer, navigateur) {
     this.socket = new WebSocket(IPServer);
     this.socket.onopen = () => console.log('Connexion au serveur ok');
     this.socket.onmessage = (response) => this.message(response);
     this.utilisateur = null;
     this.utilisateurs = [];
+    this.navigateur = navigateur;
   }
 
   send(message) {
@@ -64,16 +66,16 @@ class Session {
       data.date_naissance,
       data.photo
     );
-    
-    console.log(this.utilisateur);
   }
 
    _onConnexion(data) {
     this._initUtilisateur(data);
+    this.navigateur.switchToMessagerie();
   }
 
   _onCreerUtilisateur(data) {
     this._initUtilisateur(data);
+    this.navigateur.switchToConnexion();
   }
 
   _onCreerDiscussion(data) {
