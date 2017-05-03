@@ -154,7 +154,7 @@ public class ResponseEncoder {
 		Map<String, Object> jsonContenuMap = new HashMap<>();
 		
 		jsonObjMap.put("action", "message") ;
-		
+		jsonObjMap.put("etat", new Boolean(true)) ;
 		jsonContenuMap.put("id_discussion", msg.getId()) ;
 		jsonContenuMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme()) ;
 		jsonContenuMap.put("message", msg.getMessage()) ;
@@ -176,7 +176,7 @@ public class ResponseEncoder {
 		Map<String, Object> jsonContenuMap = new HashMap<>();
 		
 		jsonObjMap.put("action", "get_utilisateurs_reponse") ;
-
+		jsonObjMap.put("etat", new Boolean(true)) ;
 		// TODO ne pas intégrer les utilisateurs qui sont filtrés (Contrôle parental)
 		JSONArray array_users = new JSONArray();
 		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
