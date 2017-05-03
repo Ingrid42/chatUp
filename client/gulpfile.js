@@ -68,7 +68,15 @@ gulp.task('copyIMG', function() {
 
 
 gulp.task('copyHTMLDependancies', function() {
-  return gulp.src(source + '/html/*.html')
+  gulp.src(source + '/html/*.html')
+  .pipe(gulp.dest(destination + '/html'))
+  .pipe(plugins.livereload());
+
+  gulp.src(source + '/html/*/*.html')
+  .pipe(gulp.dest(destination + '/html'))
+  .pipe(plugins.livereload());
+
+  gulp.src(source + '/html/*/*/*.html')
   .pipe(gulp.dest(destination + '/html'))
   .pipe(plugins.livereload());
 });
@@ -89,6 +97,8 @@ gulp.task('watch', function () {
   gulp.watch(source + '/scss/*.scss', ['compileCSS', 'minifyCSS']);
   gulp.watch(source + '/index.html', ['copyHTML']);
   gulp.watch(source + '/html/*.html', ['copyHTMLDependancies']);
+  gulp.watch(source + '/html/*/*.html', ['copyHTMLDependancies']);
+  gulp.watch(source + '/html/*/*/*.html', ['copyHTMLDependancies']);
   gulp.watch(source + '/js/*.js', ['webpack']);
   gulp.watch(source + '/js/classes/*.js', ['webpack']);
 });
