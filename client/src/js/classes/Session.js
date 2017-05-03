@@ -5,13 +5,9 @@ class Session {
   constructor(IPServer) {
     this.socket = new WebSocket(IPServer);
     this.socket.onopen = () => {
-      console.log("Connexion au serveur ok");
+      console.log('Connexion au serveur ok');
     }
     this.socket.onmessage = this.message;
-    /*this.socket.addEventListener('emit', () => {
-      this.socket.send("test");
-    });*/
-
     this.utilisateur = null;
     this.utilisateurs = [];
   }
@@ -20,23 +16,42 @@ class Session {
     this.socket.send(JSON.stringify(message));
   }
 
-  message(evt) {
-    console.log(evt);
-  }
+  message(response) {
+    console.log(response);
+    switch (response.action) {
+      case 'connexion_reponse':
+        this._onConnexion(response);
+        break;
+      case 'creer_utilisateur_reponse':
+        this._onCreerUtilisateur(response);
+        break;
+      case 'creer_discussion_reponse':
+        this._onCreerDiscussion(response);
+        break;
+      case 'envoyer_message_reponse':
+        this._onEnvoyerMessage(response);
+        break;
+      case 'get_utilisateurs_reponse':
+        this._onGetUtilisateurs(response);
+        break;
+      case 'modifier_profil_reponse':
+        this._onModifierProfil(response);
+        break;
+      case 'get_profil_reponse':
+        this._onGetProfil(response);
+        break;
+      case 'add_filtre_mot_reponse':
+        this._onAddFiltreMot(response);
+        break;
+      case 'add_filtre_utilisateur_reponse':
+        this._onAddFiltreUtilisateur(response);
+        break;
+      case 'set_controle_parental_reponse':
+        this._onSetControleParental(response);
+        break;
+      default:
 
-  initConnexion() {
-      /*this.socket.on('connexion_reponse', this._onConnexion);
-      this.socket.on('creer_utilisateur_reponse', this._onCreerUtilisateur);
-      this.socket.on('creer_discussion_reponse', this._onCreerDiscussion);
-      this.socket.on('envoyer_message_reponse', this._onEnvoyerMessage);
-      this.socket.on('get_utilisateurs_reponse', this._onGetUtilisateurs);
-      this.socket.on('modifier_profil_reponse', this._onModifierProfil);
-      this.socket.on('get_profil_reponse', this._onGetProfil);
-      this.socket.on('add_filtre_mot_reponse', this._onAddFiltreMot);
-      this.socket.on('add_filtre_utilisateur_reponse', this._onAddFiltreUtilisateur);
-      this.socket.on('set_controle_parental_reponse', this._onSetControleParental);*/
-      console.log("Connection OK");
-
+    }
   }
 
   _initUtilisateur(data) {
@@ -51,7 +66,7 @@ class Session {
     console.log(this.utilisateur);
   }
 
-  _onConnexions(data) {
+  _onConnexion(data) {
     this._initUtilisateur(data);
   }
 
