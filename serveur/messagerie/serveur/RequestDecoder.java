@@ -228,14 +228,20 @@ public class RequestDecoder {
 				// TODO envoi de l'etat
 				// TODO envoi de message aux utilisateurs
 				for (Utilisateur u : discussion.getUtilisateurs())
-					u.envoyerMessage(this.encodeur.encoderMessage(message));
-
-				// TODO traitement si message non envoyé
+					if (!u.equals(discussion.getUtilisateurs()))
+						u.envoyerMessage(this.encodeur.encoderMessage(message));
 			}
 			catch(DiscussionException de) {
 				System.err.println(de.getMessage());
 
-
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.envoyerMessageResponse(false)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			} 
 			catch (Exception pe) {
 				pe.printStackTrace();
