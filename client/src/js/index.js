@@ -3,11 +3,8 @@ import Toolbox from "./classes/Toolbox.js";
 
 const init = function() {
   var toolbox = new Toolbox();
-  // var session = new Session('localhost:4000');
+  var session = new Session('ws://localhost:4000');
   toolbox.importFiles();
-
-  onEvent();
-  // session.initConnexion();
 }
 
 const hide = function() {

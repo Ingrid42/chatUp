@@ -17,9 +17,19 @@ import java.util.Locale;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.io.IOException;
+
 import messagerie.serveur.filtre.*;
 
+/**
+ * Cette classe est chargée de décoder les requêtes
+ * envoyées par le client au seveur.
+ */
 public class RequestDecoder {
+	/**
+	 * Méthodes de la classe pour simplifier l'appel aux différentes méthodes selon l'action 
+	 * indiquée dans la requête.
+	 */
 	private final static Method[] methods;
 
 	static {
@@ -27,16 +37,31 @@ public class RequestDecoder {
 		methods = requestDecoder.getMethods();
 	}
 
+	/**
+	 * Session d'où provient la requête
+	 */
 	private Session session ;
 
+	/**
+	 * Encodeur pour les réponses.
+	 */
+	private ResponseEncoder encodeur;
 
+	/**
+	 * Crée un objet RequestDecoder permettant de décoder des requêtes JSON.
+	 * @param session Session d'où provient les requêtes.
+	 */
 	public RequestDecoder(Session session){
 		this.session = session ;
+		this.encodeur = new ResponseEncoder(session);
 	}
 
+	/**
+	 * Transforme une chaine de caractère en objet JSON et appelle l'action associée.
+	 * @param json Chaine à décoder
+	 */
 	public void decode(String json){
 		JSONParser parser = new JSONParser() ;
-		String parsingString = "{\"1\" : \"2\", \"3\" : 4}";
 
 		try{
 			JSONObject obj =  (JSONObject)parser.parse(json);
@@ -52,6 +77,10 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Connexion d'un utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void connexion(JSONObject content) {
 		try{
 			String pseudo = (String)content.get("pseudonyme");
@@ -60,18 +89,37 @@ public class RequestDecoder {
 			if(utilisateur.verifieMotDePasse(mdp)){
 				this.session.setUtilisateur(utilisateur);
 				utilisateur.setSession(this.session);
+				this.session.envoyerMessage(
+					this.encodeur.connexionResponse(true)
+				);
 			}
-			// TODO else: traitement si mot de passe eroné
+			else 
+				this.session.envoyerMessage(
+					this.encodeur.connexionResponse(false)
+				);
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			// TODO Traitement pour renvoyer l'erreur au client si on ne trouve pas le client
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.connexionResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+			
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
 		}
 	}
 
+	/**
+	 * Création d'un utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void creer_utilisateur(JSONObject content) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 		try{
@@ -84,17 +132,31 @@ public class RequestDecoder {
 				format.parse((String)content.get("date_naissance"))
 			));
 
-			// TODO Traitement pour renvoyer la confirmation au client (creer_utilisateur_reponse)
+			this.session.envoyerMessage(
+				this.encodeur.creerUtilisateurResponse(true)
+			);
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			// TODO Traitement pour renvoyer l'erreur au client
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.creerUtilisateurResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Création d'une discussion.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void creer_discussion(JSONObject content) {
 		Discussion discussion = null;
 		List<Utilisateur> utilisateurs = new ArrayList<>();
@@ -106,8 +168,9 @@ public class RequestDecoder {
 
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
-
-			// TODO Traitement pour renvoyer la confirmation au client (creer_discussion_reponse)
+			this.session.envoyerMessage(
+				this.encodeur.creerDiscussionResponse(true)
+			);
 		}
 		catch (DiscussionException de) {
 			System.err.println(de.getMessage());
@@ -115,11 +178,27 @@ public class RequestDecoder {
 				for (Utilisateur u : utilisateurs)
 					u.removeDiscussion(discussion);
 			}
-			// TODO Traitement pour renvoyer l'erreur au client
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.creerDiscussionResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			// TODO Traitement pour renvoyer l'erreur au client
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.creerDiscussionResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -127,16 +206,20 @@ public class RequestDecoder {
 
 	}
 
+	/**
+	 * Envoi d'un message aux utilisateurs d'une discussion.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void envoyer_message(JSONObject content) {
 		// on ne peut envoyer le msg que si la session a un utilisateur
 		if (this.session.getUtilisateur() != null){
 			try{
 				int id = Integer.parseInt((String)content.get("id_discussion"));
 				String texteMessage = (String)content.get("message");
-				Message message = new Message(this.session.getUtilisateur(), texteMessage ) ;
+				Message message = new Message(this.session.getUtilisateur(), texteMessage, id) ;
 				((DiscussionTexte)Session.getApplication().getDiscussion(id)).addMessage(message) ;
 				// TODO envoi de l'etat
-				// TODO envoi de message au utilisateurs
+				// TODO envoi de message aux utilisateurs
 				// TODO traitement si message non envoyé
 			} catch (Exception pe) {
 				pe.printStackTrace();
@@ -145,10 +228,25 @@ public class RequestDecoder {
 		// TODO si celui qui envoie le message n'existe pas
 	}
 
+	/**
+	 * Envoi de la liste des utilisateurs au client.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void get_utilisateurs(JSONObject content) {
-		// TODO encode tous les utilisateurs
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getUtilisateursResponse()
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 
+	/**
+	 * Modification du profil d'un utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void modifier_profil(JSONObject content) {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 
@@ -174,9 +272,17 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Envoi du profil d'un utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void get_profil(JSONObject content) {
 	}
 
+	/**
+	 * Filtrer un mot pour l'utilisateur correspondant à la session active.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void add_filtre_mot(JSONObject content) {
 		if (this.session.getUtilisateur() != null){
 			try{
@@ -196,6 +302,10 @@ public class RequestDecoder {
 		// TODO si celui qui envoie le message n'existe pas
 	}
 
+	/**
+	 * Filtrer un utilisateur pour l'utilisateur correspondant à la session active.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void add_filtre_utilisateur(JSONObject content) {
 		try {
 			String mdp = (String)content.get("mot_de_passe_parental");
@@ -214,6 +324,10 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Activer le contrôle parental.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void set_controle_parental(JSONObject content) {
 		try {
 			String mdp = (String)content.get("mot_de_passe_parental");
@@ -231,6 +345,10 @@ public class RequestDecoder {
 		}
 	}
 
+	/**
+	 * Désactiver le contrôle parental.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void desactiver_controle_parental(JSONObject content) {
 		try {
 			String mdp = (String)content.get("mot_de_passe_parental");
