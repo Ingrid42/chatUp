@@ -17,6 +17,8 @@ import java.util.Locale;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.io.IOException;
+
 import messagerie.serveur.filtre.*;
 
 /**
@@ -98,9 +100,16 @@ public class RequestDecoder {
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			this.session.envoyerMessage(
-				this.encodeur.connexionResponse(false)
-			);
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.connexionResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+			
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
@@ -129,9 +138,15 @@ public class RequestDecoder {
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			this.session.envoyerMessage(
-				this.encodeur.creerUtilisateurResponse(false)
-			);
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.creerUtilisateurResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -154,7 +169,7 @@ public class RequestDecoder {
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
 			this.session.envoyerMessage(
-				this.encodeur.creeDiscussionResponse(true)
+				this.encodeur.creerDiscussionResponse(true)
 			);
 		}
 		catch (DiscussionException de) {
@@ -163,15 +178,27 @@ public class RequestDecoder {
 				for (Utilisateur u : utilisateurs)
 					u.removeDiscussion(discussion);
 			}
-			this.session.envoyerMessage(
-				this.encodeur.creeDiscussionResponse(false)
-			);
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.creerDiscussionResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
-			this.session.envoyerMessage(
-				this.encodeur.creeDiscussionResponse(false)
-			);
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.creerDiscussionResponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -206,9 +233,14 @@ public class RequestDecoder {
 	 * @param content Requête reçue par le serveur.
 	 */
 	public void get_utilisateurs(JSONObject content) {
-		this.session.envoyerMessage(
-			this.encodeur.getUtilisateursResponse();
-		);
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getUtilisateursResponse()
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 
 	/**
