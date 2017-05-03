@@ -1,5 +1,6 @@
 // Messages Client -> Serveur
 
+@fait
 {
 	"action" : "connexion",
 	"contenu" : {
@@ -7,7 +8,7 @@
 		"mot_de_passe" : "motDePasse"
 	}
 }
-
+@fait
 {
 	"action" : "creer_utilisateur",
 	"contenu" : {
@@ -19,14 +20,14 @@
 		"date_naissance" : "1996-01-01"
 	}
 }
-
+@fait
 {
 	"action" : "creer_discussion",
 	"contenu" : {
 		"utilisateurs" : ["Orionis", "TheLegend27", "Nistof"]
 	}
 }
-
+@fait
 {
 	"action" : "envoyer_message",
 	"contenu" : {
@@ -34,12 +35,12 @@
 		"message" : "Hello! It's me!"
 	}
 }
-
+@fait
 {
 	"action" : "get_utilisateurs",
 	"contenu" : {}
 }
-
+@a finir
 {
 	"action" : "modifier_profil",
 	"contenu" : {
@@ -56,7 +57,7 @@
 	"contenu" : {}
 }
 
-
+@fait
 {
 	"action" : "add_filtre_mot",
 	"contenu" : {
@@ -64,7 +65,7 @@
 		"mot" : "fuck"
 	}
 }
-
+@fait
 {
 	"action" : "add_filtre_utilisateur",
 	"contenu" : {
@@ -73,14 +74,14 @@
 	}
 }
 
-
+@fait
 {
 	"action" : "set_controle_parental",
 	"contenu" : {
 		"mot_de_passe_parental" : "motDePasse",
 	}
 }
-
+@fait
 {
 	"action" : "desactiver_controle_parental",
 	"contenu" : {
@@ -91,7 +92,7 @@
 
 
 // Messages Serveur -> Client
-
+@fait
 {
 	"action" : "connexion_reponse" ,
 	"etat" : true,
@@ -104,7 +105,7 @@
 	}
 }
 
-
+@fait
 {
 	"action" : "creer_utilisateur_reponse" ,
 	"etat" : true
@@ -117,7 +118,7 @@
 	}
 }
 
-
+@a finir
 {
 	"action" : "creer_discussion_reponse" ,
 	"etat" : true,
@@ -125,24 +126,30 @@
 		"id" : 123
 	}
 }
-
+@fait
 {
 	"action" : "envoyer_message_reponse" ,
 	"etat" : true
 }
-
+@fait
 {
 	"action" : "desactiver_controle_parental_reponse" ,
 	"etat" : true
 }
-
+@fait
 {
 	"action" : "set_controle_parental_reponse" ,
 	"etat" : true
 }
-
+@fait
 {
 	"action" : "add_filtre_utilisateur_reponse" ,
+	"etat" : true
+}
+
+@fait
+{
+	"action" : "add_filtre_mot_reponse" ,
 	"etat" : true
 }
 

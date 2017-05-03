@@ -102,8 +102,10 @@ public class ResponseEncoder {
 	 * @param state Un état vrai indique que la création a été effectuée.
 	 * @return Réponse mise en forme au format JSON.
 	 */
-	public String creerDiscussionReponse(boolean state){
-		return new JSONObject(stateReponse(state, "creer_discussion_reponse" )).toString();
+	public String creerDiscussionReponse(boolean state, long id){
+		Map<String, Object> jsonObjMap = stateReponse(state, "creer_discussion_reponse" );
+		jsonObjMap.put("id", new Long(id));
+		return new JSONObject(jsonObjMap).toString();
 	}
 
 	/**
