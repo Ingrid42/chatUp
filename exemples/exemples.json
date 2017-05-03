@@ -93,7 +93,63 @@
 // Messages Serveur -> Client
 
 {
-	"action" : "utilisateurs",
+	"action" : "connexion_reponse" ,
+	"etat" : true
+	"contenu" : {
+		"pseudonyme" : "pseudo",
+		"nom" : "nom",
+		"prenom" : "prenom", 
+		"adresse_mel" : "mail",
+		"date_naissance" : "2017-05-02"
+	}
+}
+
+
+{
+	"action" : "creer_utilisateur_reponse" ,
+	"etat" : true
+	"contenu" : {
+		"pseudonyme" : "pseudo",
+		"nom" : "nom",
+		"prenom" : "prenom", 
+		"adresse_mel" : "mail",
+		"date_naissance" : "2017-05-02"
+	}
+}
+
+
+{
+	"action" : "creer_discussion_reponse" ,
+	"etat" : true,
+	"contenu" : {
+		"id" : 123
+	}
+}
+
+{
+	"action" : "envoyer_message_reponse" ,
+	"etat" : true
+}
+
+{
+	"action" : "desactiver_controle_parental_reponse" ,
+	"etat" : true
+}
+
+{
+	"action" : "set_controle_parental_reponse" ,
+	"etat" : true
+}
+
+{
+	"action" : "add_filtre_utilisateur_reponse" ,
+	"etat" : true
+}
+
+
+{
+	"action" : "get_utilisateurs_reponse",
+	"etat" : true,
 	"contenu" : {
 		"utilisateurs" : [
 			{
@@ -111,7 +167,8 @@
 }
 
 {
-	"action" : "discussion",
+	"action" : "get_discussion",
+	"etat" : true,
 	"contenu" : {
 		"id_discussion" : 123,
 		"messages" : [
@@ -128,7 +185,8 @@
 }
 
 {
-	"action" : "message",
+	"action" : "message_reponse",
+	"etat" : true,
 	"contenu" : {
 		"id_discussion" : 123,
 		"pseudonyme" : "Orionis",
@@ -137,7 +195,8 @@
 }
 
 {
-	"action" : "profil",
+	"action" : "get_profil_reponse",
+	"etat" : true,
 	"contenu" : {
 		"nom" : "Zerhouni",
 		"prenom" : "Youssef",
@@ -147,14 +206,16 @@
 }
 
 {
-	"action" : "get_filtres_utilisateur",
+	"action" : "get_filtres_utilisateur_reponse",
+	"etat" : true,
 	"contenu" : {
 		"utilisateurs" : ["PussySlayer69", "Pierrick"]
 	}
 }
 
 {
-	"action" : "get_filtres_mot",
+	"action" : "get_filtres_mot_reponse",
+	"etat" : true,
 	"contenu" : {
 		"mots" : ["Fuck", "kill yourself", "kys"]
 	}
