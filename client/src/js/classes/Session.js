@@ -20,34 +20,34 @@ class Session {
     console.log(response);
     switch (response.action) {
       case 'connexion_reponse':
-        this._onConnexion(response);
+        this._onConnexion(response.contenu);
         break;
       case 'creer_utilisateur_reponse':
-        this._onCreerUtilisateur(response);
+        this._onCreerUtilisateur(response.contenu);
         break;
       case 'creer_discussion_reponse':
-        this._onCreerDiscussion(response);
+        this._onCreerDiscussion(response.contenu);
         break;
       case 'envoyer_message_reponse':
-        this._onEnvoyerMessage(response);
+        this._onEnvoyerMessage(response.contenu);
         break;
       case 'get_utilisateurs_reponse':
-        this._onGetUtilisateurs(response);
+        this._onGetUtilisateurs(response.contenu);
         break;
       case 'modifier_profil_reponse':
-        this._onModifierProfil(response);
+        this._onModifierProfil(response.contenu);
         break;
       case 'get_profil_reponse':
-        this._onGetProfil(response);
+        this._onGetProfil(response.contenu);
         break;
       case 'add_filtre_mot_reponse':
-        this._onAddFiltreMot(response);
+        this._onAddFiltreMot(response.contenu);
         break;
       case 'add_filtre_utilisateur_reponse':
-        this._onAddFiltreUtilisateur(response);
+        this._onAddFiltreUtilisateur(response.contenu);
         break;
       case 'set_controle_parental_reponse':
-        this._onSetControleParental(response);
+        this._onSetControleParental(response.contenu);
         break;
       default:
 
