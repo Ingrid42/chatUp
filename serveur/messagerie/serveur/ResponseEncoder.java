@@ -112,6 +112,14 @@ public class ResponseEncoder {
 	public String desactiverControleParentalResponse(boolean state){
 		return userStateResponse(state, "desactiver_controle_parental_response").toString() ;
 	}
+	/**
+	 * Réponse au client afin de l'informer si l'activation du controle parentale est faite.
+	 * @param state Un état vrai indique que le message a été envoyé.
+	 * @return Réponse mise en forme au format JSON.
+	 */	
+	public String setControleParentalResponse(boolean state){
+		return userStateResponse(state, "set_controle_parental_response").toString() ;
+	}
 
 	/**
 	 * Encodage d'un message à un client.

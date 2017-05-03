@@ -357,9 +357,24 @@ public class RequestDecoder {
 			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 			if (utilisateur.verifieMotDePasseParental(null)) {
 				utilisateur.setMotDePasseParental(mdp);
-				// TODO envoyer la confirmation
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.setControleParentalResponse(true)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+			}else{
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.setControleParentalResponse(false)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			}
-			// TODO else: Renvoyer une erreur
 			
 		}
 		catch (Exception pe) {
@@ -380,14 +395,24 @@ public class RequestDecoder {
 				utilisateur.setMotDePasseParental(null);
 				try {
 					this.session.envoyerMessage(
-						this.encodeur.connexionResponse(true)
+						this.encodeur.desactiverControleParentalResponse(true)
 					);
 				}
 				catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
 			}
-			// TODO else: Renvoyer une erreur
+			else{
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.desactiverControleParentalResponse(false)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+				
+			}
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
