@@ -90,12 +90,12 @@ public class RequestDecoder {
 				this.session.setUtilisateur(utilisateur);
 				utilisateur.setSession(this.session);
 				this.session.envoyerMessage(
-					this.encodeur.connexionResponse(true)
+					this.encodeur.connexionReponse(true)
 				);
 			}
 			else 
 				this.session.envoyerMessage(
-					this.encodeur.connexionResponse(false)
+					this.encodeur.connexionReponse(false)
 				);
 		}
 		catch (UtilisateurException ue) {
@@ -103,7 +103,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.connexionResponse(false)
+					this.encodeur.connexionReponse(false)
 				);
 			}
 			catch (IOException ioe) {
@@ -135,7 +135,7 @@ public class RequestDecoder {
 			Session.getApplication().ajouterUtilisateur(utilisateur);
 
 			this.session.envoyerMessage(
-				this.encodeur.creerUtilisateurResponse(true, utilisateur)
+				this.encodeur.creerUtilisateurReponse(true, utilisateur)
 			);
 		}
 		catch (Exception e) {
@@ -143,7 +143,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.creerUtilisateurResponse(false, null)
+					this.encodeur.creerUtilisateurReponse(false, null)
 				);
 			}
 			catch (IOException ioe) {
@@ -168,7 +168,7 @@ public class RequestDecoder {
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
 			this.session.envoyerMessage(
-				this.encodeur.creerDiscussionResponse(true)
+				this.encodeur.creerDiscussionReponse(true)
 			);
 		}
 		catch (Exception e) {
@@ -176,7 +176,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.creerDiscussionResponse(false)
+					this.encodeur.creerDiscussionReponse(false)
 				);
 			}
 			catch (IOException ioe) {
@@ -208,7 +208,7 @@ public class RequestDecoder {
 
 			
 			this.session.envoyerMessage(
-				this.encodeur.envoyerMessageResponse(true)
+				this.encodeur.envoyerMessageReponse(true)
 			);
 			for (Utilisateur u : discussion.getUtilisateurs())
 				if (!u.equals(discussion.getUtilisateurs()))
@@ -219,7 +219,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.envoyerMessageResponse(false)
+					this.encodeur.envoyerMessageReponse(false)
 				);
 			}
 			catch (IOException ioe) {
@@ -235,7 +235,7 @@ public class RequestDecoder {
 	public void get_utilisateurs(JSONObject content) {
 		try {
 			this.session.envoyerMessage(
-				this.encodeur.getUtilisateursResponse()
+				this.encodeur.getUtilisateursReponse()
 			);
 		}
 		catch (IOException ioe) {
@@ -317,7 +317,7 @@ public class RequestDecoder {
 				utilisateur.ajouterFiltre(new FiltreUtilisateur(utilisateurBanni));
 				try {
 					this.session.envoyerMessage(
-						this.encodeur.addFiltreUtilisateurResponse(true)
+						this.encodeur.addFiltreUtilisateurReponse(true)
 					);
 				}
 				catch (IOException ioe) {
@@ -326,7 +326,7 @@ public class RequestDecoder {
 			}else{
 				try {
 					this.session.envoyerMessage(
-						this.encodeur.addFiltreUtilisateurResponse(false)
+						this.encodeur.addFiltreUtilisateurReponse(false)
 						);
 					}
 					catch (IOException ioe) {
@@ -352,7 +352,7 @@ public class RequestDecoder {
 				utilisateur.setMotDePasseParental(mdp);
 				try {
 					this.session.envoyerMessage(
-						this.encodeur.setControleParentalResponse(true)
+						this.encodeur.setControleParentalReponse(true)
 					);
 				}
 				catch (IOException ioe) {
@@ -361,7 +361,7 @@ public class RequestDecoder {
 			}else{
 				try {
 					this.session.envoyerMessage(
-						this.encodeur.setControleParentalResponse(false)
+						this.encodeur.setControleParentalReponse(false)
 					);
 				}
 				catch (IOException ioe) {
@@ -388,7 +388,7 @@ public class RequestDecoder {
 				utilisateur.setMotDePasseParental(null);
 				try {
 					this.session.envoyerMessage(
-						this.encodeur.desactiverControleParentalResponse(true)
+						this.encodeur.desactiverControleParentalReponse(true)
 					);
 				}
 				catch (IOException ioe) {
@@ -398,7 +398,7 @@ public class RequestDecoder {
 			else{
 				try {
 					this.session.envoyerMessage(
-						this.encodeur.desactiverControleParentalResponse(false)
+						this.encodeur.desactiverControleParentalReponse(false)
 					);
 				}
 				catch (IOException ioe) {
