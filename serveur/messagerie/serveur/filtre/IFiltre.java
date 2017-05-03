@@ -13,6 +13,12 @@ public interface IFiltre extends Serializable {
 	 */
 	public boolean compare(Object objet);
 
+	/**
+	 * Permet de récupérer l'objet filtré.
+	 * @return Objet filtré.
+	 */
+	public Object getObject();
+
 	@Override
 	public boolean equals(Object objet);
 
