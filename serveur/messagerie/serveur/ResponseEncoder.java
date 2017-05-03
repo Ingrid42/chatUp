@@ -2,9 +2,13 @@ package messagerie.serveur;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import messagerie.serveur.utilisateur.*;
 import messagerie.serveur.discussion.*;
@@ -62,7 +66,9 @@ public class ResponseEncoder {
 			jsonContentMap.put("nom", user.getNom());
 			jsonContentMap.put("prenom", user.getPrenom());
 			jsonContentMap.put("adresse_mel", user.getAdresseMel());
-			jsonContentMap.put("date_naissance", user.getDateNaissance());
+
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+			jsonContentMap.put("date_naissance", format.format(user.getDateNaissance()));
 		}
 		
 		JSONObject content = new JSONObject(jsonContentMap);
@@ -88,7 +94,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient les informations de l'utilisateur qui a été créé.
 	 */
 	public String creerUtilisateurResponse(boolean state, UtilisateurHumain user){
-		return userStateResponse(state, "connexion_response", user).toString() ;
+		return userStateResponse(state, "creer_utilisateur_response", user).toString() ;
 	}
 
 	/**

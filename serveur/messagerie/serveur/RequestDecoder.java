@@ -83,7 +83,7 @@ public class RequestDecoder {
 	 */
 	public void connexion(JSONObject content) {
 		try{
-			String pseudo = (String)content.get("pseudonyme");
+			String pseudo = ((String)content.get("pseudonyme")).toUpperCase();
 			String mdp = (String)content.get("mot_de_passe");
 			UtilisateurHumain utilisateur = (UtilisateurHumain)Session.getApplication().getUtilisateur(pseudo);
 			if(utilisateur.verifieMotDePasse(mdp)){
@@ -124,7 +124,7 @@ public class RequestDecoder {
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
 		try{
 			UtilisateurHumain utilisateur = new UtilisateurHumain(
-												(String)content.get("pseudonyme"),
+												((String)content.get("pseudonyme")).toUpperCase(),
 												(String)content.get("nom"),
 												(String)content.get("prenom"),
 												(String)content.get("mot_de_passe"),
