@@ -372,7 +372,14 @@ public class RequestDecoder {
 			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 			if (utilisateur.verifieMotDePasseParental(mdp)){
 				utilisateur.setMotDePasseParental(null);
-				// TODO Envoyer la confirmation
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.connexionResponse(true)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			}
 			// TODO else: Renvoyer une erreur
 		}
