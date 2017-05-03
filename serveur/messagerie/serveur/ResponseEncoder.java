@@ -172,22 +172,28 @@ public class ResponseEncoder {
 	 */
 	@SuppressWarnings("unchecked")
 	public String getUtilisateursReponse(){
-		JSONObject obj = new JSONObject();
-		obj.put("action", "utilisateurs") ;
+		Map<String, Object> jsonObjMap = new HashMap<>();
+		Map<String, Object> jsonContenuMap = new HashMap<>();
+		
+		jsonObjMap.put("action", "get_utilisateurs_reponse") ;
 
 		// TODO ne pas intégrer les utilisateurs qui sont filtrés (Contrôle parental)
 		JSONArray array_users = new JSONArray();
 		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
-			JSONObject userObject = new JSONObject();
-			userObject.put("pseudonyme", u.getPseudonyme());
-			userObject.put("nom", u.getNom());
-			userObject.put("prenom", u.getPrenom());
+			Map<String, Object> jsonUserObjectMap = new HashMap<>();
 
+			jsonUserObjectMap.put("pseudonyme", u.getPseudonyme());
+			jsonUserObjectMap.put("nom", u.getNom());
+			jsonUserObjectMap.put("prenom", u.getPrenom());
+
+			JSONObject userObject = new JSONObject();
 			array_users.add(userObject) ;
 		}
-		JSONObject content = new JSONObject();
-		content.put("utilisateurs", array_users);
-		obj.put("contenu", content);
+
+		jsonContenuMap.put("utilisateurs", array_users);
+		JSONObject contenu = new JSONObject(jsonContenuMap);
+		jsonObjMap.put("contenu", contenu);
+		JSONObject obj = new JSONObject(jsonObjMap);
 
 		return obj.toString() ;
 	}
