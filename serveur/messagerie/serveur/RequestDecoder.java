@@ -292,14 +292,37 @@ public class RequestDecoder {
 				UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 				if (utilisateur.verifieMotDePasseParental(mdp)){
 					utilisateur.ajouterFiltre(new FiltreMot(mot));
-					// TODO Traitement pour renvoyer la confirmation au client
+					try {
+						this.session.envoyerMessage(
+							this.encodeur.addFiltreMotReponse(true)
+						);
+					}
+					catch (IOException ioe) {
+						ioe.printStackTrace();
+					}
+				}else{
+					try {
+						this.session.envoyerMessage(
+							this.encodeur.addFiltreMotReponse(false)
+						);
+					}
+					catch (IOException ioe) {
+						ioe.printStackTrace();
+					}
 				}
-				// TODO else: Traitement si bad mdp parental
 			} catch (Exception pe) {
 				pe.printStackTrace();
 			}
+		}else{
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.addFiltreMotReponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
-		// TODO si celui qui envoie le message n'existe pas
 	}
 
 	/**
@@ -328,10 +351,10 @@ public class RequestDecoder {
 					this.session.envoyerMessage(
 						this.encodeur.addFiltreUtilisateurReponse(false)
 						);
-					}
-					catch (IOException ioe) {
-						ioe.printStackTrace();
-					}
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			}
 		}
 		catch (Exception pe) {

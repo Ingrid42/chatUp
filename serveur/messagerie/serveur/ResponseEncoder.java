@@ -143,7 +143,16 @@ public class ResponseEncoder {
 	}
 	
 	
-
+	
+	/**
+	 * Réponse au client afin de l'informer si l'ajout du filtre a bien été effectué.
+	 * @param state Un état vrai indique que le message a été envoyé.
+	 * @return Réponse mise en forme au format JSON.
+	 */	
+	public String addFiltreMotReponse(boolean state){
+		return new JSONObject(stateReponse(state, "add_filtre_mot_reponse")).toString() ;
+	}
+	
 	/**
 	 * Encodage d'un message à un client.
 	 * @param msg Message à encoder.
@@ -153,7 +162,7 @@ public class ResponseEncoder {
 		Map<String, Object> jsonObjMap = new HashMap<>();
 		Map<String, Object> jsonContenuMap = new HashMap<>();
 		
-		jsonObjMap.put("action", "message") ;
+		jsonObjMap.put("action", "message_reponse") ;
 		jsonObjMap.put("etat", new Boolean(true)) ;
 		jsonContenuMap.put("id_discussion", msg.getId()) ;
 		jsonContenuMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme()) ;
