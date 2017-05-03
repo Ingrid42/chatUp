@@ -180,6 +180,11 @@ public class ResponseEncoder {
 		// TODO ne pas intégrer les utilisateurs qui sont filtrés (Contrôle parental)
 		JSONArray array_users = new JSONArray();
 		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
+			if (this.session.getUtilisateur() != null && 
+				this.session.getUtilisateur() instanceof UtilisateurHumain &&
+				!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u))
+				continue;
+
 			Map<String, Object> jsonUserObjectMap = new HashMap<>();
 
 			jsonUserObjectMap.put("pseudonyme", u.getPseudonyme());
