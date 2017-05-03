@@ -120,6 +120,18 @@ public class ResponseEncoder {
 	public String setControleParentalResponse(boolean state){
 		return userStateResponse(state, "set_controle_parental_response").toString() ;
 	}
+	
+	
+	/**
+	 * Réponse au client afin de l'informer si l'ajout du filtre a bien été effectué.
+	 * @param state Un état vrai indique que le message a été envoyé.
+	 * @return Réponse mise en forme au format JSON.
+	 */	
+	public String addFiltreUtilisateurResponse(boolean state){
+		return stateResponse(state, "add_filtre_utilisateur_response").toString() ;
+	}
+	
+	
 
 	/**
 	 * Encodage d'un message à un client.

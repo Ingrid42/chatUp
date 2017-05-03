@@ -337,9 +337,24 @@ public class RequestDecoder {
 			if (utilisateur.verifieMotDePasseParental(mdp)){
 				Utilisateur utilisateurBanni = Session.getApplication().getUtilisateur(nom);
 				utilisateur.ajouterFiltre(new FiltreUtilisateur(utilisateurBanni));
-				// TODO Traitement pour renvoyer la confirmation au client
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.addFiltreUtilisateurResponse(true)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+			}else{
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.addFiltreUtilisateurResponse(false)
+						);
+					}
+					catch (IOException ioe) {
+						ioe.printStackTrace();
+					}
 			}
-			// TODO else: Traitement si bad mdp parental
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
