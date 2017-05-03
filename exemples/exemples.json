@@ -9,14 +9,14 @@
 }
 
 {
-	"action" : "creer",
+	"action" : "creer_utilisateur",
 	"contenu" : {
 		"pseudonyme" : "Orionis",
 		"mot_de_passe" : "motDePasse",
 		"nom" : "Zerhouni",
 		"prenom" : "Youssef",
 		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",
-		"date_naissance" : "28/01/1996"
+		"date_naissance" : "1996-01-01"
 	}
 }
 
@@ -94,7 +94,7 @@
 
 {
 	"action" : "connexion_reponse" ,
-	"etat" : true
+	"etat" : true,
 	"contenu" : {
 		"pseudonyme" : "pseudo",
 		"nom" : "nom",
