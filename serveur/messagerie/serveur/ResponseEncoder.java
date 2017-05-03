@@ -97,7 +97,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */
 	public String creerDiscussionResponse(boolean state){
-		return stateResponse(state, "creer_discussion_response" ).toString();
+		return new JSONObject(stateResponse(state, "creer_discussion_response" )).toString();
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */
 	public String envoyerMessageResponse(boolean state){
-		return stateResponse(state, "envoyer_message_response" ).toString();
+		return new JSONObject(stateResponse(state, "envoyer_message_response" )).toString();
 	}
 	
 	/**
@@ -115,7 +115,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */	
 	public String desactiverControleParentalResponse(boolean state){
-		return userStateResponse(state, "desactiver_controle_parental_response").toString() ;
+		return new JSONObject(stateResponse(state, "desactiver_controle_parental_response")).toString() ;
 	}
 	/**
 	 * Réponse au client afin de l'informer si l'activation du controle parentale est faite.
@@ -123,7 +123,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */	
 	public String setControleParentalResponse(boolean state){
-		return userStateResponse(state, "set_controle_parental_response").toString() ;
+		return new JSONObject(stateResponse(state, "set_controle_parental_response")).toString() ;
 	}
 
 	/**
