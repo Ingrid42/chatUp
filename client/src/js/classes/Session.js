@@ -18,7 +18,7 @@ class Session {
     var responseJSON = JSON.parse(response.data);
     if (responseJSON.etat !== false) {
       switch (responseJSON.action) {
-        case 'connexion_response':
+        case 'connexion_reponse':
           this._onConnexion(responseJSON.contenu);
           break;
         case 'creer_utilisateur_reponse':
@@ -50,18 +50,21 @@ class Session {
           break;
       }
     }
+    else {
+      console.log("Error from server");
+    }
   }
 
   _initUtilisateur(data) {
-    console.log(data);
     this.utilisateur = new Utilisateur(
       data.pseudonyme,
       data.nom,
       data.prenom,
-      data.adresseMel,
-      data.dateNaissance,
+      data.adresse_mel,
+      data.date_naissance,
       data.photo
     );
+    
     console.log(this.utilisateur);
   }
 
