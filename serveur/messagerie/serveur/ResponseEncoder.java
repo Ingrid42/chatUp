@@ -1,8 +1,11 @@
 package messagerie.serveur;
 
+import java.util.Map;
+import java.util.HashMap;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
+
 import messagerie.serveur.utilisateur.*;
 import messagerie.serveur.discussion.*;
 
@@ -32,12 +35,12 @@ public class ResponseEncoder {
 	 * @param action Nom de la réponse pour que le client soit capable de détecter à quelle requête elle est associée.
 	 * @return Objet JSON contenant les informations "action" et "etat"
 	 */
-	@SuppressWarnings("unchecked")
-	public JSONObject stateResponse(boolean state, String action){
-		JSONObject obj = new JSONObject();
-		obj.put("action", action) ;
-		obj.put("etat", new Boolean(state)) ;
-		return obj ;
+	public Map<String, Object> stateResponse(boolean state, String action){
+		Map<String, Object> jsonObjMap = new HashMap<>();
+		jsonObjMap.put("action", action);
+		jsonObjMap.put("etat", new Boolean(state));
+		
+		return jsonObjMap;
 	}
 
 	/**
@@ -46,26 +49,27 @@ public class ResponseEncoder {
 	 * pour les envoyer.
 	 * @param state Etat effectué ou non de la requête. Vrai indique une requête réussie.
 	 * @param action Nom de la réponse pour que le client soit capable de détecter à quelle requête elle est associée.
-	 * @return Objet JSON représentant les informations de l'utilisateur
+	 * @param user Utilisateur qui doit être utilisé pour la réponse.
+	 * @return Objet JSON représentant les informations de l'utilisateur.
 	 */
-	@SuppressWarnings("unchecked")
-	public JSONObject userStateResponse(boolean state, String action){
-		JSONObject obj_etat = stateResponse(state, action );
-		JSONObject content = new JSONObject();
+	public JSONObject userStateResponse(boolean state, String action, UtilisateurHumain user){
+		Map<String, Object> jsonObjEtatMap = stateResponse(state, action );
+		Map<String, Object> jsonContentMap = new HashMap<>();
 
 		// On ne met pas les informations du client dans la requête si elle a un état échoué.
 		if (state) {
-			UtilisateurHumain user = (UtilisateurHumain)this.session.getUtilisateur() ;
-			content.put("pseudonyme", user.getPseudonyme());
-			content.put("nom", user.getNom());
-			content.put("prenom", user.getPrenom());
-			content.put("adresse_mel", user.getAdresseMel());
-			content.put("date_naissance", user.getDateNaissance());
+			jsonContentMap.put("pseudonyme", user.getPseudonyme());
+			jsonContentMap.put("nom", user.getNom());
+			jsonContentMap.put("prenom", user.getPrenom());
+			jsonContentMap.put("adresse_mel", user.getAdresseMel());
+			jsonContentMap.put("date_naissance", user.getDateNaissance());
 		}
-
-		obj_etat.put("contenu", content);
 		
-		return obj_etat ;
+		JSONObject content = new JSONObject(jsonContentMap);
+		jsonObjEtatMap.put("contenu", content);
+		JSONObject objEtat = new JSONObject(jsonObjEtatMap);
+		
+		return objEtat;
 	}
 
 	/**
@@ -74,16 +78,17 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient les informations de l'utilisateur qui s'est connecté.
 	 */
 	public String connexionResponse(boolean state){
-		return userStateResponse(state, "connexion_response").toString() ;
+		return userStateResponse(state, "connexion_response", (UtilisateurHumain)this.session.getUtilisateur()).toString() ;
 	}
 
 	/**
 	 * Réponse au client afin de l'informer si l'utilisateur a été créé ou non.
 	 * @param state Un état vrai indique que la création a été effectuée.
+	 * @param user Utilisateur créé.
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient les informations de l'utilisateur qui a été créé.
 	 */
-	public String creerUtilisateurResponse(boolean state){
-		return userStateResponse(state, "connexion_response").toString() ;
+	public String creerUtilisateurResponse(boolean state, UtilisateurHumain user){
+		return userStateResponse(state, "connexion_response", user).toString() ;
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */
 	public String creerDiscussionResponse(boolean state){
-		return stateResponse(state, "creer_discussion_response" ).toString();
+		return new JSONObject(stateResponse(state, "creer_discussion_response" )).toString();
 	}
 
 	/**
@@ -101,7 +106,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */
 	public String envoyerMessageResponse(boolean state){
-		return stateResponse(state, "envoyer_message_response" ).toString();
+		return new JSONObject(stateResponse(state, "envoyer_message_response" )).toString();
 	}
 	
 	/**
@@ -110,7 +115,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */	
 	public String desactiverControleParentalResponse(boolean state){
-		return userStateResponse(state, "desactiver_controle_parental_response").toString() ;
+		return new JSONObject(stateResponse(state, "desactiver_controle_parental_response")).toString() ;
 	}
 	/**
 	 * Réponse au client afin de l'informer si l'activation du controle parentale est faite.
@@ -118,7 +123,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */	
 	public String setControleParentalResponse(boolean state){
-		return userStateResponse(state, "set_controle_parental_response").toString() ;
+		return new JSONObject(stateResponse(state, "set_controle_parental_response")).toString() ;
 	}
 	
 	
