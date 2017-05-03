@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * Classe représentant un utilisateur de l'application.
  */
-public class Utilisateur implements Serializable {
+public abstract class Utilisateur implements Serializable {
 	public final static long serialVersionUID = 951L;
 
 	/**
@@ -100,6 +100,12 @@ public class Utilisateur implements Serializable {
 	public void removeDiscussion(Discussion discussion) {
 		this.discussions.remove(discussion);
 	}
+
+	/**
+	 * Envoi d'un message à un utilisateur.
+	 * @param message Message à envoyer
+	 */
+	public abstract void envoyerMessage(String message);
 
 	@Override
 	public int hashCode() {

@@ -6,9 +6,6 @@ import org.json.simple.JSONArray;
 import messagerie.serveur.utilisateur.*;
 import messagerie.serveur.discussion.*;
 
-// TODO Faire un choix pour les retours de fonction, 
-// certaines renvoient un objet JSON, d'autres une chaine de caractère.
-
 /**
  * Cette classe est chargée de gérer le formattage des réponses
  * envoyées par le serveur aux clients.
@@ -35,6 +32,7 @@ public class ResponseEncoder {
 	 * @param action Nom de la réponse pour que le client soit capable de détecter à quelle requête elle est associée.
 	 * @return Objet JSON contenant les informations "action" et "etat"
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject stateResponse(boolean state, String action){
 		JSONObject obj = new JSONObject();
 		obj.put("action", action) ;
@@ -50,18 +48,23 @@ public class ResponseEncoder {
 	 * @param action Nom de la réponse pour que le client soit capable de détecter à quelle requête elle est associée.
 	 * @return Objet JSON représentant les informations de l'utilisateur
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject userStateResponse(boolean state, String action){
 		JSONObject obj_etat = stateResponse(state, action );
-    	UtilisateurHumain user = (UtilisateurHumain)this.session.getUtilisateur() ;
-		// TODO IMPORTANT ne renvoyer les informations que si l'état est vrai (Problème de sécurité lors de la connexion sinon)
 		JSONObject content = new JSONObject();
-		content.put("pseudonyme", user.getPseudonyme());
-		content.put("nom", user.getNom());
-		content.put("prenom", user.getPrenom());
-		content.put("adresse_mel", user.getAdresseMel());
-		content.put("date_naissance", user.getDateNaissance());
-		obj_etat.put("contenu", content);
 
+		// On ne met pas les informations du client dans la requête si elle a un état échoué.
+		if (state) {
+			UtilisateurHumain user = (UtilisateurHumain)this.session.getUtilisateur() ;
+			content.put("pseudonyme", user.getPseudonyme());
+			content.put("nom", user.getNom());
+			content.put("prenom", user.getPrenom());
+			content.put("adresse_mel", user.getAdresseMel());
+			content.put("date_naissance", user.getDateNaissance());
+		}
+
+		obj_etat.put("contenu", content);
+		
 		return obj_etat ;
 	}
 
@@ -101,13 +104,13 @@ public class ResponseEncoder {
 		return stateResponse(state, "envoyer_message_response" ).toString();
 	}
 
-	// TODO Sûrement mal nommé
 	/**
-	 * Envoi d'un message à un client.
-	 * @param msg Message à envoyer.
+	 * Encodage d'un message à un client.
+	 * @param msg Message à encoder.
 	 * @return Réponse mise en forme au format JSON.
 	 */
-	public String envoyerMessage(Message msg){
+	@SuppressWarnings("unchecked")
+	public String encoderMessage(Message msg){
 		JSONObject obj = new JSONObject();
 		obj.put("action", "message") ;
 		JSONObject content = new JSONObject();
@@ -122,6 +125,7 @@ public class ResponseEncoder {
 	 * Liste tout les utilisateurs pour le client
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
 	 */
+	@SuppressWarnings("unchecked")
 	public String getUtilisateursResponse(){
 		JSONObject obj = new JSONObject();
 		obj.put("action", "utilisateurs") ;

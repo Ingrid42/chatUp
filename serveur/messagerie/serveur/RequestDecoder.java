@@ -211,17 +211,39 @@ public class RequestDecoder {
 	 * @param content Requête reçue par le serveur.
 	 */
 	public void envoyer_message(JSONObject content) {
-		// on ne peut envoyer le msg que si la session a un utilisateur
+		// On ne peut envoyer le msg que si la session a un utilisateur
 		if (this.session.getUtilisateur() != null){
 			try{
 				int id = Integer.parseInt((String)content.get("id_discussion"));
 				String texteMessage = (String)content.get("message");
 				Message message = new Message(this.session.getUtilisateur(), texteMessage, id) ;
-				((DiscussionTexte)Session.getApplication().getDiscussion(id)).addMessage(message) ;
+
+				DiscussionTexte discussion = ((DiscussionTexte)Session.getApplication().getDiscussion(id));
+				if (discussion.possedeUtilisateur(this.session.getUtilisateur()))
+					discussion.addMessage(message);
+				else
+					throw new DiscussionException("L'utilisateur n'est pas dans la conversation. Impossible d'envoyer un message.");
+
+				
 				// TODO envoi de l'etat
 				// TODO envoi de message aux utilisateurs
-				// TODO traitement si message non envoyé
-			} catch (Exception pe) {
+				for (Utilisateur u : discussion.getUtilisateurs())
+					if (!u.equals(discussion.getUtilisateurs()))
+						u.envoyerMessage(this.encodeur.encoderMessage(message));
+			}
+			catch(DiscussionException de) {
+				System.err.println(de.getMessage());
+
+				try {
+					this.session.envoyerMessage(
+						this.encodeur.envoyerMessageResponse(false)
+					);
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+			} 
+			catch (Exception pe) {
 				pe.printStackTrace();
 			}
 		}
