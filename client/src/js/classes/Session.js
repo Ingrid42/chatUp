@@ -5,8 +5,7 @@ class Session {
   constructor(IPServer) {
     this.socket = new WebSocket(IPServer);
     this.socket.onopen = () => {
-      console.log(this.socket.readyState);
-      this.socket.send("test");
+      console.log("Connexion au serveur ok");
     }
     this.socket.onmessage = this.message;
     /*this.socket.addEventListener('emit', () => {
@@ -15,6 +14,10 @@ class Session {
 
     this.utilisateur = null;
     this.utilisateurs = [];
+  }
+
+  send(message) {
+    this.socket.send(JSON.stringify(message));
   }
 
   message(evt) {

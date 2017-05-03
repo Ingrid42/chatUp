@@ -5,21 +5,22 @@ const init = function() {
   var toolbox = new Toolbox();
   var session = new Session('ws://localhost:4000');
   toolbox.importFiles();
-}
+  onEvent(session);
+};
 
 const hide = function() {
   $('div[id^="page"]').addClass('hidden');
   $('div[id^="navbar"]').addClass('hidden');
-}
+};
 
-const onEvent = function() {
-  $('#image-input').on('click', function() {
-  });
+const onEvent = function(session) {
+  inscriptionUtilisateur(session);
+  connexionUtilisateur(session);
 
   $('#switchToConnexion').on('click', function() {
     hide();
-    $('#pageMessagerie').removeClass('hidden');
-    $('#navbarMessagerie').removeClass('hidden');
+    $('#pageConnexion').removeClass('hidden');
+    $('#navbarAccueil').removeClass('hidden');
   });
 
   $('#switchToInscription').on('click', function() {
@@ -59,6 +60,48 @@ const onEvent = function() {
     $('#pageConversationAudio').removeClass('hidden');
     $('#navbarConversation').removeClass('hidden');
   })
-}
+};
+
+const connexionUtilisateur = function(session) {
+  $('#connexionUtilisateur').on('click', function() {
+    let pseudonyme = $('#inputConnexionPseudo').val();
+    let mot_de_passe = $('#inputConnexionPassword').val();
+
+    let message = {
+      action : "connexion",
+      contenu : {
+        pseudonyme,
+        mot_de_passe
+      }
+    };
+    session.send(message);
+  });
+};
+
+
+const inscriptionUtilisateur = function(session) {
+  $('#inscriptionUtilisateur').on('click', function() {
+    let pseudonyme = $('#inputInscriptionPseudo').val();
+    let mot_de_passe = $('#inputInscriptionPassword').val();
+    let mot_de_passe_confirmation = $('#inputInscriptionPasswordConfirmation').val();
+    let nom = $('#inputInscriptionNom').val();
+    let prenom = $('#inputInscriptionPrenom').val();
+    let adresse_mel = $('#inputInscriptionEmail').val();
+    let date_naissance = $('#inputInscriptionDatePicker').val();
+
+    let message = {
+    	action : "creer_utilisateur",
+    	contenu : {
+    		pseudonyme,
+        mot_de_passe,
+        nom,
+        prenom,
+        adresse_mel,
+        date_naissance
+    	}
+    };
+    session.send(message);
+  });
+};
 
 $(document).ready(init)
