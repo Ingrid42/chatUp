@@ -119,7 +119,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON.
 	 */
 	@SuppressWarnings("unchecked")
-	public String envoyerMessage(Message msg){
+	public String encoderMessage(Message msg){
 		JSONObject obj = new JSONObject();
 		obj.put("action", "message") ;
 		JSONObject content = new JSONObject();
