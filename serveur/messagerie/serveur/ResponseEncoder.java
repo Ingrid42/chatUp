@@ -149,7 +149,7 @@ public class ResponseEncoder {
 	 * @param msg Message à encoder.
 	 * @return Réponse mise en forme au format JSON.
 	 */
-	public String encoderMessage(Message msg){
+	public String encoderMessage(Message msg, Utilisateur utilisateur){
 		Map<String, Object> jsonObjMap = new HashMap<>();
 		Map<String, Object> jsonContenuMap = new HashMap<>();
 		
@@ -157,7 +157,11 @@ public class ResponseEncoder {
 		jsonObjMap.put("etat", new Boolean(true)) ;
 		jsonContenuMap.put("id_discussion", msg.getId()) ;
 		jsonContenuMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme()) ;
-		jsonContenuMap.put("message", msg.getMessage()) ;
+
+		if (utilisateur instanceof UtilisateurHumain)
+			jsonContenuMap.put("message", ((UtilisateurHumain)utilisateur).filtrerMessage(msg));
+		else
+			jsonContenuMap.put("message", msg.getMessage());
 
 		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
@@ -177,7 +181,6 @@ public class ResponseEncoder {
 		
 		jsonObjMap.put("action", "get_utilisateurs_reponse") ;
 		jsonObjMap.put("etat", new Boolean(true)) ;
-		// TODO ne pas intégrer les utilisateurs qui sont filtrés (Contrôle parental)
 		JSONArray array_users = new JSONArray();
 		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
 			if (this.session.getUtilisateur() != null && 
