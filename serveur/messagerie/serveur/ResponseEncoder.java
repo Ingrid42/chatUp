@@ -35,6 +35,7 @@ public class ResponseEncoder {
 	 * @param action Nom de la réponse pour que le client soit capable de détecter à quelle requête elle est associée.
 	 * @return Objet JSON contenant les informations "action" et "etat"
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject stateResponse(boolean state, String action){
 		JSONObject obj = new JSONObject();
 		obj.put("action", action) ;
@@ -50,6 +51,7 @@ public class ResponseEncoder {
 	 * @param action Nom de la réponse pour que le client soit capable de détecter à quelle requête elle est associée.
 	 * @return Objet JSON représentant les informations de l'utilisateur
 	 */
+	@SuppressWarnings("unchecked")
 	public JSONObject userStateResponse(boolean state, String action){
 		JSONObject obj_etat = stateResponse(state, action );
     	UtilisateurHumain user = (UtilisateurHumain)this.session.getUtilisateur() ;
@@ -107,6 +109,7 @@ public class ResponseEncoder {
 	 * @param msg Message à envoyer.
 	 * @return Réponse mise en forme au format JSON.
 	 */
+	@SuppressWarnings("unchecked")
 	public String envoyerMessage(Message msg){
 		JSONObject obj = new JSONObject();
 		obj.put("action", "message") ;
@@ -122,6 +125,7 @@ public class ResponseEncoder {
 	 * Liste tout les utilisateurs pour le client
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
 	 */
+	@SuppressWarnings("unchecked")
 	public String getUtilisateursResponse(){
 		JSONObject obj = new JSONObject();
 		obj.put("action", "utilisateurs") ;
