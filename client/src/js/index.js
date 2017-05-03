@@ -17,49 +17,13 @@ const onEvent = function(session) {
   inscriptionUtilisateur(session);
   connexionUtilisateur(session);
 
-  $('#switchToConnexion').on('click', function() {
-    hide();
-    $('#pageConnexion').removeClass('hidden');
-    $('#navbarAccueil').removeClass('hidden');
-  });
-
-  $('#switchToInscription').on('click', function() {
-    hide();
-    $('#pageInscription').removeClass('hidden');
-    $('#navbarAccueil').removeClass('hidden');
-  });
-
-  $('.switchToParameters').on('click', function() {
-    hide();
-    $('#pageParametres').removeClass('hidden');
-    $('#navbarParametres').removeClass('hidden');
-  });
-
-  $('.switchToContacts').on('click', function() {
-    hide();
-    $('#pageContacts').removeClass('hidden');
-    $('#navbarContacts').removeClass('hidden');
-  });
-
-  $('.switchToMessagerie').on('click', function() {
-    hide();
-    $('#pageMessagerie').removeClass('hidden');
-    $('#navbarMessagerie').removeClass('hidden');
-  });
-
-  $('.switchToConversationTextuelle').on('click', function() {
-    console.log("swicth to conv");
-    hide();
-    $('#pageConversation').removeClass('hidden');
-    $('#navbarConversation').removeClass('hidden');
-  });
-
-  $('.switchToConversationAudio').on('click', function() {
-    console.log("swicth to conv");
-    hide();
-    $('#pageConversationAudio').removeClass('hidden');
-    $('#navbarConversation').removeClass('hidden');
-  })
+  $('#switchToConnexion').on('click', () =>  switchToConnexion());
+  $('#switchToInscription').on('click', () => switchToInscription());
+  $('.switchToParameters').on('click', () => switchToParameters());
+  $('.switchToContacts').on('click', () => switchToContacts());
+  $('.switchToMessagerie').on('click', () => switchToMessagerie());
+  $('.switchToConversationTextuelle').on('click', () => switchToConversationTextuelle());
+  $('.switchToConversationAudio').on('click', () => switchToConversationAudio());
 };
 
 const connexionUtilisateur = function(session) {
@@ -75,6 +39,7 @@ const connexionUtilisateur = function(session) {
       }
     };
     session.send(message);
+    switchToMessagerie();
   });
 };
 
@@ -101,7 +66,50 @@ const inscriptionUtilisateur = function(session) {
     	}
     };
     session.send(message);
+    switchToConnexion();
   });
+};
+
+const switchToConnexion = function() {
+  hide();
+  $('#pageConnexion').removeClass('hidden');
+  $('#navbarAccueil').removeClass('hidden');
+};
+
+const switchToInscription = function() {
+  hide();
+  $('#pageInscription').removeClass('hidden');
+  $('#navbarAccueil').removeClass('hidden');
+};
+
+const switchToParameters = function() {
+  hide();
+  $('#pageParametres').removeClass('hidden');
+  $('#navbarParametres').removeClass('hidden');
+};
+
+const switchToContacts = function() {
+  hide();
+  $('#pageContacts').removeClass('hidden');
+  $('#navbarContacts').removeClass('hidden');
+};
+
+const switchToMessagerie = function() {
+  hide();
+  $('#pageMessagerie').removeClass('hidden');
+  $('#navbarMessagerie').removeClass('hidden');
+};
+
+const switchToConversationTextuelle = function() {
+  hide();
+  $('#pageConversation').removeClass('hidden');
+  $('#navbarConversation').removeClass('hidden');
+};
+
+const switchToConversationAudio = function() {
+  hide();
+  $('#pageConversationAudio').removeClass('hidden');
+  $('#navbarConversation').removeClass('hidden');
 };
 
 $(document).ready(init)
