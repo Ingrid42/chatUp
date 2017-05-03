@@ -5,7 +5,11 @@ import messagerie.serveur.Session;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
+
+import java.io.IOException;
 
 /**
  * Classe représentant un utilisateur de l'application.
@@ -49,6 +53,11 @@ public class UtilisateurHumain extends Utilisateur {
 	private Session session;
 
 	/**
+	 * Liste des messages reçus hors connexion
+	 */
+	 private List<String> messages;
+
+	/**
 	 * Filtres associés au contrôle parental.
 	 */
 	private Set<IFiltre> filtres;
@@ -75,6 +84,7 @@ public class UtilisateurHumain extends Utilisateur {
 		this.photo = UtilisateurHumain.photoDefaut;
 
 		this.session = null;
+		this.messages = new ArrayList<>();
 
 		this.filtres = new HashSet<IFiltre>();
 	}
@@ -213,5 +223,21 @@ public class UtilisateurHumain extends Utilisateur {
 		}
 
 		return true;
+	}
+
+	@Override
+	public void envoyerMessage(String message) {
+		if (this.session != null) {
+			try {
+				this.session.envoyerMessage(message);
+			}
+			catch (IOException ioe) {
+				System.err.println("Impossible d'envoyer le message. Envoi différé.");
+				this.messages.add(message);
+			}
+		}
+		else {
+			this.messages.add(message);
+		}
 	}
 }

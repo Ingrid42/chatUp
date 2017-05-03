@@ -54,6 +54,17 @@ public class Discussion implements Serializable {
     }
 
     /**
+     * Indique si un utilisateur est présent dans cette Discussion
+     * @param utilisateur Utilisateur à vérifier
+     * @return Vrai si l'utilisateur est présent. Faux sinon.
+     */
+    public boolean possedeUtilisateur(Utilisateur utilisateur) {
+        if (utilisateurs.contains(utilisateur))
+            return true;
+        return false;
+    }
+
+    /**
      * Récupérer l'identifiant de la discussion.
      * @return Identifiant de la discussion.
      */

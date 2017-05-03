@@ -27,4 +27,8 @@ public class UtilisateurIA extends Utilisateur {
 		// TODO a modifier id de la discussion
 		return new Message(this, "Wesh, bien ou bien?", message.getId());
 	}
+
+	public void envoyerMessage(String message) {
+		
+	}
 }
