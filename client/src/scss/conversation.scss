@@ -43,7 +43,7 @@
     margin-top: $margin10;
     width: 100%;
     min-width: $conversation_min_width;
-    @include calc("height", "100% - " + $button_size_little + " - " + $margin10 + " - " + $margin + " - " + $margin20 + " - " + $button_size);
+    @include calc("height", "100% - " + $button_size_little + " - " + $margin10 + " - " + $margin + " - " + $margin20 + " - " + $conversation-reply-size);
     overflow: auto;
 
     .message-content {
@@ -96,6 +96,7 @@
   }
 
   .conversation-reply {
+    height: $conversation-reply-size !important;
     border-radius: 40px;
     text-align: left;
     padding: 20px;
@@ -107,22 +108,27 @@
     min-width: $conversation_min_width;
     height: $button_size;
     overflow: auto;
-  }
 
+    input:focus {
+      border: 2px solid $rose;
+      outline : none;
+      border-radius: 10px;
+    }
 
-  input:focus {
-    border: 2px solid $rose;
-    outline : none;
-    border-radius: 10px;
-  }
+    .conversation-reply-content {
+      background-color: $blanc;
+      border: 1px solid $rose;
+      border-radius: 10px;
+      @include calc("width", "100% - " + $reply_button_width + " - 2 * " + $padding + " - " + $margin20);
+      text-align: left;
+      padding-left: $padding;
+      margin-left: $margin10;
+    }
 
-  .conversation-reply-content {
-    background-color: $blanc;
-    border: 1px solid $rose;
-    border-radius: 10px;
-    width: 80%;
-    text-align: left;
-    padding-left: $padding;
-    margin-left: $margin10;
+    .conversation-reply-button {
+      background-color: $rose;
+      border: 1px solid $rose;
+      margin-left: $margin20 !important;
+    }
   }
 }
