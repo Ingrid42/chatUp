@@ -49,6 +49,13 @@ const onEvent = function() {
     $('#navbarMessagerie').removeClass('hidden');
   });
 
+  $('.switchToConversationCreation').on('click', function() {
+    console.log("swicth to conv");
+    hide();
+    $('#pageConversationCreation').removeClass('hidden');
+    $('#navbarConversation').removeClass('hidden');
+  });
+
   $('.switchToConversationTextuelle').on('click', function() {
     console.log("swicth to conv");
     hide();
