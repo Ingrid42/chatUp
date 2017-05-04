@@ -1,29 +1,60 @@
 import Utilisateur from './Utilisateur.js';
+import Navigateur from './Navigateur.js';
 require('socket.io-client');
 
 class Session {
-  constructor(IPServer) {
-    this.socket = io(IPServer);
+  constructor(IPServer, navigateur) {
+    this.socket = new WebSocket(IPServer);
+    this.socket.onopen = () => console.log('Connexion au serveur ok');
+    this.socket.onmessage = (response) => this.message(response);
     this.utilisateur = null;
     this.utilisateurs = [];
+    this.navigateur = navigateur;
   }
 
-  initConnexion() {
-      this.socket.on('connexion_reponse', this._onConnexion);
-      this.socket.on('creer_utilisateur_reponse', this._onCreerUtilisateur);
-      this.socket.on('creer_discussion_reponse', this._onCreerDiscussion);
-      this.socket.on('envoyer_message_reponse', this._onEnvoyerMessage);
-      this.socket.on('get_utilisateurs_reponse', this._onGetUtilisateurs);
-      this.socket.on('modifier_profil_reponse', this._onModifierProfil);
-      this.socket.on('get_profil_reponse', this._onGetProfil);
-      this.socket.on('add_filtre_mot_reponse', this._onAddFiltreMot);
-      this.socket.on('add_filtre_utilisateur_reponse', this._onAddFiltreUtilisateur);
-      this.socket.on('set_controle_parental_reponse', this._onSetControleParental);
+  send(message) {
+    this.socket.send(JSON.stringify(message));
   }
 
-  emit(message, data) {
-    console.log("Envoi d'un message");
-    this.socket.emit(message, data);
+  message(response) {
+    var responseJSON = JSON.parse(response.data);
+    if (responseJSON.etat !== false) {
+      switch (responseJSON.action) {
+        case 'connexion_reponse':
+          this._onConnexion(responseJSON.contenu);
+          break;
+        case 'creer_utilisateur_reponse':
+          this._onCreerUtilisateur(responseJSON.contenu);
+          break;
+        case 'creer_discussion_reponse':
+          this._onCreerDiscussion(responseJSON.contenu);
+          break;
+        case 'envoyer_message_reponse':
+          this._onEnvoyerMessage(responseJSON.contenu);
+          break;
+        case 'get_utilisateurs_reponse':
+          this._onGetUtilisateurs(responseJSON.contenu);
+          break;
+        case 'modifier_profil_reponse':
+          this._onModifierProfil(responseJSON.contenu);
+          break;
+        case 'get_profil_reponse':
+          this._onGetProfil(responseJSON.contenu);
+          break;
+        case 'add_filtre_mot_reponse':
+          this._onAddFiltreMot(responseJSON.contenu);
+          break;
+        case 'add_filtre_utilisateur_reponse':
+          this._onAddFiltreUtilisateur(responseJSON.contenu);
+          break;
+        case 'set_controle_parental_reponse':
+          this._onSetControleParental(responseJSON.contenu);
+          break;
+      }
+    }
+    else {
+      console.log("Error from server");
+    }
   }
 
   _initUtilisateur(data) {
@@ -31,19 +62,20 @@ class Session {
       data.pseudonyme,
       data.nom,
       data.prenom,
-      data.adresseMel,
-      data.dateNaissance,
+      data.adresse_mel,
+      data.date_naissance,
       data.photo
     );
-    console.log(this.utilisateur);
   }
 
-  _onConnexions(data) {
+   _onConnexion(data) {
     this._initUtilisateur(data);
+    this.navigateur.switchToMessagerie();
   }
 
   _onCreerUtilisateur(data) {
     this._initUtilisateur(data);
+    this.navigateur.switchToConnexion();
   }
 
   _onCreerDiscussion(data) {

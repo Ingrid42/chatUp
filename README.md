@@ -13,3 +13,8 @@ $ node express.js #lancer le serveur web
 $ cd database
 $ docker-compose up
 ```
+
+## Modifications à effectuer dans la conception
+Attribut static dans discussion comme un id pour la retrouver
+une classe serializable application pour tout stocker.
+fermer de session retourne void

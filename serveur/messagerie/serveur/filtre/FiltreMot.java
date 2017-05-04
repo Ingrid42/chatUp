@@ -1,9 +1,20 @@
 package messagerie.serveur.filtre;
 
+/**
+ * Classe permettant de filtrer un mot particulier.
+ */
 public class FiltreMot implements IFiltre {
 	public final static long serialVersionUID = 211L;
+
+	/**
+	 * Mot à filtrer.
+	 */
 	private String mot;
-	
+
+	/**
+	 * Création d'un filtre.
+	 * @param mot Mot à filtrer.
+	 */
 	public FiltreMot(String mot) {
 		this.mot = mot;
 	}
