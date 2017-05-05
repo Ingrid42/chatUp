@@ -10,6 +10,7 @@ class Navigateur {
     $('.switchToParameters').on('click', () => this.switchToParameters());
     $('.switchToContacts').on('click', () => this.switchToContacts());
     $('.switchToMessagerie').on('click', () => this.switchToMessagerie());
+    $('.switchToConversationCreation').on('click', () => this.switchToConversationCreation());
     $('.switchToConversationTextuelle').on('click', () => this.switchToConversationTextuelle());
     $('.switchToConversationAudio').on('click', () => this.switchToConversationAudio());
   };
@@ -80,6 +81,12 @@ class Navigateur {
     this.hide();
     $('#pageMessagerie').removeClass('hidden');
     $('#navbarMessagerie').removeClass('hidden');
+  };
+
+  switchToConversationCreation() {
+    this.hide();
+    $('#pageConversationCreation').removeClass('hidden');
+    $('#navbarConversation').removeClass('hidden');
   };
 
   switchToConversationTextuelle() {
