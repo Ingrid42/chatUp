@@ -50,6 +50,8 @@ const connexionUtilisateur = function(session) {
 
 const inscriptionUtilisateur = function(session) {
   $('#inscriptionUtilisateur').on('click', function() {
+    verification();
+
     let pseudonyme = $('#inputInscriptionPseudo').val();
     let mot_de_passe = $('#inputInscriptionPassword').val();
     let mot_de_passe_confirmation = $('#inputInscriptionPasswordConfirmation').val();
@@ -59,20 +61,36 @@ const inscriptionUtilisateur = function(session) {
     let date_naissance = $('#inputInscriptionDatePicker').val();
 
     let message = {
-    	action : "creer_utilisateur",
-    	contenu : {
-    		pseudonyme,
+      action : "creer_utilisateur",
+      contenu : {
+        pseudonyme,
         mot_de_passe,
         nom,
         prenom,
         adresse_mel,
         date_naissance
-    	}
+      }
     };
     session.send(message);
     switchToConnexion();
   });
+
 };
+
+const verification = function() {
+  var emailBox = document.getElementById("inputInscriptionEmail");
+  var pseudo = document.getElementById("inputInscriptionPseudo");
+  var error = document.getElementById("msgError");
+  if(emailBox.value=="") {
+    if(!error.hasChildNodes()) {
+      emailBox.style.outline="solid Red";
+      error.appendChild(document.createTextNode("Champ obligatoire"));
+    }
+  } else {
+    document.forms['formInscription'].submit();
+  }
+};
+
 
 const switchToConnexion = function() {
   hide();
@@ -122,4 +140,4 @@ const switchToConversationAudio = function() {
   $('#navbarConversation').removeClass('hidden');
 };
 
-$(document).ready(init)
+$(document).ready(init);
