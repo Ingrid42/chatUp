@@ -40,7 +40,7 @@
 	"action" : "get_utilisateurs",
 	"contenu" : {}
 }
-@a finir
+@fait
 {
 	"action" : "modifier_profil",
 	"contenu" : {
@@ -51,7 +51,7 @@
 		"date_naissance" : "28/01/1996"
 	}
 }
-
+@fait
 {
 	"action" : "get_profil",
 	"contenu" : {}
@@ -118,7 +118,7 @@
 	}
 }
 
-@a finir
+@fait
 {
 	"action" : "creer_discussion_reponse" ,
 	"etat" : true,
@@ -153,7 +153,7 @@
 	"etat" : true
 }
 
-
+@fait
 {
 	"action" : "get_utilisateurs_reponse",
 	"etat" : true,
@@ -172,9 +172,9 @@
 		]
 	}
 }
-
+@ en cours
 {
-	"action" : "get_discussion",
+	"action" : "get_discussion_reponse",
 	"etat" : true,
 	"contenu" : {
 		"id_discussion" : 123,
@@ -190,7 +190,7 @@
 		]
 	}
 }
-
+@fait
 {
 	"action" : "message_reponse",
 	"etat" : true,
@@ -200,11 +200,24 @@
 		"message" : "Hello! It's me!"
 	}
 }
-
+@fait
 {
 	"action" : "get_profil_reponse",
 	"etat" : true,
 	"contenu" : {
+		"pseudonyme" : "orionis132"
+		"nom" : "Zerhouni",
+		"prenom" : "Youssef",
+		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",
+		"date_naissance" : "28/01/1996"
+	}
+}
+@fait
+{
+	"action" : "modifier_profil_reponse",
+	"etat" : true,
+	"contenu" : {
+		"pseudonyme" : "orionis132"
 		"nom" : "Zerhouni",
 		"prenom" : "Youssef",
 		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",

@@ -185,6 +185,37 @@ public class RequestDecoder {
 		}
 
 	}
+	
+	/**
+	 * Récuperer la discussion
+	 * @param content Requête reçue par le serveur.
+	 */
+	/* 
+	public void get_discussion(JSONObject content) {
+		try {
+			int id = Integer.parseInt((String)content.get("id_discussion"));
+			Discussion discussion = Session.getApplication().getDiscussion(id);
+			this.session.envoyerMessage(
+				this.encodeur.getDiscussionReponse(true, discussion)
+			);
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.getDiscussionReponse(false, Null)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+
+	}
+	*/
+	
+	
 
 	/**
 	 * Envoi d'un message aux utilisateurs d'une discussion.
@@ -261,8 +292,10 @@ public class RequestDecoder {
 					  .setDateNaissance(format.parse((String)content.get("date_naissance")))
 					  .setNom((String)content.get("nom"))
 					  .setPrenom((String)content.get("prenom"));
-
-			// TODO Traitement pour renvoyer la confirmation au client (modifier_profil_reponse)
+					  
+			this.session.envoyerMessage(
+				this.encodeur.modifierProfilReponse(true)
+			);
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
@@ -277,6 +310,14 @@ public class RequestDecoder {
 	 * @param content Requête reçue par le serveur.
 	 */
 	public void get_profil(JSONObject content) {
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getProfilReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 
 	/**

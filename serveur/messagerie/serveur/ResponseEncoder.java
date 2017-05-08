@@ -134,6 +134,23 @@ public class ResponseEncoder {
 		return new JSONObject(stateReponse(state, "set_controle_parental_reponse")).toString() ;
 	}
 	
+	/**
+	 * Réponse au client afin de lui donner les infos du profil
+	 * @param state Un état vrai indique que le message a été envoyé.
+	 * @return Réponse mise en forme au format JSON.
+	 */	
+	public String getProfilReponse(boolean state){
+		return userStateReponse(state, "get_profil_reponse", (UtilisateurHumain)this.session.getUtilisateur()).toString() ;
+	}
+	
+	/**
+	 * Réponse au client afin de lui donner les infos du profil apres modif
+	 * @param state Un état vrai indique que le message a été envoyé.
+	 * @return Réponse mise en forme au format JSON.
+	 */	
+	public String modifierProfilReponse(boolean state){
+		return userStateReponse(state, "modifier_profil_reponse", (UtilisateurHumain)this.session.getUtilisateur()).toString() ;
+	}
 	
 	/**
 	 * Réponse au client afin de l'informer si l'ajout du filtre a bien été effectué.
@@ -180,6 +197,22 @@ public class ResponseEncoder {
 		JSONObject obj = new JSONObject();
 		return obj.toString() ;
 	}
+	
+	/*
+	public String getDiscussionReponse(boolean state, Discussion discussion){
+		if(discussion == Null || !state)
+			return return new JSONObject(stateReponse(state, "get_discussion_reponse")).toString() ;
+		else {
+			Map<String, Object> jsonContenuMap = new HashMap<>();
+			Map<String, Object> jsonObjMap = stateReponse(state, "get_discussion_reponse" );
+			jsonObjMap.put("id", new Long(id));
+			jsonContenuMap.put("id_discussion", discussion.getId()) ;
+			JSONArray array_msg = new JSONArray();
+			// boucler sur les messages de la discussion
+			
+		}
+	}
+	*/
 
 	/**
 	 * Liste tout les utilisateurs pour le client
