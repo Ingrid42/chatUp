@@ -9,4 +9,4 @@ client/node_modules
 *.swp
 client/.sass-cache
 client/dist/
-serveur/sauvegarde.save
+serveur/serveur.save

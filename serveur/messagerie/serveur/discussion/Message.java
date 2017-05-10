@@ -3,6 +3,8 @@ import java.io.Serializable;
 
 import messagerie.serveur.utilisateur.Utilisateur;
 
+import java.util.Date;
+
 /**
  * Classe représentant un message.
  */
@@ -12,7 +14,7 @@ public class Message implements Serializable {
     /**
      * Identifiant de la discussion à laquelle ce message se rattache.
      */
-    private int idDiscussion ;
+    private long idDiscussion ;
 
     /**
      * Contenu du message.
@@ -25,15 +27,23 @@ public class Message implements Serializable {
     private Utilisateur utilisateur;
 
     /**
+     * Date de création du message.
+     */
+    private Date date;
+
+    /**
      * Créer un message.
      * @param utilisateur Utilisateur ayant écrit le message.
      * @param message Contenu du message envoyé.
      * @param idDiscussion Identifiant de la discussion à laquelle le message se rattache.
      */
-    public Message(Utilisateur utilisateur, String message, int idDiscussion){
+    public Message(Utilisateur utilisateur, String message, DiscussionTexte discussion){
         this.message = message ;
         this.utilisateur = utilisateur ;
-        this.idDiscussion = idDiscussion ;
+        this.idDiscussion = discussion.getId();
+        this.date = new Date();
+
+        discussion.addMessage(this);
     }
 
     /**
@@ -42,6 +52,14 @@ public class Message implements Serializable {
      */
     public String getMessage(){
       return this.message;
+    }
+
+    /**
+     * Récupérer la date de création du message.
+     * @return Date de création du message.
+     */
+    public Date getDate(){
+      return this.date;
     }
 
     /**
@@ -56,7 +74,7 @@ public class Message implements Serializable {
      * Récupérer l'identifiant de la discussion à laquelle se rattache ce message.
      * @return Identifiant d'une' discussion.
      */
-    public int getId(){
+    public long getId(){
       return this.idDiscussion ;
     }
 }

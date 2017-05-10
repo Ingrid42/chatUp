@@ -3,6 +3,7 @@ package messagerie.serveur;
 import messagerie.serveur.utilisateur.*;
 import messagerie.serveur.discussion.*;
 import messagerie.serveur.exception.*;
+import messagerie.serveur.exceptions.DiscussionException;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -27,7 +28,7 @@ import messagerie.serveur.filtre.*;
  */
 public class RequestDecoder {
 	/**
-	 * Méthodes de la classe pour simplifier l'appel aux différentes méthodes selon l'action 
+	 * Méthodes de la classe pour simplifier l'appel aux différentes méthodes selon l'action
 	 * indiquée dans la requête.
 	 */
 	private final static Method[] methods;
@@ -93,7 +94,7 @@ public class RequestDecoder {
 					this.encodeur.connexionReponse(true)
 				);
 			}
-			else 
+			else
 				this.session.envoyerMessage(
 					this.encodeur.connexionReponse(false)
 				);
@@ -109,7 +110,7 @@ public class RequestDecoder {
 			catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
-			
+
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
@@ -165,6 +166,11 @@ public class RequestDecoder {
 			for (Object p : pseudonymes)
 				utilisateurs.add(Session.getApplication().getUtilisateur((String)p));
 
+			if (this.session.getUtilisateur() != null)
+				utilisateurs.add(this.session.getUtilisateur());
+			else
+				throw new DiscussionException("Impossible de créer la discussion. L'utilisateur souhaitant la créer n'est pas connecté.");
+
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
 			this.session.envoyerMessage(
@@ -185,12 +191,12 @@ public class RequestDecoder {
 		}
 
 	}
-	
+
 	/**
 	 * Récuperer la discussion
 	 * @param content Requête reçue par le serveur.
 	 */
-	/* 
+
 	public void get_discussion(JSONObject content) {
 		try {
 			int id = Integer.parseInt((String)content.get("id_discussion"));
@@ -204,7 +210,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.getDiscussionReponse(false, Null)
+					this.encodeur.getDiscussionReponse(false, null)
 				);
 			}
 			catch (IOException ioe) {
@@ -213,9 +219,9 @@ public class RequestDecoder {
 		}
 
 	}
-	*/
-	
-	
+
+
+
 
 	/**
 	 * Envoi d'un message aux utilisateurs d'une discussion.
@@ -229,15 +235,16 @@ public class RequestDecoder {
 
 			int id = Integer.parseInt((String)content.get("id_discussion"));
 			String texteMessage = (String)content.get("message");
-			Message message = new Message(this.session.getUtilisateur(), texteMessage, id) ;
-
 			DiscussionTexte discussion = ((DiscussionTexte)Session.getApplication().getDiscussion(id));
+
+			Message message = new Message(this.session.getUtilisateur(), texteMessage, discussion) ;
+
 			if (discussion.possedeUtilisateur(this.session.getUtilisateur()))
 				discussion.addMessage(message);
 			else
 				throw new DiscussionException("L'utilisateur n'est pas dans la conversation. Impossible d'envoyer un message.");
 
-			
+
 			this.session.envoyerMessage(
 				this.encodeur.envoyerMessageReponse(true)
 			);
@@ -263,6 +270,25 @@ public class RequestDecoder {
 	 * Envoi de la liste des utilisateurs au client.
 	 * @param content Requête reçue par le serveur.
 	 */
+	/*public void get_discussions(JSONObject content) {
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getDiscussionsReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
+
+	
+	/**
+	 * Envoi de la liste des discussions au client.
+	 * @param content Requête reçue par le serveur.
+	 */
 	public void get_utilisateurs(JSONObject content) {
 		try {
 			this.session.envoyerMessage(
@@ -271,6 +297,9 @@ public class RequestDecoder {
 		}
 		catch (IOException ioe) {
 			ioe.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -292,7 +321,7 @@ public class RequestDecoder {
 					  .setDateNaissance(format.parse((String)content.get("date_naissance")))
 					  .setNom((String)content.get("nom"))
 					  .setPrenom((String)content.get("prenom"));
-					  
+
 			this.session.envoyerMessage(
 				this.encodeur.modifierProfilReponse(true)
 			);
@@ -432,7 +461,7 @@ public class RequestDecoder {
 					ioe.printStackTrace();
 				}
 			}
-			
+
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
@@ -468,7 +497,7 @@ public class RequestDecoder {
 				catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
-				
+
 			}
 		}
 		catch (Exception pe) {
