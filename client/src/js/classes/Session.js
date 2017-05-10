@@ -51,6 +51,9 @@ class Session {
         case 'set_controle_parental_reponse':
           this._onSetControleParental(responseJSON.contenu);
           break;
+        case 'get_discussion_reponse':
+          this._onGetDiscussion(responseJSON.contenu);
+          break;
       }
     }
     else {
@@ -87,7 +90,18 @@ class Session {
 
   _onCreerDiscussion(data) {
     console.log(data);
-    // this.navigateur.
+    var message = {
+    	"action" : "get_discussion",
+    	"contenu" : {
+    		"id_discussion" : data.id
+    	}
+    }
+    this.send(message);
+  }
+
+  _onGetDiscussion(data) {
+    console.log(data);
+    this.navigateur.switchToConversationTextuelle();
   }
 
   _onEnvoyerMessage(data) {
@@ -132,7 +146,6 @@ class Session {
   _onSetControleParental(data) {
 
   }
-
 }
 
 export default Session;

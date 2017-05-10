@@ -31,7 +31,6 @@ class Navigateur {
     session.send(message);
   };
 
-
   inscriptionUtilisateur(session) {
     let pseudonyme = $('#inputInscriptionPseudo').val();
     let mot_de_passe = $('#inputInscriptionPassword').val();
@@ -65,7 +64,6 @@ class Navigateur {
 
     if (message.contenu.utilisateurs.length > 0) {
       session.send(message);
-      this.switchToConversationTextuelle();
     }
   }
 
