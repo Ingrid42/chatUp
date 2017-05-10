@@ -18,6 +18,7 @@ class Session {
 
   message(response) {
     var responseJSON = JSON.parse(response.data);
+    console.log(response);
     if (responseJSON.etat !== false) {
       switch (responseJSON.action) {
         case 'connexion_reponse':
@@ -85,7 +86,8 @@ class Session {
   }
 
   _onCreerDiscussion(data) {
-
+    console.log(data);
+    // this.navigateur.
   }
 
   _onEnvoyerMessage(data) {
