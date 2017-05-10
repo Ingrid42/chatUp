@@ -190,7 +190,7 @@ public class RequestDecoder {
 	 * Récuperer la discussion
 	 * @param content Requête reçue par le serveur.
 	 */
-	/* 
+	
 	public void get_discussion(JSONObject content) {
 		try {
 			int id = Integer.parseInt((String)content.get("id_discussion"));
@@ -213,7 +213,7 @@ public class RequestDecoder {
 		}
 
 	}
-	*/
+	
 	
 	
 
