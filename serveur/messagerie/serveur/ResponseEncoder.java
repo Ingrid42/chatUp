@@ -238,7 +238,7 @@ public class ResponseEncoder {
 			jsonUserObjectMap.put("nom", u.getNom());
 			jsonUserObjectMap.put("prenom", u.getPrenom());
 
-			JSONObject userObject = new JSONObject();
+			JSONObject userObject = new JSONObject(jsonUserObjectMap);
 			array_users.add(userObject) ;
 		}
 
