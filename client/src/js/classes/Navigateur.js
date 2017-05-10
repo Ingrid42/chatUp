@@ -5,6 +5,7 @@ class Navigateur {
   listen(session) {
     $('#connexionUtilisateur').on('click', () => this.connexionUtilisateur(session));
     $('#inscriptionUtilisateur').on('click', () => this.inscriptionUtilisateur(session));
+    $('#creationDiscussion').on('click', () => this.creationDiscussion(session));
     $('#switchToConnexion').on('click', () =>  this.switchToConnexion());
     $('#switchToInscription').on('click', () => this.switchToInscription());
     $('.switchToParameters').on('click', () => this.switchToParameters());
@@ -13,6 +14,7 @@ class Navigateur {
     $('.switchToConversationCreation').on('click', () => this.switchToConversationCreation());
     $('.switchToConversationTextuelle').on('click', () => this.switchToConversationTextuelle());
     $('.switchToConversationAudio').on('click', () => this.switchToConversationAudio());
+
   };
 
   connexionUtilisateur(session) {
@@ -52,6 +54,20 @@ class Navigateur {
     };
     session.send(message);
   };
+
+  creationDiscussion(session) {
+    var message = {
+    	"action" : "creer_discussion",
+    	"contenu" : {
+    		"utilisateurs" : $('#createConvContactList').val()
+    	}
+    };
+
+    if (message.contenu.utilisateurs.length > 0) {
+      session.send(message);
+      this.switchToConversationTextuelle();
+    }
+  }
 
   switchToConnexion() {
     this.hide();
@@ -141,7 +157,7 @@ class Navigateur {
   }
 
   _createConvContactTemplate(utilisateur) {
-    return = '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.prenom + '</option>';
+    return '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.prenom + '</option>';
   }
 }
 export default Navigateur;
