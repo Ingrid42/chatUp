@@ -6,15 +6,15 @@ class Navigateur {
     $('#connexionUtilisateur').on('click', () => this.connexionUtilisateur(session));
     $('#inscriptionUtilisateur').on('click', () => this.inscriptionUtilisateur(session));
     $('#creationDiscussion').on('click', () => this.creationDiscussion(session));
-    $('#switchToConnexion').on('click', () =>  this.switchToConnexion());
+    $('#switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('#switchToInscription').on('click', () => this.switchToInscription());
+    $('.deconnexionUtilisateur').on('click', () => this.deconnexionUtilisateur(session));
     $('.switchToParameters').on('click', () => this.switchToParameters());
     $('.switchToContacts').on('click', () => this.switchToContacts());
     $('.switchToMessagerie').on('click', () => this.switchToMessagerie());
     $('.switchToConversationCreation').on('click', () => this.switchToConversationCreation());
     $('.switchToConversationTextuelle').on('click', () => this.switchToConversationTextuelle());
     $('.switchToConversationAudio').on('click', () => this.switchToConversationAudio());
-
   };
 
   connexionUtilisateur(session) {
@@ -65,6 +65,11 @@ class Navigateur {
     if (message.contenu.utilisateurs.length > 0) {
       session.send(message);
     }
+  }
+
+  deconnexionUtilisateur(session) {
+    session.deconnexion();
+    this.switchToConnexion();
   }
 
   switchToConnexion() {

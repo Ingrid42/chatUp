@@ -16,6 +16,11 @@ class Session {
     this.socket.send(JSON.stringify(message));
   }
 
+  deconnexion() {
+    this.socket.close();
+    this.socket = undefined;
+  }
+
   message(response) {
     var responseJSON = JSON.parse(response.data);
     if (responseJSON.etat !== false) {
