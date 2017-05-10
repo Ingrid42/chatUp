@@ -1,6 +1,7 @@
 package messagerie.serveur;
 
 import messagerie.serveur.utilisateur.Utilisateur;
+import messagerie.serveur.utilisateur.UtilisateurHumain;
 
 import java.net.UnknownHostException;
 import java.net.ServerSocket;
@@ -110,7 +111,10 @@ public class Serveur {
 	 * @throws DeploymentException Si le serveur n'a pas pu être arrêté.
 	 */
 	public void stop() throws DeploymentException {
-		
+		for (Utilisateur u : this.application.getUtilisateurs().values()) {
+			if (u instanceof UtilisateurHumain)
+				((UtilisateurHumain)u).setSession(null);
+		}
 		this.serveur.stop();
 	}
 

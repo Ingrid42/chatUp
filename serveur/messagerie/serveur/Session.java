@@ -34,9 +34,7 @@ import javax.websocket.OnOpen;
  * des communications client/serveur.
  */
 @ServerEndpoint("/")
-public class Session implements java.io.Serializable {
-	public final static long serialVersionUID = 951235L;
-
+public class Session {
 	/**
 	 * Instance d'application utilisée pour requêter les données.
 	 */
@@ -124,6 +122,9 @@ public class Session implements java.io.Serializable {
 	 */
 	@OnClose
 	public void onClose(javax.websocket.Session session) {
+		if (this.utilisateur != null && this.utilisateur instanceof UtilisateurHumain)
+			((UtilisateurHumain)this.utilisateur).setSession(null);
+
 		System.out.println("Fermeture d'une session.");
 	}
 
