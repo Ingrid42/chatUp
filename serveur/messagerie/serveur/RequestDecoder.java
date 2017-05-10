@@ -210,7 +210,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.getDiscussionReponse(false, Null)
+					this.encodeur.getDiscussionReponse(false, null)
 				);
 			}
 			catch (IOException ioe) {

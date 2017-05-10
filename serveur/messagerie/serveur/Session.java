@@ -34,7 +34,9 @@ import javax.websocket.OnOpen;
  * des communications client/serveur.
  */
 @ServerEndpoint("/")
-public class Session {
+public class Session implements java.io.Serializable {
+	public final static long serialVersionUID = 951235L;
+
 	/**
 	 * Instance d'application utilisée pour requêter les données.
 	 */
