@@ -3,6 +3,7 @@ package messagerie.serveur;
 import messagerie.serveur.utilisateur.*;
 import messagerie.serveur.discussion.*;
 import messagerie.serveur.exception.*;
+import messagerie.serveur.exceptions.DiscussionException;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -165,6 +166,11 @@ public class RequestDecoder {
 			for (Object p : pseudonymes)
 				utilisateurs.add(Session.getApplication().getUtilisateur((String)p));
 
+			if (this.session.getUtilisateur() != null)
+				utilisateurs.add(this.session.getUtilisateur());
+			else
+				throw new DiscussionException("Impossible de créer la discussion. L'utilisateur souhaitant la créer n'est pas connecté.");
+
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
 			this.session.envoyerMessage(
@@ -190,7 +196,7 @@ public class RequestDecoder {
 	 * Récuperer la discussion
 	 * @param content Requête reçue par le serveur.
 	 */
-	/* 
+	
 	public void get_discussion(JSONObject content) {
 		try {
 			int id = Integer.parseInt((String)content.get("id_discussion"));
@@ -213,7 +219,7 @@ public class RequestDecoder {
 		}
 
 	}
-	*/
+	
 	
 	
 

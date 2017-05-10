@@ -198,21 +198,40 @@ public class ResponseEncoder {
 		return obj.toString() ;
 	}
 	
-	/*
+	/**
+	 * Liste tout les utilisateurs pour le client
+	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
+	 */
+	@SuppressWarnings("unchecked")
 	public String getDiscussionReponse(boolean state, Discussion discussion){
-		if(discussion == Null || !state)
-			return return new JSONObject(stateReponse(state, "get_discussion_reponse")).toString() ;
+		if(discussion == null || !state)
+			return new JSONObject(stateReponse(state, "get_discussion_reponse")).toString() ;
 		else {
+			DiscussionTexte disc = (DiscussionTexte)discussion ;
 			Map<String, Object> jsonContenuMap = new HashMap<>();
 			Map<String, Object> jsonObjMap = stateReponse(state, "get_discussion_reponse" );
-			jsonObjMap.put("id", new Long(id));
+			jsonObjMap.put("id", new Long(disc.getId()));
 			jsonContenuMap.put("id_discussion", discussion.getId()) ;
 			JSONArray array_msg = new JSONArray();
-			// boucler sur les messages de la discussion
+			for(Message msg : disc.getMessages()){
+				Map<String, Object> jsonMessageObjectMap = new HashMap<>();
+				jsonMessageObjectMap.put("message", msg.getMessage());
+				jsonMessageObjectMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme());
+				DateFormat format = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ", Locale.FRENCH);
+				jsonMessageObjectMap.put("date", format.format(msg.getDate()));
+
+				JSONObject userObject = new JSONObject(jsonMessageObjectMap);
+				array_msg.add(userObject) ;
+			}
+			jsonContenuMap.put("messages", array_msg);
 			
+			JSONObject contenu = new JSONObject(jsonContenuMap);
+			jsonObjMap.put("contenu", contenu);
+			JSONObject obj = new JSONObject(jsonObjMap);
+			return obj.toString() ;
 		}
 	}
-	*/
+	
 
 	/**
 	 * Liste tout les utilisateurs pour le client
