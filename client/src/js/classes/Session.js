@@ -69,8 +69,14 @@ class Session {
   }
 
    _onConnexion(data) {
+    let message = {
+    	"action" : "get_utilisateurs",
+    	"contenu" : {}
+    };
+
     this._initUtilisateur(data);
     this.navigateur.switchToMessagerie();
+    this.send(message);
   }
 
   _onCreerUtilisateur(data) {
@@ -87,7 +93,9 @@ class Session {
   }
 
   _onGetUtilisateurs(data) {
-
+    data.utilisateurs.map((utilisateur, indice) => {
+      this.utilisateurs.push(utilisateur);
+    });
   }
 
   _onModifierProfil(data) {

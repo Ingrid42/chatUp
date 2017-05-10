@@ -92,27 +92,29 @@
 
 
 // Messages Serveur -> Client
-@fait
+@fait Serveur
+@fait Client
 {
 	"action" : "connexion_reponse" ,
 	"etat" : true,
 	"contenu" : {
 		"pseudonyme" : "pseudo",
 		"nom" : "nom",
-		"prenom" : "prenom", 
+		"prenom" : "prenom",
 		"adresse_mel" : "mail",
 		"date_naissance" : "2017-05-02"
 	}
 }
 
-@fait
+@fait Serveur
+@fait Client
 {
 	"action" : "creer_utilisateur_reponse" ,
-	"etat" : true
-	"contenu" : {
+	"etat" : true,
+	"contenu": {
 		"pseudonyme" : "pseudo",
 		"nom" : "nom",
-		"prenom" : "prenom", 
+		"prenom" : "prenom",
 		"adresse_mel" : "mail",
 		"date_naissance" : "2017-05-02"
 	}
@@ -126,21 +128,25 @@
 		"id" : 123
 	}
 }
+
 @fait
 {
 	"action" : "envoyer_message_reponse" ,
 	"etat" : true
 }
+
 @fait
 {
 	"action" : "desactiver_controle_parental_reponse" ,
 	"etat" : true
 }
+
 @fait
 {
 	"action" : "set_controle_parental_reponse" ,
 	"etat" : true
 }
+
 @fait
 {
 	"action" : "add_filtre_utilisateur_reponse" ,
@@ -153,7 +159,8 @@
 	"etat" : true
 }
 
-@fait
+@fait Serveur
+@enCours Client
 {
 	"action" : "get_utilisateurs_reponse",
 	"etat" : true,
