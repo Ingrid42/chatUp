@@ -41,12 +41,34 @@
 
 %%%%%%%%%%%%%%%%%%%% Corps %%%%%%%%%%%%%%%%%%%
 
-	\newpage
-	\tableofcontents
-	\newpage
+\newpage
+\tableofcontents{}
 
-	\section*{Introduction}
+\newpage
+\part{Introduction}
+	\input{src/Intro.tex}
 
-	Dans rapport final : inclure spécifications, conception : mettre en avant ce que nous avons fait évoluer
+\newpage
+\part{Spécification}
+	\input{src/spec.tex}
+	
+\newpage
+\part{Conception Préliminaire}
+	\input{src/conception_preliminaire.tex}
+	
+\newpage
+\part{Perspectives}
+	\input{src/conception_detaillee.tex}
+
+\newpage
+\part{Perspectives}
+	\input{src/implementation_tests.tex}
+	
+\newpage
+\part{Conclusion}
+	\input{src/Conclusion.tex}
+
+\newpage
+\part{Annexe}
 
 \end{document}
