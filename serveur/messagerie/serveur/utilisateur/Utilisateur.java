@@ -64,6 +64,13 @@ public abstract class Utilisateur implements Serializable {
 	 * @return Prénom de l'utilisateur.
 	 */
 	public String getPrenom() { return this.prenom; }
+	
+	
+	/**
+	 * Récupérer les discussion de l'utilisateur.
+	 * @return liste de discussion de l'utilisateur.
+	 */
+	public List<Discussion> getDiscussions() { return this.discussions; }
 
 	/**
 	 * Changer le nom de l'utilisateur.
