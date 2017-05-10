@@ -105,6 +105,29 @@ class Navigateur {
     $('div[id^="page"]').addClass('hidden');
     $('div[id^="navbar"]').addClass('hidden');
   };
-}
 
+  generateContactList(utilisateurs) {
+    utilisateurs.map((utilisateur, indice) => {
+      $('#contactList').append(this._contactTemplate(utilisateur));
+    });
+  }
+
+  _contactTemplate(utilisateur) {
+    return '\
+    <div class="contact-case" data-pseudonyme="' + utilisateur.pseudonyme + '" data-nom="' + utilisateur.nom + '" data-prenom="' + utilisateur.prenom + '">\n\
+      <div class="contact vcenter pull-left">\n\
+        <i class="fa fa-user contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->\n\
+        <div class="contact-name">' + utilisateur.prenom + '</div> <!-- Nom du contact -->\n\
+      </div>\n\
+      <div class="pull-right">\n\
+        <button type="button" class="btn btn-secondary text-center button-icon switchToConversationAudio" >\n\
+          <i class="fa fa-phone fa-2x" aria-hidden="true"></i>\n\
+        </button>\n\
+        <button type="button" class="btn btn-secondary text-center button-icon switchToConversationTextuelle" >\n\
+          <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>\n\
+        </button>\n\
+      </div>\n\
+    </div>';
+  }
+}
 export default Navigateur;

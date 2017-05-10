@@ -71,7 +71,8 @@ class Session {
    _onConnexion(data) {
     let message = {
     	"action" : "get_utilisateurs",
-    	"contenu" : {}
+    	"contenu" : {
+      }
     };
 
     this._initUtilisateur(data);
@@ -93,9 +94,21 @@ class Session {
   }
 
   _onGetUtilisateurs(data) {
-    data.utilisateurs.map((utilisateur, indice) => {
-      this.utilisateurs.push(utilisateur);
-    });
+    var user;
+    var userJSON;
+    for (var i=0; i < data.utilisateurs.length; i++) {
+      userJSON = data.utilisateurs[i];
+      user = new Utilisateur(
+        userJSON.pseudonyme,
+        userJSON.nom,
+        userJSON.prenom,
+        undefined,
+        undefined,
+        undefined
+      );
+      this.utilisateurs.push(user);
+    }
+    this.navigateur.generateContactList(this.utilisateurs);
   }
 
   _onModifierProfil(data) {
