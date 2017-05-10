@@ -120,7 +120,7 @@ public class Serveur {
 			serveur = new Serveur();
 			serveur.start();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Appuyez sur une touche pour stopper le serveur...");
+			System.out.println("Appuyez sur 'Entrée' pour stopper le serveur...");
 			reader.readLine();
 		}
 		catch (DeploymentException de) {
