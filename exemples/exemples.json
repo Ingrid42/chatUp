@@ -242,3 +242,20 @@
 		"mots" : ["Fuck", "kill yourself", "kys"]
 	}
 }
+@fait
+{
+	"action" : "get_discussions_reponse",
+	"etat" :  true,
+	"contenu" :{
+		"discussions" : [
+			{
+				"id" : 123
+				"utilisateurs" : ["u1", "u2"]
+			}
+		]
+	}
+
+
+
+
+}
