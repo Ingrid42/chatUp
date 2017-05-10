@@ -91,6 +91,7 @@ public class Serveur {
 
 		oos = new ObjectOutputStream(new FileOutputStream(new File(fileName)));
 		oos.writeObject(application);
+		oos.flush();
 
 		if (oos != null)
 			oos.close();
@@ -120,7 +121,7 @@ public class Serveur {
 			serveur = new Serveur();
 			serveur.start();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Appuyez sur une touche pour stopper le serveur...");
+			System.out.println("Appuyez sur 'Entrée' pour stopper le serveur...");
 			reader.readLine();
 		}
 		catch (DeploymentException de) {
@@ -132,7 +133,7 @@ public class Serveur {
 		finally {
 			try {
 				if (serveur != null) {
-					serveur.enregistrer("sauvegarde.save");
+					serveur.enregistrer("serveur.save");
 					serveur.stop();
 				}
 			}

@@ -228,8 +228,9 @@ public class ResponseEncoder {
 		JSONArray array_users = new JSONArray();
 		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
 			if (this.session.getUtilisateur() != null && 
-				this.session.getUtilisateur() instanceof UtilisateurHumain &&
-				!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u))
+				((this.session.getUtilisateur() instanceof UtilisateurHumain &&
+				!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u)) ||
+				this.session.getUtilisateur().equals(u)))
 				continue;
 
 			Map<String, Object> jsonUserObjectMap = new HashMap<>();

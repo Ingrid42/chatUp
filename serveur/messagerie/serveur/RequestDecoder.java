@@ -229,9 +229,10 @@ public class RequestDecoder {
 
 			int id = Integer.parseInt((String)content.get("id_discussion"));
 			String texteMessage = (String)content.get("message");
-			Message message = new Message(this.session.getUtilisateur(), texteMessage, id) ;
-
 			DiscussionTexte discussion = ((DiscussionTexte)Session.getApplication().getDiscussion(id));
+
+			Message message = new Message(this.session.getUtilisateur(), texteMessage, discussion) ;
+
 			if (discussion.possedeUtilisateur(this.session.getUtilisateur()))
 				discussion.addMessage(message);
 			else
@@ -271,6 +272,9 @@ public class RequestDecoder {
 		}
 		catch (IOException ioe) {
 			ioe.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

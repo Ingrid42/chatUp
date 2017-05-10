@@ -1,4 +1,4 @@
-package messagerie.serveur.exception;
+package messagerie.serveur.exceptions;
 
 /**
  * Exceptions liées aux utilisateurs.

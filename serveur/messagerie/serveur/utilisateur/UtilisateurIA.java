@@ -1,6 +1,10 @@
 package messagerie.serveur.utilisateur;
 
+import messagerie.serveur.Session;
+import messagerie.serveur.discussion.Discussion;
+import messagerie.serveur.discussion.DiscussionTexte;
 import messagerie.serveur.discussion.Message;
+import messagerie.serveur.exceptions.DiscussionException;
 
 /**
  * Classe représentant une intelligence artificielle.
@@ -23,9 +27,15 @@ public class UtilisateurIA extends Utilisateur {
 	 * @param message Message auquel doit répondre l'intelligence artificielle.
 	 * @return Réponse au message.
 	 */
-	public Message repondre(Message message) {
-		// TODO a modifier id de la discussion
-		return new Message(this, "Wesh, bien ou bien?", message.getId());
+	public Message repondre(Message message) throws DiscussionException, Exception {
+		long id = message.getId();
+		Discussion discussion = Session.getApplication().getDiscussion(id);
+
+		if (discussion instanceof DiscussionTexte)
+			return new Message(this, "Wesh, bien ou bien?", (DiscussionTexte)discussion);
+		else
+			throw new DiscussionException("Type de discussion incompatible");
+		
 	}
 
 	public void envoyerMessage(String message) {

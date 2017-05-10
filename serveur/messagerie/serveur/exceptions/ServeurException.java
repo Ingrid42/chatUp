@@ -1,4 +1,4 @@
-package messagerie.serveur.exception;
+package messagerie.serveur.exceptions;
 
 /**
  * Exceptions liées au serveur. Cette classe ne peut être instanciée.
