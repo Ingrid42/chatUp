@@ -105,7 +105,7 @@ public class ResponseEncoder {
 	public String creerDiscussionReponse(boolean state, long id){
 		Map<String, Object> jsonObjMap = stateReponse(state, "creer_discussion_reponse" );
 		Map<String, Object> jsonContenuMap = new HashMap<>();
-		jsonContenuMap.put("id", new Long(id));
+		jsonContenuMap.put("id", (new Long(id).toString());
 		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
 		return new JSONObject(jsonObjMap).toString();

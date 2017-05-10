@@ -1,6 +1,8 @@
 package messagerie.serveur;
 
+import messagerie.serveur.exceptions.UtilisateurException;
 import messagerie.serveur.utilisateur.Utilisateur;
+import messagerie.serveur.utilisateur.UtilisateurHumain;
 
 import java.net.UnknownHostException;
 import java.net.ServerSocket;
@@ -40,10 +42,41 @@ public class Serveur {
 	 */
 	public Serveur() {
 		System.out.println("Initializing server...");
-		if (initialize("serveur.save"))
+		if (initialize("serveur.save")) {
 			System.out.println("Server restored to its previous state!");
+			System.out.println("Liste des utilisateurs :");
+			System.out.println(this.application.getUtilisateurs());
+		}
 		else {
 			this.application = Application.getInstance();
+			
+			UtilisateurHumain utilisateur1 = new UtilisateurHumain(
+												"root",
+												"YouYou",
+												"SsefSsef",
+												"root",
+												"un_mail@insa-rouen.fr",
+												new java.util.Date()
+											);
+			UtilisateurHumain utilisateur2 = new UtilisateurHumain(
+												"user",
+												"Thibaut",
+												"Sans L c'est mieux",
+												"user",
+												"un_mail_2@insa-rouen.fr",
+												new java.util.Date()
+											);
+
+			try {
+				this.application.ajouterUtilisateur(utilisateur1);
+				this.application.ajouterUtilisateur(utilisateur2);
+			}
+			catch (Exception ue) {
+				System.err.println("Erreur lors de l'initialisation des utilisateurs par défaut.");
+				System.err.println(ue.getMessage());
+				System.err.println(ue.getCause());
+			}
+
 			System.out.println("Server initialized!");
 		}
 
@@ -110,7 +143,10 @@ public class Serveur {
 	 * @throws DeploymentException Si le serveur n'a pas pu être arrêté.
 	 */
 	public void stop() throws DeploymentException {
-		
+		for (Utilisateur u : this.application.getUtilisateurs().values()) {
+			if (u instanceof UtilisateurHumain)
+				((UtilisateurHumain)u).setSession(null);
+		}
 		this.serveur.stop();
 	}
 
