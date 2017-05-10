@@ -107,8 +107,18 @@ class Navigateur {
   };
 
   generateContactList(utilisateurs) {
+    var tag = $('#contactList');
+    tag.html('<div class="contact-case"></div> <!-- ligne en haut -->');
     utilisateurs.map((utilisateur, indice) => {
-      $('#contactList').append(this._contactTemplate(utilisateur));
+      tag.append(this._contactTemplate(utilisateur));
+    });
+  }
+
+  generateCreationDiscussionContactList(utilisateurs) {
+    var tag = $('#createConvContactList');
+    tag.html('');
+    utilisateurs.map((utilisateur, indice) => {
+      tag.append(this._createConvContactTemplate(utilisateur));
     });
   }
 
@@ -128,6 +138,10 @@ class Navigateur {
         </button>\n\
       </div>\n\
     </div>';
+  }
+
+  _createConvContactTemplate(utilisateur) {
+    return = '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.prenom + '</option>';
   }
 }
 export default Navigateur;

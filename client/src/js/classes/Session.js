@@ -71,8 +71,7 @@ class Session {
    _onConnexion(data) {
     let message = {
     	"action" : "get_utilisateurs",
-    	"contenu" : {
-      }
+    	"contenu" : {}
     };
 
     this._initUtilisateur(data);
@@ -109,6 +108,7 @@ class Session {
       this.utilisateurs.push(user);
     }
     this.navigateur.generateContactList(this.utilisateurs);
+    this.navigateur.generateCreationDiscussionContactList(this.utilisateurs);
   }
 
   _onModifierProfil(data) {
