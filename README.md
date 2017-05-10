@@ -8,10 +8,11 @@ $ gulp #compiler le projet
 $ node express.js #lancer le serveur web
 ```
 
-## Base de données
+## Serveur
 ```bash
-$ cd database
-$ docker-compose up
+$ cd serveur
+$ ./compile.sh
+$ ./run.sh
 ```
 
 ## Modifications à effectuer dans la conception

@@ -1,6 +1,7 @@
 package messagerie.serveur.utilisateur;
 
 import messagerie.serveur.filtre.*;
+import messagerie.serveur.discussion.Message;
 import messagerie.serveur.Session;
 
 import java.util.Set;
@@ -8,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Collections;
 
 import java.io.IOException;
 
@@ -209,6 +211,20 @@ public class UtilisateurHumain extends Utilisateur {
 	 */
 	public boolean retirerFiltre(IFiltre filtre) {
 		return this.filtres.remove(filtre);
+	}
+
+	public String filtrerMessage(Message message) {
+		String messageString = message.getMessage();
+
+		for (IFiltre filtre : filtres) {
+			if (!(filtre instanceof FiltreMot))
+				continue;
+			
+			String mot = (String)filtre.getObject();
+			messageString = messageString.replaceAll(mot, String.join("", Collections.nCopies(mot.length(), "*")));
+		}
+
+		return messageString;
 	}
 
 	/**

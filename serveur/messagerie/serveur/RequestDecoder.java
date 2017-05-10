@@ -168,7 +168,7 @@ public class RequestDecoder {
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
 			this.session.envoyerMessage(
-				this.encodeur.creerDiscussionReponse(true)
+				this.encodeur.creerDiscussionReponse(true, discussion.getId())
 			);
 		}
 		catch (Exception e) {
@@ -176,7 +176,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.creerDiscussionReponse(false)
+					this.encodeur.creerDiscussionReponse(false, discussion.getId())
 				);
 			}
 			catch (IOException ioe) {
@@ -185,6 +185,37 @@ public class RequestDecoder {
 		}
 
 	}
+	
+	/**
+	 * Récuperer la discussion
+	 * @param content Requête reçue par le serveur.
+	 */
+	/* 
+	public void get_discussion(JSONObject content) {
+		try {
+			int id = Integer.parseInt((String)content.get("id_discussion"));
+			Discussion discussion = Session.getApplication().getDiscussion(id);
+			this.session.envoyerMessage(
+				this.encodeur.getDiscussionReponse(true, discussion)
+			);
+		}
+		catch (Exception e) {
+			System.err.println(e.getMessage());
+
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.getDiscussionReponse(false, Null)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+
+	}
+	*/
+	
+	
 
 	/**
 	 * Envoi d'un message aux utilisateurs d'une discussion.
@@ -212,7 +243,7 @@ public class RequestDecoder {
 			);
 			for (Utilisateur u : discussion.getUtilisateurs())
 				if (!u.equals(discussion.getUtilisateurs()))
-					u.envoyerMessage(this.encodeur.encoderMessage(message));
+					u.envoyerMessage(this.encodeur.encoderMessage(message, u));
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());
@@ -261,8 +292,10 @@ public class RequestDecoder {
 					  .setDateNaissance(format.parse((String)content.get("date_naissance")))
 					  .setNom((String)content.get("nom"))
 					  .setPrenom((String)content.get("prenom"));
-
-			// TODO Traitement pour renvoyer la confirmation au client (modifier_profil_reponse)
+					  
+			this.session.envoyerMessage(
+				this.encodeur.modifierProfilReponse(true)
+			);
 		}
 		catch (UtilisateurException ue) {
 			System.err.println(ue.getMessage());
@@ -277,6 +310,14 @@ public class RequestDecoder {
 	 * @param content Requête reçue par le serveur.
 	 */
 	public void get_profil(JSONObject content) {
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getProfilReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 	}
 
 	/**
@@ -292,14 +333,37 @@ public class RequestDecoder {
 				UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 				if (utilisateur.verifieMotDePasseParental(mdp)){
 					utilisateur.ajouterFiltre(new FiltreMot(mot));
-					// TODO Traitement pour renvoyer la confirmation au client
+					try {
+						this.session.envoyerMessage(
+							this.encodeur.addFiltreMotReponse(true)
+						);
+					}
+					catch (IOException ioe) {
+						ioe.printStackTrace();
+					}
+				}else{
+					try {
+						this.session.envoyerMessage(
+							this.encodeur.addFiltreMotReponse(false)
+						);
+					}
+					catch (IOException ioe) {
+						ioe.printStackTrace();
+					}
 				}
-				// TODO else: Traitement si bad mdp parental
 			} catch (Exception pe) {
 				pe.printStackTrace();
 			}
+		}else{
+			try {
+				this.session.envoyerMessage(
+					this.encodeur.addFiltreMotReponse(false)
+				);
+			}
+			catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
 		}
-		// TODO si celui qui envoie le message n'existe pas
 	}
 
 	/**
@@ -328,10 +392,10 @@ public class RequestDecoder {
 					this.session.envoyerMessage(
 						this.encodeur.addFiltreUtilisateurReponse(false)
 						);
-					}
-					catch (IOException ioe) {
-						ioe.printStackTrace();
-					}
+				}
+				catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
 			}
 		}
 		catch (Exception pe) {

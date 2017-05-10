@@ -22,6 +22,9 @@ public class FiltreUtilisateur implements IFiltre {
 	}
 
 	@Override
+	public Object getObject() { return this.utilisateur; }
+
+	@Override
 	public boolean compare(Object objet) {
 		if (objet instanceof Utilisateur)
 			return ((Utilisateur)objet).equals(this.utilisateur);

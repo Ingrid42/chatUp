@@ -18,6 +18,9 @@ public class FiltreMot implements IFiltre {
 	public FiltreMot(String mot) {
 		this.mot = mot;
 	}
+	
+	@Override
+	public Object getObject() { return this.mot; }
 
 	@Override
 	public boolean compare(Object objet) {
