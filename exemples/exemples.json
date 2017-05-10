@@ -182,10 +182,12 @@
 			{
 				"pseudonyme" : "Orionis",
 				"message" : "Hello! It's me!"
+				"date" : 2017-05-02
 			},
 			{
 				"pseudonyme" : "Mario",
 				"message" : "It's me, Mario!"
+				"date" : 2017-05-02
 			}
 		]
 	}

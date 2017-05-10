@@ -204,7 +204,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.getDiscussionReponse(false, Null)
+					this.encodeur.getDiscussionReponse(false, null)
 				);
 			}
 			catch (IOException ioe) {
@@ -262,6 +262,25 @@ public class RequestDecoder {
 
 	/**
 	 * Envoi de la liste des utilisateurs au client.
+	 * @param content Requête reçue par le serveur.
+	 */
+	/*public void get_discussions(JSONObject content) {
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getDiscussionsReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}*/
+
+	
+	/**
+	 * Envoi de la liste des discussions au client.
 	 * @param content Requête reçue par le serveur.
 	 */
 	public void get_utilisateurs(JSONObject content) {

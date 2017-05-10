@@ -104,7 +104,10 @@ public class ResponseEncoder {
 	 */
 	public String creerDiscussionReponse(boolean state, long id){
 		Map<String, Object> jsonObjMap = stateReponse(state, "creer_discussion_reponse" );
-		jsonObjMap.put("id", new Long(id));
+		Map<String, Object> jsonContenuMap = new HashMap<>();
+		jsonContenuMap.put("id", new Long(id));
+		JSONObject contenu = new JSONObject(jsonContenuMap);
+		jsonObjMap.put("contenu", contenu);
 		return new JSONObject(jsonObjMap).toString();
 	}
 
@@ -223,6 +226,25 @@ public class ResponseEncoder {
 				JSONObject userObject = new JSONObject(jsonMessageObjectMap);
 				array_msg.add(userObject) ;
 			}
+			
+			JSONArray array_users = new JSONArray();
+			for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
+				if (this.session.getUtilisateur() != null && 
+					((this.session.getUtilisateur() instanceof UtilisateurHumain &&
+					!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u)) ||
+					this.session.getUtilisateur().equals(u)))
+					continue;
+
+				Map<String, Object> jsonUserObjectMap = new HashMap<>();
+
+				jsonUserObjectMap.put("pseudonyme", u.getPseudonyme());
+				jsonUserObjectMap.put("nom", u.getNom());
+				jsonUserObjectMap.put("prenom", u.getPrenom());
+
+				JSONObject userObject = new JSONObject(jsonUserObjectMap);
+				array_users.add(userObject) ;
+			}
+			jsonContenuMap.put("utilisateurs", array_users);
 			jsonContenuMap.put("messages", array_msg);
 			
 			JSONObject contenu = new JSONObject(jsonContenuMap);
@@ -231,6 +253,39 @@ public class ResponseEncoder {
 			return obj.toString() ;
 		}
 	}
+	
+	
+	/**
+	 * Liste tout les discussions du client
+	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
+	 */
+	/*@SuppressWarnings("unchecked")
+	public String getDiscussionsReponse(boolean state){
+		if(discussion == null || !state)
+			return new JSONObject(stateReponse(state, "get_discussions_reponse")).toString() ;
+		else {
+			DiscussionTexte disc = (DiscussionTexte)discussion ;
+			Map<String, Object> jsonContenuMap = new HashMap<>();
+			Map<String, Object> jsonObjMap = stateReponse(state, "get_discussions_reponse" );
+			JSONArray array_msg = new JSONArray();
+			for(Message msg : disc.getMessages()){
+				Map<String, Object> jsonMessageObjectMap = new HashMap<>();
+				jsonMessageObjectMap.put("message", msg.getMessage());
+				jsonMessageObjectMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme());
+				DateFormat format = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ", Locale.FRENCH);
+				jsonMessageObjectMap.put("date", format.format(msg.getDate()));
+
+				JSONObject userObject = new JSONObject(jsonMessageObjectMap);
+				array_msg.add(userObject) ;
+			}
+			jsonContenuMap.put("messages", array_msg);
+			
+			JSONObject contenu = new JSONObject(jsonContenuMap);
+			jsonObjMap.put("contenu", contenu);
+			JSONObject obj = new JSONObject(jsonObjMap);
+			return obj.toString() ;
+		}
+	}*/
 	
 
 	/**
