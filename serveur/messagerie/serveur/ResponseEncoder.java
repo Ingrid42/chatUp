@@ -102,8 +102,10 @@ public class ResponseEncoder {
 	 * @param state Un état vrai indique que la création a été effectuée.
 	 * @return Réponse mise en forme au format JSON.
 	 */
-	public String creerDiscussionReponse(boolean state){
-		return new JSONObject(stateReponse(state, "creer_discussion_reponse" )).toString();
+	public String creerDiscussionReponse(boolean state, long id){
+		Map<String, Object> jsonObjMap = stateReponse(state, "creer_discussion_reponse" );
+		jsonObjMap.put("id", new Long(id));
+		return new JSONObject(jsonObjMap).toString();
 	}
 
 	/**
@@ -132,6 +134,23 @@ public class ResponseEncoder {
 		return new JSONObject(stateReponse(state, "set_controle_parental_reponse")).toString() ;
 	}
 	
+	/**
+	 * Réponse au client afin de lui donner les infos du profil
+	 * @param state Un état vrai indique que le message a été envoyé.
+	 * @return Réponse mise en forme au format JSON.
+	 */	
+	public String getProfilReponse(boolean state){
+		return userStateReponse(state, "get_profil_reponse", (UtilisateurHumain)this.session.getUtilisateur()).toString() ;
+	}
+	
+	/**
+	 * Réponse au client afin de lui donner les infos du profil apres modif
+	 * @param state Un état vrai indique que le message a été envoyé.
+	 * @return Réponse mise en forme au format JSON.
+	 */	
+	public String modifierProfilReponse(boolean state){
+		return userStateReponse(state, "modifier_profil_reponse", (UtilisateurHumain)this.session.getUtilisateur()).toString() ;
+	}
 	
 	/**
 	 * Réponse au client afin de l'informer si l'ajout du filtre a bien été effectué.
@@ -143,21 +162,34 @@ public class ResponseEncoder {
 	}
 	
 	
-
+	
+	/**
+	 * Réponse au client afin de l'informer si l'ajout du filtre a bien été effectué.
+	 * @param state Un état vrai indique que le message a été envoyé.
+	 * @return Réponse mise en forme au format JSON.
+	 */	
+	public String addFiltreMotReponse(boolean state){
+		return new JSONObject(stateReponse(state, "add_filtre_mot_reponse")).toString() ;
+	}
+	
 	/**
 	 * Encodage d'un message à un client.
 	 * @param msg Message à encoder.
 	 * @return Réponse mise en forme au format JSON.
 	 */
-	public String encoderMessage(Message msg){
+	public String encoderMessage(Message msg, Utilisateur utilisateur){
 		Map<String, Object> jsonObjMap = new HashMap<>();
 		Map<String, Object> jsonContenuMap = new HashMap<>();
 		
-		jsonObjMap.put("action", "message") ;
-		
+		jsonObjMap.put("action", "message_reponse") ;
+		jsonObjMap.put("etat", new Boolean(true)) ;
 		jsonContenuMap.put("id_discussion", msg.getId()) ;
 		jsonContenuMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme()) ;
-		jsonContenuMap.put("message", msg.getMessage()) ;
+
+		if (utilisateur instanceof UtilisateurHumain)
+			jsonContenuMap.put("message", ((UtilisateurHumain)utilisateur).filtrerMessage(msg));
+		else
+			jsonContenuMap.put("message", msg.getMessage());
 
 		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
@@ -165,6 +197,22 @@ public class ResponseEncoder {
 		JSONObject obj = new JSONObject();
 		return obj.toString() ;
 	}
+	
+	/*
+	public String getDiscussionReponse(boolean state, Discussion discussion){
+		if(discussion == Null || !state)
+			return return new JSONObject(stateReponse(state, "get_discussion_reponse")).toString() ;
+		else {
+			Map<String, Object> jsonContenuMap = new HashMap<>();
+			Map<String, Object> jsonObjMap = stateReponse(state, "get_discussion_reponse" );
+			jsonObjMap.put("id", new Long(id));
+			jsonContenuMap.put("id_discussion", discussion.getId()) ;
+			JSONArray array_msg = new JSONArray();
+			// boucler sur les messages de la discussion
+			
+		}
+	}
+	*/
 
 	/**
 	 * Liste tout les utilisateurs pour le client
@@ -176,8 +224,7 @@ public class ResponseEncoder {
 		Map<String, Object> jsonContenuMap = new HashMap<>();
 		
 		jsonObjMap.put("action", "get_utilisateurs_reponse") ;
-
-		// TODO ne pas intégrer les utilisateurs qui sont filtrés (Contrôle parental)
+		jsonObjMap.put("etat", new Boolean(true)) ;
 		JSONArray array_users = new JSONArray();
 		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
 			if (this.session.getUtilisateur() != null && 
