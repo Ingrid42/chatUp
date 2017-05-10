@@ -18,6 +18,13 @@
 \usepackage{array}
 \usepackage{svg}
 
+\usepackage{pdfpages}
+\usepackage{titling}
+\usepackage{soul}
+\usepackage{titlesec}
+\def\cleardoublepage{\clearpage}
+\def\clearpage{\newpage}
+
 %%%%%%%%%%%%%%%%%%%% Presentation %%%%%%%%%%%%%%%%%%%
 \title{Informatique Répartie\\Rapport\\Sujet : Messagerie instantanée 2}
 \author{Ingrid FIQUET\\Morgane LEGROS\\Florian MARTIN\\Thibault THÉOLOGIEN\\Youssef ZERHOUNI ABDOU}
@@ -32,6 +39,11 @@
 		\end{figure}
 
 		\maketitle
+		
+		\begin{center}
+			\addvspace{10mm}
+			À l'attention de Cecilia Zanni$-$Merk.
+		\end{center}
 
 		\vfill
 		\noindent \hrulefill
@@ -45,7 +57,8 @@
 \tableofcontents{}
 
 \newpage
-\part{Introduction}
+\part*{Introduction} \addcontentsline{toc}{part}{Introduction}
+\markboth{Introduction}{Introduction}
 	\input{src/Intro.tex}
 
 \newpage
@@ -65,10 +78,12 @@
 	\input{src/implementation_tests.tex}
 	
 \newpage
-\part{Conclusion}
+\part*{Conclusion}\addcontentsline{toc}{part}{Conclusion}
+\markboth{Conclusion}{Conclusion}
 	\input{src/Conclusion.tex}
 
 \newpage
-\part{Annexe}
+\part*{Annexe}\addcontentsline{toc}{part}{Annexe}
+\markboth{Annexe}{Annexe}
 
 \end{document}
