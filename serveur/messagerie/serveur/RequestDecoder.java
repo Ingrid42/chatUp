@@ -265,12 +265,16 @@ public class RequestDecoder {
 	 */
 	public void get_utilisateurs(JSONObject content) {
 		try {
+			String pseudo = (String)content.get("pseudonyme");
 			this.session.envoyerMessage(
-				this.encodeur.getUtilisateursReponse()
+				this.encodeur.getUtilisateursReponse(pseudo)
 			);
 		}
 		catch (IOException ioe) {
 			ioe.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

@@ -219,7 +219,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
 	 */
 	@SuppressWarnings("unchecked")
-	public String getUtilisateursReponse(){
+	public String getUtilisateursReponse(String pseudo){
 		Map<String, Object> jsonObjMap = new HashMap<>();
 		Map<String, Object> jsonContenuMap = new HashMap<>();
 		
@@ -228,8 +228,9 @@ public class ResponseEncoder {
 		JSONArray array_users = new JSONArray();
 		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
 			if (this.session.getUtilisateur() != null && 
-				this.session.getUtilisateur() instanceof UtilisateurHumain &&
-				!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u))
+				((this.session.getUtilisateur() instanceof UtilisateurHumain &&
+				!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u)) ||
+				this.session.getUtilisateur().equals(u)))
 				continue;
 
 			Map<String, Object> jsonUserObjectMap = new HashMap<>();
