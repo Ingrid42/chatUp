@@ -91,6 +91,7 @@ public class Serveur {
 
 		oos = new ObjectOutputStream(new FileOutputStream(new File(fileName)));
 		oos.writeObject(application);
+		oos.flush();
 
 		if (oos != null)
 			oos.close();
@@ -132,7 +133,7 @@ public class Serveur {
 		finally {
 			try {
 				if (serveur != null) {
-					serveur.enregistrer("sauvegarde.save");
+					serveur.enregistrer("serveur.save");
 					serveur.stop();
 				}
 			}
