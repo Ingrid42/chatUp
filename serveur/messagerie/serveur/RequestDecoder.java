@@ -266,9 +266,8 @@ public class RequestDecoder {
 	 */
 	public void get_utilisateurs(JSONObject content) {
 		try {
-			String pseudo = (String)content.get("pseudonyme");
 			this.session.envoyerMessage(
-				this.encodeur.getUtilisateursReponse(pseudo)
+				this.encodeur.getUtilisateursReponse()
 			);
 		}
 		catch (IOException ioe) {

@@ -219,7 +219,7 @@ public class ResponseEncoder {
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
 	 */
 	@SuppressWarnings("unchecked")
-	public String getUtilisateursReponse(String pseudo){
+	public String getUtilisateursReponse(){
 		Map<String, Object> jsonObjMap = new HashMap<>();
 		Map<String, Object> jsonContenuMap = new HashMap<>();
 		
