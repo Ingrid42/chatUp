@@ -1,0 +1,35 @@
+.blocConversationCreation {
+  display: flex;
+  height: 100%;
+}
+
+form.formConversationCreation h2 {
+  text-align: center;
+  color: $font-color;
+}
+
+label {
+  color: $font-color;
+}
+
+form.formConversationCreation  {
+  background-color: $rose;
+  border-radius: 40px;
+  text-align: center;
+  padding: 20px;
+  width: $formDim;
+  height: $formDim;
+  @include shadowBox($gray-lighter);
+  display: flex;
+  margin: auto;
+}
+
+form.login {
+  overflow: auto;
+  margin: auto;
+}
+
+#switchToConversationTextuelle {
+  cursor: pointer;
+  color: white;
+}

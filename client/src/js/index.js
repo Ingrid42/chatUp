@@ -1,64 +1,57 @@
 import Session from "./classes/Session.js"
 import Toolbox from "./classes/Toolbox.js";
+import Navigateur from "./classes/Navigateur.js";
 
 const init = function() {
   var toolbox = new Toolbox();
-  var session = new Session('ws://localhost:4000');
+  var navigateur = new Navigateur();
+  var session = new Session('ws://localhost:4000', navigateur);
   toolbox.importFiles();
-}
+  navigateur.listen(session);
+};
 
-const hide = function() {
-  $('div[id^="page"]').addClass('hidden');
-  $('div[id^="navbar"]').addClass('hidden');
-}
+// const inscriptionUtilisateur = function(session) {
+//
+//   $('#inscriptionUtilisateur').on('click', function() {
+//     verification();
+//     let pseudonyme = $('#inputInscriptionPseudo').val();
+//     let prenom = $('#inputInscriptionPrenom').val();
+//     let mot_de_passe_confirmation = $('#inputInscriptionPasswordConfirmation').val();
+//
+//     let nom = $('#inputInscriptionNom').val();
+//     let mot_de_passe = $('#inputInscriptionPassword').val();
+//     let adresse_mel = $('#inputInscriptionEmail').val();
+//     let date_naissance = $('#inputInscriptionDatePicker').val();
+//
+//     let message = {
+//       contenu : {
+//       action : "creer_utilisateur",
+//         pseudonyme,
+//         nom,
+//         mot_de_passe,
+//         prenom,
+//         adresse_mel,
+//         date_naissance
+//       }
+//     };
+//     switchToConnexion();
+//     session.send(message);
+//   });
+// };
+//
+// const verification = function() {
+//
+//   var emailBox = document.getElementById("inputInscriptionEmail");
+//   var pseudo = document.getElementById("inputInscriptionPseudo");
+//   var error = document.getElementById("msgError");
+//   if(emailBox.value=="") {
+//     if(!error.hasChildNodes()) {
+//       emailBox.style.outline="solid Red";
+//     }
+//       error.appendChild(document.createTextNode("Champ obligatoire"));
+//   } else {
+//     document.forms['formInscription'].submit();
+//   }
+// };
 
-const onEvent = function() {
-  $('#image-input').on('click', function() {
-  });
-
-  $('#switchToConnexion').on('click', function() {
-    hide();
-    $('#pageMessagerie').removeClass('hidden');
-    $('#navbarMessagerie').removeClass('hidden');
-  });
-
-  $('#switchToInscription').on('click', function() {
-    hide();
-    $('#pageInscription').removeClass('hidden');
-    $('#navbarAccueil').removeClass('hidden');
-  });
-
-  $('.switchToParameters').on('click', function() {
-    hide();
-    $('#pageParametres').removeClass('hidden');
-    $('#navbarParametres').removeClass('hidden');
-  });
-
-  $('.switchToContacts').on('click', function() {
-    hide();
-    $('#pageContacts').removeClass('hidden');
-    $('#navbarContacts').removeClass('hidden');
-  });
-
-  $('.switchToMessagerie').on('click', function() {
-    hide();
-    $('#pageMessagerie').removeClass('hidden');
-    $('#navbarMessagerie').removeClass('hidden');
-  });
-
-  $('.switchToConversationTextuelle').on('click', function() {
-    console.log("swicth to conv");
-    hide();
-    $('#pageConversation').removeClass('hidden');
-    $('#navbarConversation').removeClass('hidden');
-  });
-
-  $('.switchToConversationAudio').on('click', function() {
-    console.log("swicth to conv");
-    hide();
-    $('#pageConversationAudio').removeClass('hidden');
-    $('#navbarConversation').removeClass('hidden');
-  })
-}
-
-$(document).ready(init)
+$(document).ready(init());

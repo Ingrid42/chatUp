@@ -181,3 +181,19 @@
   margin-left: 100px;
   margin-top: 50px;
 }
+
+// scrollbar
+::-webkit-scrollbar {
+width: 10px;  /* for vertical scrollbars */
+height: 10px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}

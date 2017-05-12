@@ -28,7 +28,7 @@ import messagerie.serveur.filtre.*;
  */
 public class RequestDecoder {
 	/**
-	 * Méthodes de la classe pour simplifier l'appel aux différentes méthodes selon l'action 
+	 * Méthodes de la classe pour simplifier l'appel aux différentes méthodes selon l'action
 	 * indiquée dans la requête.
 	 */
 	private final static Method[] methods;
@@ -94,7 +94,7 @@ public class RequestDecoder {
 					this.encodeur.connexionReponse(true)
 				);
 			}
-			else 
+			else
 				this.session.envoyerMessage(
 					this.encodeur.connexionReponse(false)
 				);
@@ -110,7 +110,7 @@ public class RequestDecoder {
 			catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
-			
+
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
@@ -191,12 +191,12 @@ public class RequestDecoder {
 		}
 
 	}
-	
+
 	/**
 	 * Récuperer la discussion
 	 * @param content Requête reçue par le serveur.
 	 */
-	
+
 	public void get_discussion(JSONObject content) {
 		try {
 			int id = Integer.parseInt((String)content.get("id_discussion"));
@@ -219,9 +219,9 @@ public class RequestDecoder {
 		}
 
 	}
-	
-	
-	
+
+
+
 
 	/**
 	 * Envoi d'un message aux utilisateurs d'une discussion.
@@ -244,7 +244,7 @@ public class RequestDecoder {
 			else
 				throw new DiscussionException("L'utilisateur n'est pas dans la conversation. Impossible d'envoyer un message.");
 
-			
+
 			this.session.envoyerMessage(
 				this.encodeur.envoyerMessageReponse(true)
 			);
@@ -321,7 +321,7 @@ public class RequestDecoder {
 					  .setDateNaissance(format.parse((String)content.get("date_naissance")))
 					  .setNom((String)content.get("nom"))
 					  .setPrenom((String)content.get("prenom"));
-					  
+
 			this.session.envoyerMessage(
 				this.encodeur.modifierProfilReponse(true)
 			);
@@ -461,7 +461,7 @@ public class RequestDecoder {
 					ioe.printStackTrace();
 				}
 			}
-			
+
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
@@ -497,7 +497,7 @@ public class RequestDecoder {
 				catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
-				
+
 			}
 		}
 		catch (Exception pe) {

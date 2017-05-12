@@ -43,7 +43,7 @@ public class ResponseEncoder {
 		Map<String, Object> jsonObjMap = new HashMap<>();
 		jsonObjMap.put("action", action);
 		jsonObjMap.put("etat", new Boolean(state));
-		
+
 		return jsonObjMap;
 	}
 
@@ -70,11 +70,11 @@ public class ResponseEncoder {
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
 			jsonContentMap.put("date_naissance", format.format(user.getDateNaissance()));
 		}
-		
+
 		JSONObject content = new JSONObject(jsonContentMap);
 		jsonObjEtatMap.put("contenu", content);
 		JSONObject objEtat = new JSONObject(jsonObjEtatMap);
-		
+
 		return objEtat;
 	}
 
@@ -105,7 +105,7 @@ public class ResponseEncoder {
 	public String creerDiscussionReponse(boolean state, long id){
 		Map<String, Object> jsonObjMap = stateReponse(state, "creer_discussion_reponse" );
 		Map<String, Object> jsonContenuMap = new HashMap<>();
-		jsonContenuMap.put("id", (new Long(id).toString());
+		jsonContenuMap.put("id", (new Long(id).toString()));
 		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
 		return new JSONObject(jsonObjMap).toString();
@@ -119,12 +119,12 @@ public class ResponseEncoder {
 	public String envoyerMessageReponse(boolean state){
 		return new JSONObject(stateReponse(state, "envoyer_message_reponse" )).toString();
 	}
-	
+
 	/**
 	 * Réponse au client afin de l'informer si la desactivation du controle parentale est faite.
 	 * @param state Un état vrai indique que le message a été envoyé.
 	 * @return Réponse mise en forme au format JSON.
-	 */	
+	 */
 	public String desactiverControleParentalReponse(boolean state){
 		return new JSONObject(stateReponse(state, "desactiver_controle_parental_reponse")).toString() ;
 	}
@@ -132,49 +132,49 @@ public class ResponseEncoder {
 	 * Réponse au client afin de l'informer si l'activation du controle parentale est faite.
 	 * @param state Un état vrai indique que le message a été envoyé.
 	 * @return Réponse mise en forme au format JSON.
-	 */	
+	 */
 	public String setControleParentalReponse(boolean state){
 		return new JSONObject(stateReponse(state, "set_controle_parental_reponse")).toString() ;
 	}
-	
+
 	/**
 	 * Réponse au client afin de lui donner les infos du profil
 	 * @param state Un état vrai indique que le message a été envoyé.
 	 * @return Réponse mise en forme au format JSON.
-	 */	
+	 */
 	public String getProfilReponse(boolean state){
 		return userStateReponse(state, "get_profil_reponse", (UtilisateurHumain)this.session.getUtilisateur()).toString() ;
 	}
-	
+
 	/**
 	 * Réponse au client afin de lui donner les infos du profil apres modif
 	 * @param state Un état vrai indique que le message a été envoyé.
 	 * @return Réponse mise en forme au format JSON.
-	 */	
+	 */
 	public String modifierProfilReponse(boolean state){
 		return userStateReponse(state, "modifier_profil_reponse", (UtilisateurHumain)this.session.getUtilisateur()).toString() ;
 	}
-	
+
 	/**
 	 * Réponse au client afin de l'informer si l'ajout du filtre a bien été effectué.
 	 * @param state Un état vrai indique que le message a été envoyé.
 	 * @return Réponse mise en forme au format JSON.
-	 */	
+	 */
 	public String addFiltreUtilisateurReponse(boolean state){
 		return new JSONObject(stateReponse(state, "add_filtre_utilisateur_reponse")).toString() ;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Réponse au client afin de l'informer si l'ajout du filtre a bien été effectué.
 	 * @param state Un état vrai indique que le message a été envoyé.
 	 * @return Réponse mise en forme au format JSON.
-	 */	
+	 */
 	public String addFiltreMotReponse(boolean state){
 		return new JSONObject(stateReponse(state, "add_filtre_mot_reponse")).toString() ;
 	}
-	
+
 	/**
 	 * Encodage d'un message à un client.
 	 * @param msg Message à encoder.
@@ -183,7 +183,7 @@ public class ResponseEncoder {
 	public String encoderMessage(Message msg, Utilisateur utilisateur){
 		Map<String, Object> jsonObjMap = new HashMap<>();
 		Map<String, Object> jsonContenuMap = new HashMap<>();
-		
+
 		jsonObjMap.put("action", "message_reponse") ;
 		jsonObjMap.put("etat", new Boolean(true)) ;
 		jsonContenuMap.put("id_discussion", msg.getId()) ;
@@ -200,7 +200,7 @@ public class ResponseEncoder {
 		JSONObject obj = new JSONObject();
 		return obj.toString() ;
 	}
-	
+
 	/**
 	 * Liste tout les utilisateurs pour le client
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
@@ -226,10 +226,10 @@ public class ResponseEncoder {
 				JSONObject userObject = new JSONObject(jsonMessageObjectMap);
 				array_msg.add(userObject) ;
 			}
-			
+
 			JSONArray array_users = new JSONArray();
 			for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
-				if (this.session.getUtilisateur() != null && 
+				if (this.session.getUtilisateur() != null &&
 					((this.session.getUtilisateur() instanceof UtilisateurHumain &&
 					!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u)) ||
 					this.session.getUtilisateur().equals(u)))
@@ -246,15 +246,15 @@ public class ResponseEncoder {
 			}
 			jsonContenuMap.put("utilisateurs", array_users);
 			jsonContenuMap.put("messages", array_msg);
-			
+
 			JSONObject contenu = new JSONObject(jsonContenuMap);
 			jsonObjMap.put("contenu", contenu);
 			JSONObject obj = new JSONObject(jsonObjMap);
 			return obj.toString() ;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Liste tout les discussions du client
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
@@ -266,7 +266,7 @@ public class ResponseEncoder {
 		Map<String, Object> jsonObjMap = stateReponse(state, "get_discussions_reponse" );
 		JSONArray array_disc = new JSONArray();
 		for(Discussion dsc : this.session.getUtilisateur().getDiscussions()){
-			
+
 			Map<String, Object> jsonDiscObjectMap = new HashMap<>();
 			jsonDiscObjectMap.put("id", dsc.getId());
 			JSONArray array_users = new JSONArray();
@@ -275,19 +275,19 @@ public class ResponseEncoder {
 					array_users.add(u.getPseudonyme()) ;
 
 			jsonDiscObjectMap.put("utilisateurs", array_users);
-			
+
 			JSONObject discObject = new JSONObject(jsonDiscObjectMap);
 			array_disc.add(discObject) ;
 		}
 		jsonContenuMap.put("discussions", array_disc);
-		
+
 		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
 		JSONObject obj = new JSONObject(jsonObjMap);
 		return obj.toString() ;
-	
+
 	}
-	
+
 
 	/**
 	 * Liste tout les utilisateurs pour le client
@@ -297,12 +297,12 @@ public class ResponseEncoder {
 	public String getUtilisateursReponse(){
 		Map<String, Object> jsonObjMap = new HashMap<>();
 		Map<String, Object> jsonContenuMap = new HashMap<>();
-		
+
 		jsonObjMap.put("action", "get_utilisateurs_reponse") ;
 		jsonObjMap.put("etat", new Boolean(true)) ;
 		JSONArray array_users = new JSONArray();
 		for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
-			if (this.session.getUtilisateur() != null && 
+			if (this.session.getUtilisateur() != null &&
 				((this.session.getUtilisateur() instanceof UtilisateurHumain &&
 				!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u)) ||
 				this.session.getUtilisateur().equals(u)))
