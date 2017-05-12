@@ -72,6 +72,16 @@ class Navigateur {
     this.switchToConnexion();
   }
 
+  getDiscussion(target, session) {
+    let message = {
+      "action": "get_discussion",
+      "contenu": {
+        "id_discussion": $(target).data('disussion_id').toString()
+      }
+    }
+    session.send(message)
+  }
+
   switchToConnexion() {
     this.hide();
     $('#pageConnexion').removeClass('hidden');
@@ -152,12 +162,14 @@ class Navigateur {
     tag.text(nomUtilisateurs);
   }
 
-  generateMessagerie(data) {
+  generateMessagerie(data, session) {
     var tag = $('#messagerie');
     tag.html('');
-    data.discussions.map((discussion, indice) => {
+    for (var i = 0; i < data.discussions.length; i++) {
+      let discussion = data.discussions[i];
       tag.append(this._discussionTemplate(discussion));
-    });
+    }
+    $('.getDiscussion').on('click', (evt) => this.getDiscussion(evt.target, session));
   }
 
   _discussionTemplate(discussion) {
@@ -167,13 +179,12 @@ class Navigateur {
       if (i < discussion.utilisateurs.length - 1)
         nomUtilisateurs += ", ";
     }
-
     return '\
-    <button type="button" data-disussion_id="'+ discussion.id + '" class="btn btn-secondary messagerie switchToConversationTextuelle" >\n\
-      <div class="vcenter">\n\
-        <i class="fa fa-users contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->\n\
-        <div class="contact-name">' + nomUtilisateurs + '</div> <!-- Nom du contact -->\n\
-        <i class="fa fa-circle contact-notification pull-right" aria-hidden="true"></i> <!-- pull-right ne fonctionne pas à cause du vcenter de la div -->\n\
+    <button data-disussion_id="'+ discussion.id + '" class="btn btn-secondary messagerie getDiscussion" >\n\
+      <div data-disussion_id="'+ discussion.id + '" class="vcenter">\n\
+        <i data-disussion_id="'+ discussion.id + '" class="fa fa-users contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->\n\
+        <div data-disussion_id="'+ discussion.id + '" class="contact-name">' + nomUtilisateurs + '</div> <!-- Nom du contact -->\n\
+        <i data-disussion_id="'+ discussion.id + '" class="fa fa-circle contact-notification pull-right" aria-hidden="true"></i> <!-- pull-right ne fonctionne pas à cause du vcenter de la div -->\n\
       </div>\n\
     </button>';
   }

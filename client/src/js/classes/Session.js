@@ -115,7 +115,7 @@ class Session {
   }
 
   _onGetDiscussions(data) {
-    this.navigateur.generateMessagerie(data);
+    this.navigateur.generateMessagerie(data, this);
     this.navigateur.switchToMessagerie();
   }
 
