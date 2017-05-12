@@ -49,9 +49,9 @@ public class Application implements Serializable {
 	 * @throws UtilisateurException Se déclenche si un utilisateur avec le même pseudonyme existe déjà.
 	 */
 	public synchronized void ajouterUtilisateur(Utilisateur utilisateur) throws UtilisateurException {
-		if (this.utilisateurs.containsKey(utilisateur.getPseudonyme()))
+		if (this.utilisateurs.containsKey(utilisateur.getPseudonyme().toUpperCase()))
 			throw new UtilisateurException("Utilisateur existant.");
-		this.utilisateurs.put(utilisateur.getPseudonyme(), utilisateur);
+		this.utilisateurs.put(utilisateur.getPseudonyme().toUpperCase(), utilisateur);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class Application implements Serializable {
 	 * @return Utilisateur ayant le pseudonyme voulu.
 	 */
 	public Utilisateur getUtilisateur(String pseudonyme) throws UtilisateurException {
-		Utilisateur utilisateur = this.utilisateurs.get(pseudonyme);
+		Utilisateur utilisateur = this.utilisateurs.get(pseudonyme.toUpperCase());
 		if (utilisateur == null)
 			throw new UtilisateurException(String.format("L'utilisateur '%s' n'existe pas.", pseudonyme));
 		return utilisateur;
