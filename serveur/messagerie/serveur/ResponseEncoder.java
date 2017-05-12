@@ -228,7 +228,7 @@ public class ResponseEncoder {
 			}
 
 			JSONArray array_users = new JSONArray();
-			for(Utilisateur u : Session.getApplication().getUtilisateurs().values()){
+			for(Utilisateur u : discussion.getUtilisateurs()){
 				if (this.session.getUtilisateur() != null &&
 					((this.session.getUtilisateur() instanceof UtilisateurHumain &&
 					!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(u)) ||
@@ -271,8 +271,17 @@ public class ResponseEncoder {
 			jsonDiscObjectMap.put("id", dsc.getId());
 			JSONArray array_users = new JSONArray();
 			for(Utilisateur u : dsc.getUtilisateurs())
-				if(!u.equals(this.session.getUtilisateur()))
-					array_users.add(u.getPseudonyme()) ;
+				if(!u.equals(this.session.getUtilisateur())){
+					
+					Map<String, Object> jsonUserObjectMap = new HashMap<>();
+
+					jsonUserObjectMap.put("pseudonyme", u.getPseudonyme());
+					jsonUserObjectMap.put("nom", u.getNom());
+					jsonUserObjectMap.put("prenom", u.getPrenom());
+
+					JSONObject userObject = new JSONObject(jsonUserObjectMap);
+					array_users.add(userObject) ;
+				}
 
 			jsonDiscObjectMap.put("utilisateurs", array_users);
 
