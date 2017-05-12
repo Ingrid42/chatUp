@@ -2,7 +2,7 @@ package messagerie.serveur;
 
 import messagerie.serveur.utilisateur.Utilisateur;
 import messagerie.serveur.discussion.*;
-import messagerie.serveur.exception.*;
+import messagerie.serveur.exceptions.*;
 
 import java.util.Map;
 import java.util.HashMap;

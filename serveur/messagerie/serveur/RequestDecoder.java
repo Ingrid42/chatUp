@@ -2,7 +2,7 @@ package messagerie.serveur;
 
 import messagerie.serveur.utilisateur.*;
 import messagerie.serveur.discussion.*;
-import messagerie.serveur.exception.*;
+import messagerie.serveur.exceptions.*;
 import messagerie.serveur.exceptions.DiscussionException;
 
 import org.json.simple.JSONObject;

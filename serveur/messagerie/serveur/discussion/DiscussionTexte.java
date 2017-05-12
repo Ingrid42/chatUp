@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import messagerie.serveur.utilisateur.Utilisateur;
-import messagerie.serveur.exception.*;
+import messagerie.serveur.exceptions.*;
 
 /**
  * Classe représentant une discussion texte entre utilisateurs.
