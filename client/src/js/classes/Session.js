@@ -58,6 +58,9 @@ class Session {
         case 'get_discussion_reponse':
           this._onGetDiscussion(responseJSON.contenu);
           break;
+        case 'get_discussions_reponse':
+          this._onGetDiscussions(responseJSON.contenu);
+          break;
       }
     }
     else {
@@ -76,14 +79,18 @@ class Session {
     );
   }
 
-   _onConnexion(data) {
-    let message = {
-    	"action" : "get_utilisateurs",
-    	"contenu" : {}
-    };
-
+  _onConnexion(data) {
     this._initUtilisateur(data);
-    this.navigateur.switchToMessagerie();
+    let message = {
+      "action": "get_utilisateurs",
+      "contenu": {}
+    };
+    this.send(message);
+
+    message = {
+      "action": "get_discussions",
+      "contenu": {}
+    }
     this.send(message);
   }
 
@@ -103,8 +110,13 @@ class Session {
   }
 
   _onGetDiscussion(data) {
-    console.log(data);
+    this.navigateur.generateConversationTextuelle(data);
     this.navigateur.switchToConversationTextuelle();
+  }
+
+  _onGetDiscussions(data) {
+    this.navigateur.generateMessagerie(data);
+    this.navigateur.switchToMessagerie();
   }
 
   _onEnvoyerMessage(data) {

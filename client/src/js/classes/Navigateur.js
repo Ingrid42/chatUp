@@ -141,6 +141,43 @@ class Navigateur {
     });
   }
 
+  generateConversationTextuelle(data) {
+    var tag = $('#conversation_textuelle_utilisateurs');
+    var nomUtilisateurs = "";
+    for (var i = 0; i < data.utilisateurs.length; i++) {
+      nomUtilisateurs += data.utilisateurs[i].prenom;
+      if (i < data.utilisateurs.length - 1)
+        nomUtilisateurs += ", ";
+    }
+    tag.text(nomUtilisateurs);
+  }
+
+  generateMessagerie(data) {
+    var tag = $('#messagerie');
+    tag.html('');
+    data.discussions.map((discussion, indice) => {
+      tag.append(this._discussionTemplate(discussion));
+    });
+  }
+
+  _discussionTemplate(discussion) {
+    let nomUtilisateurs = "";
+    for (var i = 0; i < discussion.utilisateurs.length; i++) {
+      nomUtilisateurs += discussion.utilisateurs[i].prenom;
+      if (i < discussion.utilisateurs.length - 1)
+        nomUtilisateurs += ", ";
+    }
+
+    return '\
+    <button type="button" data-disussion_id="'+ discussion.id + '" class="btn btn-secondary messagerie switchToConversationTextuelle" >\n\
+      <div class="vcenter">\n\
+        <i class="fa fa-users contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->\n\
+        <div class="contact-name">' + nomUtilisateurs + '</div> <!-- Nom du contact -->\n\
+        <i class="fa fa-circle contact-notification pull-right" aria-hidden="true"></i> <!-- pull-right ne fonctionne pas à cause du vcenter de la div -->\n\
+      </div>\n\
+    </button>';
+  }
+
   _contactTemplate(utilisateur) {
     return '\
     <div class="contact-case" data-pseudonyme="' + utilisateur.pseudonyme + '" data-nom="' + utilisateur.nom + '" data-prenom="' + utilisateur.prenom + '">\n\
