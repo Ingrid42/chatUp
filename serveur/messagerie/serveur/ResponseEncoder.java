@@ -213,8 +213,8 @@ public class ResponseEncoder {
 			DiscussionTexte disc = (DiscussionTexte)discussion ;
 			Map<String, Object> jsonContenuMap = new HashMap<>();
 			Map<String, Object> jsonObjMap = stateReponse(state, "get_discussion_reponse" );
-			jsonObjMap.put("id", (new Long(disc.getId())).toString());
-			jsonContenuMap.put("id_discussion", discussion.getId()) ;
+			//jsonObjMap.put("id", (new Long(disc.getId())).toString());
+			jsonContenuMap.put("id", discussion.getId()) ;
 			JSONArray array_msg = new JSONArray();
 			for(Message msg : disc.getMessages()){
 				Map<String, Object> jsonMessageObjectMap = new HashMap<>();
