@@ -159,12 +159,12 @@ class Navigateur {
 
 // FONCTIONS DE GÉNÉRATION
   generateContactList(utilisateurs, session) {
-    var tag = $('#contactList');
+    let tag = $('#contactList');
     tag.html('<div class="contact-case"></div> <!-- ligne en haut -->');
-    utilisateurs.map((utilisateur, indice) => {
-      tag.append(this._contactTemplate(utilisateur));
-      $('.creationDiscussionFromContactList').on('click', (evt) => this.creationDiscussion(session, [$(evt.target).data('pseudonyme')]));
-    });
+    for (var i = 0; i < utilisateurs.length; i++) {
+      tag.append(this._contactTemplate(utilisateurs[i]));
+    }
+    $('.creationDiscussionFromContactList').on('click', (evt) => this.creationDiscussion(session, [$(evt.target).data('pseudonyme')]));
   }
 
   generateCreationDiscussionContactList(utilisateurs) {
@@ -242,8 +242,8 @@ class Navigateur {
         <button type="button" class="btn btn-secondary text-center button-icon switchToConversationAudio" >\n\
           <i class="fa fa-phone fa-2x" aria-hidden="true"></i>\n\
         </button>\n\
-        <button type="button" class="btn btn-secondary text-center button-icon creationDiscussionFromContactList" data-pseudonyme="' + utilisateur.pseudonyme + '" data-nom="' + utilisateur.nom + '" data-prenom="' + utilisateur.prenom + '">\n\
-          <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>\n\
+        <button type="button" class="btn btn-secondary text-center button-icon creationDiscussionFromContactList" data-pseudonyme="' + utilisateur.pseudonyme + '">\n\
+          <i class="fa fa-envelope-o fa-2x" aria-hidden="true" data-pseudonyme="' + utilisateur.pseudonyme + '"></i>\n\
         </button>\n\
       </div>\n\
     </div>';
