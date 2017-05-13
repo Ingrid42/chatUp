@@ -258,7 +258,7 @@ public class RequestDecoder {
 				this.encodeur.envoyerMessageReponse(true)
 			);
 			for (Utilisateur u : discussion.getUtilisateurs())
-				u.envoyerMessage(this.encodeur.encoderMessage(message, u));
+				u.envoyerMessage(this.encodeur.encoderMessage(message, this.session.getUtilisateur()));
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());
