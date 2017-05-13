@@ -214,7 +214,6 @@ class Session {
         discussion.messages.push(message);
       }
     }
-    console.log(discussion);
   }
 
   _getDiscussion(id) {

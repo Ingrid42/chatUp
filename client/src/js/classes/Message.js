@@ -7,6 +7,11 @@ class Message {
     this.date = date;
     this.utilisateurs = utilisateurs;
   }
+
+  getLocaleDate() {
+    var date = new Date(this.date);
+    return date.toLocaleString();
+  }
 }
 
 export default Message;
