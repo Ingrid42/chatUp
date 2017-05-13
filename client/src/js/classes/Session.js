@@ -135,7 +135,7 @@ class Session {
 
   _onGetUtilisateurs(data) {
     this._saveUtilisateurs(data);
-    this.navigateur.generateContactList(this.utilisateurs);
+    this.navigateur.generateContactList(this.utilisateurs, this);
     this.navigateur.generateCreationDiscussionContactList(this.utilisateurs);
   }
 

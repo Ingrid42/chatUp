@@ -6,7 +6,7 @@ class Navigateur {
   listen(session) {
     $('#connexionUtilisateur').on('click', () => this.connexionUtilisateur(session));
     $('#inscriptionUtilisateur').on('click', () => this.inscriptionUtilisateur(session));
-    $('#creationDiscussion').on('click', () => this.creationDiscussion(session));
+    $('#creationDiscussion').on('click', () => this.creationDiscussion(session, $('#createConvContactList').val()));
     $('#switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('#switchToInscription').on('click', () => this.switchToInscription());
     $('#envoyer_message_bouton').on('click', () => this.envoyerMessage(session));
@@ -107,11 +107,11 @@ class Navigateur {
     session.send(message);
   };
 
-  creationDiscussion(session) {
+  creationDiscussion(session, utilisateurs) {
     var message = {
       action : "creer_discussion",
       contenu : {
-        utilisateurs : $('#createConvContactList').val()
+        utilisateurs
       }
     };
 
@@ -158,11 +158,12 @@ class Navigateur {
 
 
 // FONCTIONS DE GÉNÉRATION
-  generateContactList(utilisateurs) {
+  generateContactList(utilisateurs, session) {
     var tag = $('#contactList');
     tag.html('<div class="contact-case"></div> <!-- ligne en haut -->');
     utilisateurs.map((utilisateur, indice) => {
       tag.append(this._contactTemplate(utilisateur));
+      $('.creationDiscussionFromContactList').on('click', (evt) => this.creationDiscussion(session, [$(evt.target).data('pseudonyme')]));
     });
   }
 
@@ -232,7 +233,7 @@ class Navigateur {
 
   _contactTemplate(utilisateur) {
     return '\
-    <div class="contact-case" data-pseudonyme="' + utilisateur.pseudonyme + '" data-nom="' + utilisateur.nom + '" data-prenom="' + utilisateur.prenom + '">\n\
+    <div class="contact-case">\n\
       <div class="contact vcenter pull-left">\n\
         <i class="fa fa-user contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->\n\
         <div class="contact-name">' + utilisateur.prenom + '</div> <!-- Nom du contact -->\n\
@@ -241,7 +242,7 @@ class Navigateur {
         <button type="button" class="btn btn-secondary text-center button-icon switchToConversationAudio" >\n\
           <i class="fa fa-phone fa-2x" aria-hidden="true"></i>\n\
         </button>\n\
-        <button type="button" class="btn btn-secondary text-center button-icon switchToConversationTextuelle" >\n\
+        <button type="button" class="btn btn-secondary text-center button-icon creationDiscussionFromContactList" data-pseudonyme="' + utilisateur.pseudonyme + '" data-nom="' + utilisateur.nom + '" data-prenom="' + utilisateur.prenom + '">\n\
           <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>\n\
         </button>\n\
       </div>\n\
