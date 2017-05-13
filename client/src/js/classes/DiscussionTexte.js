@@ -2,13 +2,9 @@ import Discussion from './Discussion.js';
 import Message from './Message.js';
 
 class DiscussionTexte extends Discussion {
-  constructor() {
-    super();
+  constructor(id, utilisateurs) {
+    super(id, utilisateurs);
     this.messageList = [];
-  }
-
-  addMessage(message) {
-    this.messageList.push(message);
   }
 }
 

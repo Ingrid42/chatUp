@@ -1,5 +1,6 @@
 import Utilisateur from './Utilisateur.js';
-import Discussion from './Discussion.js';
+// import Discussion from './Discussion.js';
+import DiscussionTexte from './DiscussionTexte.js';
 import Navigateur from './Navigateur.js';
 require('socket.io-client');
 
@@ -10,7 +11,7 @@ class Session {
     this.socket.onmessage = (response) => this.message(response);
     this.utilisateur = null;
     this.utilisateurs = [];
-    this.discussions = [];
+    this.discussionsTextes = [];
     this.navigateur = navigateur;
   }
 
@@ -121,7 +122,7 @@ class Session {
 
   _onGetDiscussions(data) {
     this._saveDiscussions(data);
-    this.navigateur.generateMessagerie(this.discussions, this);
+    this.navigateur.generateMessagerie(this.discussionsTextes, this);
     this.navigateur.switchToMessagerie();
   }
 
@@ -159,17 +160,17 @@ class Session {
     let discussion;
     for (var i=0; i < data.discussions.length; i++) {
       let estPresent = false;
-      discussion = new Discussion(
+      discussion = new DiscussionTexte(
         data.discussions[i].id,
         data.discussions[i].utilisateurs,
       );
-      for (var j=0; j < this.discussions.length; j++) {
-        if (this.discussions[j].id == discussion.id) {
+      for (var j=0; j < this.discussionsTextes.length; j++) {
+        if (this.discussionsTextes[j].id == discussion.id) {
           estPresent = true;
         }
       }
       if (!estPresent) {
-        this.discussions.push(discussion)
+        this.discussionsTextes.push(discussion)
       }
     }
   }

@@ -191,7 +191,7 @@ class Navigateur {
     tagUsers.text(nomUtilisateurs);
 
     data.messages.map((message, indice) => {
-      console.log(message);
+      // console.log(message);
     });
     tagContent.html('');
   }
