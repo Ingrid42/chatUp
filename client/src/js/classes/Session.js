@@ -1,8 +1,8 @@
 import Utilisateur from './Utilisateur.js';
-// import Discussion from './Discussion.js';
 import DiscussionTexte from './DiscussionTexte.js';
 import Message from './Message.js';
 import Navigateur from './Navigateur.js';
+
 require('socket.io-client');
 
 class Session {
@@ -84,6 +84,7 @@ class Session {
       data.date_naissance,
       data.photo
     );
+    this.navigateur.utilisateur = this.utilisateur;
   }
 
   _onConnexion(data) {
@@ -118,7 +119,7 @@ class Session {
 
   _onGetDiscussion(data) {
     this._saveMessagesToDiscussion(data.id, data.messages);
-    this.navigateur.generateConversationTextuelle(data);
+    this.navigateur.generateConversationTextuelle(this._getDiscussion(data.id));
     this.navigateur.switchToConversationTextuelle();
   }
 

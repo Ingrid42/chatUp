@@ -1,4 +1,3 @@
-
 class Navigateur {
   constructor() {
     this.utilisateur = undefined;
@@ -175,25 +174,31 @@ class Navigateur {
     });
   }
 
-  generateConversationTextuelle(data) {
+  generateConversationTextuelle(discussion) {
     var tagUsers = $('#conversation_textuelle_utilisateurs');
     var tagContent = $('#conversation_textuelle_contenu');
     var tagInput = $('#envoyer_message_input');
     var nomUtilisateurs = "";
+    tagContent.html('');
     tagInput.val('');
-    tagInput.data('discussion_id', data.id);
+    tagInput.data('discussion_id', discussion.id);
 
-    for (var i = 0; i < data.utilisateurs.length; i++) {
-      nomUtilisateurs += data.utilisateurs[i].prenom;
-      if (i < data.utilisateurs.length - 1)
+    for (var i = 0; i < discussion.utilisateurs.length; i++) {
+      nomUtilisateurs += discussion.utilisateurs[i].prenom;
+      if (i < discussion.utilisateurs.length - 1)
         nomUtilisateurs += ", ";
     }
     tagUsers.text(nomUtilisateurs);
 
-    data.messages.map((message, indice) => {
-      // console.log(message);
+    discussion.messages.map((message, indice) => {
+      if (this.utilisateur.pseudonyme === message.emetteur) {
+        tagContent.append(this._createConvMessageReplyTemplate(message));
+      }
+      else {
+        tagContent.append(this._createConvMessageTemplate(message));
+      }
     });
-    tagContent.html('');
+
   }
 
   generateMessagerie(discussions, session) {
@@ -247,20 +252,20 @@ class Navigateur {
     return '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.prenom + '</option>';
   }
 
-  _createConvMessageTemplate(data) {
+  _createConvMessageTemplate(message) {
     return '\n\
     <div class="conversation-message">\n\
-      <div class="message-name">Paul</div>\n\
-      <div class="message-content">Hey Salut !</div>\n\
-      <div class="message-time">6h37</div>\n\
+      <div class="message-name">' + message.emetteur + '</div>\n\
+      <div class="message-content">' + message.texte + '</div>\n\
+      <div class="message-time">' + message.getLocaleDate() + '</div>\n\
     </div>';
   }
 
-  _createConvMessageReplyTemplate(data) {
+  _createConvMessageReplyTemplate(message) {
     return '\n\
       <div class="conversation-message-reply">\n\
-        <div class="message-content-reply">Salut !</div>\n\
-        <div class="message-time-reply">7h00</div>\n\
+        <div class="message-content-reply">' + message.texte + '</div>\n\
+        <div class="message-time-reply">' + message.getLocaleDate() + '</div>\n\
       </div>';
   }
 
