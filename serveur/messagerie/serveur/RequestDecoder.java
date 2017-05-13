@@ -17,6 +17,7 @@ import java.util.Locale;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.*;
 
 import java.io.IOException;
 
@@ -170,9 +171,17 @@ public class RequestDecoder {
 				utilisateurs.add(this.session.getUtilisateur());
 			else
 				throw new DiscussionException("Impossible de créer la discussion. L'utilisateur souhaitant la créer n'est pas connecté.");
-
-			discussion = new DiscussionTexte(utilisateurs);
-			Session.getApplication().ajouterDiscussion(discussion);
+			// on prend un users et on check toute ces disc si 1 existe deja on la renvoie
+			for(Discussion disc : utilisateurs.get(0).getDiscussions()){
+				List<Utilisateur> usersDisc = disc.getUtilisateurs();
+				if(utilisateurs.containsAll(usersDisc) && usersDisc.containsAll(utilisateurs) ){
+					discussion = disc ;
+				}
+			}
+			if(discussion == null){
+				discussion = new DiscussionTexte(utilisateurs);
+				Session.getApplication().ajouterDiscussion(discussion);
+			}
 			this.session.envoyerMessage(
 				this.encodeur.creerDiscussionReponse(true, discussion)
 			);
