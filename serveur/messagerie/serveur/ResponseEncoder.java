@@ -220,7 +220,7 @@ public class ResponseEncoder {
 				Map<String, Object> jsonMessageObjectMap = new HashMap<>();
 				jsonMessageObjectMap.put("message", msg.getMessage());
 				jsonMessageObjectMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme());
-				DateFormat format = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ssZ", Locale.FRENCH);
+				DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.FRENCH);
 				jsonMessageObjectMap.put("date", format.format(msg.getDate()));
 
 				JSONObject userObject = new JSONObject(jsonMessageObjectMap);

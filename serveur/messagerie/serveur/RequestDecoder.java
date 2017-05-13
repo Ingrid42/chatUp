@@ -249,8 +249,7 @@ public class RequestDecoder {
 				this.encodeur.envoyerMessageReponse(true)
 			);
 			for (Utilisateur u : discussion.getUtilisateurs())
-				if (!u.equals(discussion.getUtilisateurs()))
-					u.envoyerMessage(this.encodeur.encoderMessage(message, u));
+				u.envoyerMessage(this.encodeur.encoderMessage(message, u));
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());
