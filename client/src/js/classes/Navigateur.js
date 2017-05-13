@@ -1,6 +1,5 @@
 class Navigateur {
-  constructor() {
-  }
+  constructor() {}
 
   listen(session) {
     $('#connexionUtilisateur').on('click', () => this.connexionUtilisateur(session));
@@ -17,71 +16,8 @@ class Navigateur {
     $('.switchToConversationAudio').on('click', () => this.switchToConversationAudio());
   };
 
-  connexionUtilisateur(session) {
-    let pseudonyme = $('#inputConnexionPseudo').val();
-    let mot_de_passe = $('#inputConnexionPassword').val();
 
-    let message = {
-      action : "connexion",
-      contenu : {
-        pseudonyme,
-        mot_de_passe
-      }
-    };
-    session.send(message);
-  };
-
-  inscriptionUtilisateur(session) {
-    let pseudonyme = $('#inputInscriptionPseudo').val();
-    let mot_de_passe = $('#inputInscriptionPassword').val();
-    let mot_de_passe_confirmation = $('#inputInscriptionPasswordConfirmation').val();
-    let nom = $('#inputInscriptionNom').val();
-    let prenom = $('#inputInscriptionPrenom').val();
-    let adresse_mel = $('#inputInscriptionEmail').val();
-    let date_naissance = $('#inputInscriptionDatePicker').val();
-
-    let message = {
-    	action : "creer_utilisateur",
-    	contenu : {
-    		pseudonyme,
-        mot_de_passe,
-        nom,
-        prenom,
-        adresse_mel,
-        date_naissance
-    	}
-    };
-    session.send(message);
-  };
-
-  creationDiscussion(session) {
-    var message = {
-    	"action" : "creer_discussion",
-    	"contenu" : {
-    		"utilisateurs" : $('#createConvContactList').val()
-    	}
-    };
-
-    if (message.contenu.utilisateurs.length > 0) {
-      session.send(message);
-    }
-  }
-
-  deconnexionUtilisateur(session) {
-    session.deconnexion();
-    this.switchToConnexion();
-  }
-
-  getDiscussion(target, session) {
-    let message = {
-      "action": "get_discussion",
-      "contenu": {
-        "id_discussion": $(target).data('disussion_id').toString()
-      }
-    }
-    session.send(message)
-  }
-
+// FONCTIONS POUR CHANGER DE PAGE
   switchToConnexion() {
     this.hide();
     $('#pageConnexion').removeClass('hidden');
@@ -130,11 +66,76 @@ class Navigateur {
     $('#navbarConversation').removeClass('hidden');
   };
 
-  hide() {
-    $('div[id^="page"]').addClass('hidden');
-    $('div[id^="navbar"]').addClass('hidden');
+
+
+// FONCTIONS COMPORTEMENTALES
+  connexionUtilisateur(session) {
+    let pseudonyme = $('#inputConnexionPseudo').val();
+    let mot_de_passe = $('#inputConnexionPassword').val();
+
+    let message = {
+      action : "connexion",
+      contenu : {
+        pseudonyme,
+        mot_de_passe
+      }
+    };
+    session.send(message);
   };
 
+  inscriptionUtilisateur(session) {
+    let pseudonyme = $('#inputInscriptionPseudo').val();
+    let mot_de_passe = $('#inputInscriptionPassword').val();
+    let mot_de_passe_confirmation = $('#inputInscriptionPasswordConfirmation').val();
+    let nom = $('#inputInscriptionNom').val();
+    let prenom = $('#inputInscriptionPrenom').val();
+    let adresse_mel = $('#inputInscriptionEmail').val();
+    let date_naissance = $('#inputInscriptionDatePicker').val();
+
+    let message = {
+      action : "creer_utilisateur",
+      contenu : {
+        pseudonyme,
+        mot_de_passe,
+        nom,
+        prenom,
+        adresse_mel,
+        date_naissance
+      }
+    };
+    session.send(message);
+  };
+
+  creationDiscussion(session) {
+    var message = {
+      "action" : "creer_discussion",
+      "contenu" : {
+        "utilisateurs" : $('#createConvContactList').val()
+      }
+    };
+
+    if (message.contenu.utilisateurs.length > 0) {
+      session.send(message);
+    }
+  }
+
+  deconnexionUtilisateur(session) {
+    session.deconnexion();
+    this.switchToConnexion();
+  }
+
+  getDiscussion(target, session) {
+    let message = {
+      "action": "get_discussion",
+      "contenu": {
+        "id_discussion": $(target).data('disussion_id').toString()
+      }
+    }
+    session.send(message)
+  }
+
+
+// FONCTIONS DE GÉNÉRATION
   generateContactList(utilisateurs) {
     var tag = $('#contactList');
     tag.html('<div class="contact-case"></div> <!-- ligne en haut -->');
@@ -172,6 +173,8 @@ class Navigateur {
     $('.getDiscussion').on('click', (evt) => this.getDiscussion(evt.target, session));
   }
 
+
+// FONCTIONS DE TEMPLATE
   _discussionTemplate(discussion) {
     let nomUtilisateurs = "";
     for (var i = 0; i < discussion.utilisateurs.length; i++) {
@@ -211,6 +214,8 @@ class Navigateur {
     return '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.prenom + '</option>';
   }
 
+
+// AUTRES FONCTIONS
   _getDiscussions(session) {
     let message = {
       "action": "get_discussions",
@@ -218,5 +223,12 @@ class Navigateur {
     }
     session.send(message);
   }
+
+  hide() {
+    $('div[id^="page"]').addClass('hidden');
+    $('div[id^="navbar"]').addClass('hidden');
+  };
 }
+
+
 export default Navigateur;
