@@ -7,9 +7,9 @@ class Navigateur {
     $('#connexionUtilisateur').on('click', () => this.connexionUtilisateur(session));
     $('#inscriptionUtilisateur').on('click', () => this.inscriptionUtilisateur(session));
     $('#creationDiscussion').on('click', () => this.creationDiscussion(session, $('#createConvContactList').val()));
-    $('#switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('#switchToInscription').on('click', () => this.switchToInscription());
     $('#envoyer_message_bouton').on('click', () => this.envoyerMessage(session));
+    $('.switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('.deconnexionUtilisateur').on('click', () => this.deconnexionUtilisateur(session));
     $('.switchToParameters').on('click', () => this.switchToParameters());
     $('.switchToContacts').on('click', () => this.switchToContacts());
