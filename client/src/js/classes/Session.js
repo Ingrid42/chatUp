@@ -61,6 +61,9 @@ class Session {
         case 'get_discussions_reponse':
           this._onGetDiscussions(responseJSON.contenu);
           break;
+        case 'message_reponse':
+          console.log(responseJSON);
+          break;
       }
     }
     else {
@@ -120,7 +123,7 @@ class Session {
   }
 
   _onEnvoyerMessage(data) {
-
+    // console.log(data);
   }
 
   _onGetUtilisateurs(data) {
