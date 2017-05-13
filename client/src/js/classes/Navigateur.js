@@ -7,10 +7,11 @@ class Navigateur {
     $('#creationDiscussion').on('click', () => this.creationDiscussion(session));
     $('#switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('#switchToInscription').on('click', () => this.switchToInscription());
+    $('#envoyer_message_bouton').on('click', () => this.envoyerMessage(session));
     $('.deconnexionUtilisateur').on('click', () => this.deconnexionUtilisateur(session));
     $('.switchToParameters').on('click', () => this.switchToParameters());
     $('.switchToContacts').on('click', () => this.switchToContacts());
-    $('.switchToMessagerie').on('click', () => this._getDiscussions(session));
+    $('.switchToMessagerie').on('click', () => this.getDiscussions(session));
     $('.switchToConversationCreation').on('click', () => this.switchToConversationCreation());
     $('.switchToConversationTextuelle').on('click', () => this.switchToConversationTextuelle());
     $('.switchToConversationAudio').on('click', () => this.switchToConversationAudio());
@@ -72,7 +73,6 @@ class Navigateur {
   connexionUtilisateur(session) {
     let pseudonyme = $('#inputConnexionPseudo').val();
     let mot_de_passe = $('#inputConnexionPassword').val();
-
     let message = {
       action : "connexion",
       contenu : {
@@ -91,7 +91,6 @@ class Navigateur {
     let prenom = $('#inputInscriptionPrenom').val();
     let adresse_mel = $('#inputInscriptionEmail').val();
     let date_naissance = $('#inputInscriptionDatePicker').val();
-
     let message = {
       action : "creer_utilisateur",
       contenu : {
@@ -124,12 +123,33 @@ class Navigateur {
     this.switchToConnexion();
   }
 
+  envoyerMessage(session) {
+    let input = $('#envoyer_message_input');
+    let message = {
+      action: "envoyer_message",
+      contenu: {
+        id_discussion: input.data('discussion_id').toString(),
+        message: input.val()
+      }
+    }
+    session.send(message);
+    input.val('');
+  }
+
   getDiscussion(target, session) {
     let message = {
-      "action": "get_discussion",
-      "contenu": {
-        "id_discussion": $(target).data('disussion_id').toString()
+      action: "get_discussion",
+      contenu: {
+        id_discussion: $(target).data('disussion_id').toString()
       }
+    }
+    session.send(message);
+  }
+
+  getDiscussions(session) {
+    let message = {
+      action: "get_discussions",
+      contenu: {}
     }
     session.send(message);
   }
@@ -155,7 +175,10 @@ class Navigateur {
   generateConversationTextuelle(data) {
     var tagUsers = $('#conversation_textuelle_utilisateurs');
     var tagContent = $('#conversation_textuelle_contenu');
+    var tagInput = $('#envoyer_message_input');
     var nomUtilisateurs = "";
+    tagInput.val('');
+    tagInput.data('discussion_id', data.id);
 
     for (var i = 0; i < data.utilisateurs.length; i++) {
       nomUtilisateurs += data.utilisateurs[i].prenom;
@@ -239,14 +262,6 @@ class Navigateur {
   }
 
 // AUTRES FONCTIONS
-  _getDiscussions(session) {
-    let message = {
-      "action": "get_discussions",
-      "contenu": {}
-    }
-    session.send(message);
-  }
-
   hide() {
     $('div[id^="page"]').addClass('hidden');
     $('div[id^="navbar"]').addClass('hidden');

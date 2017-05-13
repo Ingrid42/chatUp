@@ -82,14 +82,14 @@ class Session {
   _onConnexion(data) {
     this._initUtilisateur(data);
     let message = {
-      "action": "get_utilisateurs",
-      "contenu": {}
+      action: "get_utilisateurs",
+      contenu: {}
     };
     this.send(message);
 
     message = {
-      "action": "get_discussions",
-      "contenu": {}
+      action: "get_discussions",
+      contenu: {}
     }
     this.send(message);
   }
@@ -101,9 +101,9 @@ class Session {
 
   _onCreerDiscussion(data) {
     var message = {
-    	"action" : "get_discussion",
-    	"contenu" : {
-    		"id_discussion" : data.id
+    	action : "get_discussion",
+    	contenu : {
+    		id_discussion : data.id
     	}
     }
     this.send(message);
