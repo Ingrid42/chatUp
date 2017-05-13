@@ -11,7 +11,7 @@ class Navigateur {
     $('.deconnexionUtilisateur').on('click', () => this.deconnexionUtilisateur(session));
     $('.switchToParameters').on('click', () => this.switchToParameters());
     $('.switchToContacts').on('click', () => this.switchToContacts());
-    $('.switchToMessagerie').on('click', () => this.switchToMessagerie());
+    $('.switchToMessagerie').on('click', () => this._getDiscussions(session));
     $('.switchToConversationCreation').on('click', () => this.switchToConversationCreation());
     $('.switchToConversationTextuelle').on('click', () => this.switchToConversationTextuelle());
     $('.switchToConversationAudio').on('click', () => this.switchToConversationAudio());
@@ -209,6 +209,14 @@ class Navigateur {
 
   _createConvContactTemplate(utilisateur) {
     return '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.prenom + '</option>';
+  }
+
+  _getDiscussions(session) {
+    let message = {
+      "action": "get_discussions",
+      "contenu": {}
+    }
+    session.send(message);
   }
 }
 export default Navigateur;
