@@ -202,19 +202,28 @@ class Session {
 
   _saveMessagesToDiscussion(id, messages) {
     let message;
-    this.discussionsTextes.map((discussion, indice) => {
-      if (discussion.id === id) {
-        for (var i = discussion.messages.length; i < messages.length; i++) {
-          message = new Message(
-            messages[i].pseudonyme,
-            messages[i].message,
-            messages[i].date,
-            discussion.utilisateurs
-          );
-          discussion.messages.push(message);
-        }
+    let discussion = this._getDiscussion(id);
+    if (discussion !== null) {
+      for (var i = discussion.messages.length; i < messages.length; i++) {
+        message = new Message(
+          messages[i].pseudonyme,
+          messages[i].message,
+          messages[i].date,
+          discussion.utilisateurs
+        );
+        discussion.messages.push(message);
       }
-    });
+    }
+    console.log(discussion);
+  }
+
+  _getDiscussion(id) {
+    for (var i = 0; i < this.discussionsTextes.length; i++) {
+      if (this.discussionsTextes[i].id === id) {
+        return this.discussionsTextes[i];
+      }
+    }
+    return null;
   }
 }
 
