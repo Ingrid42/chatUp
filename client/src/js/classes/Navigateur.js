@@ -1,5 +1,8 @@
+
 class Navigateur {
-  constructor() {}
+  constructor() {
+    this.utilisateur = undefined;
+  }
 
   listen(session) {
     $('#connexionUtilisateur').on('click', () => this.connexionUtilisateur(session));
@@ -107,9 +110,9 @@ class Navigateur {
 
   creationDiscussion(session) {
     var message = {
-      "action" : "creer_discussion",
-      "contenu" : {
-        "utilisateurs" : $('#createConvContactList').val()
+      action : "creer_discussion",
+      contenu : {
+        utilisateurs : $('#createConvContactList').val()
       }
     };
 
@@ -193,11 +196,11 @@ class Navigateur {
     tagContent.html('');
   }
 
-  generateMessagerie(data, session) {
+  generateMessagerie(discussions, session) {
     var tag = $('#messagerie');
     tag.html('');
-    for (var i = 0; i < data.discussions.length; i++) {
-      let discussion = data.discussions[i];
+    for (var i = 0; i < discussions.length; i++) {
+      let discussion = discussions[i];
       tag.append(this._discussionTemplate(discussion));
     }
     $('.getDiscussion').on('click', (evt) => this.getDiscussion(evt.target, session));

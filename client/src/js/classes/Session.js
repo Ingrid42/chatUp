@@ -1,4 +1,5 @@
 import Utilisateur from './Utilisateur.js';
+import Discussion from './Discussion.js';
 import Navigateur from './Navigateur.js';
 require('socket.io-client');
 
@@ -9,6 +10,7 @@ class Session {
     this.socket.onmessage = (response) => this.message(response);
     this.utilisateur = null;
     this.utilisateurs = [];
+    this.discussions = [];
     this.navigateur = navigateur;
   }
 
@@ -118,7 +120,8 @@ class Session {
   }
 
   _onGetDiscussions(data) {
-    this.navigateur.generateMessagerie(data, this);
+    this._saveDiscussions(data);
+    this.navigateur.generateMessagerie(this.discussions, this);
     this.navigateur.switchToMessagerie();
   }
 
@@ -127,20 +130,7 @@ class Session {
   }
 
   _onGetUtilisateurs(data) {
-    var user;
-    var userJSON;
-    for (var i=0; i < data.utilisateurs.length; i++) {
-      userJSON = data.utilisateurs[i];
-      user = new Utilisateur(
-        userJSON.pseudonyme,
-        userJSON.nom,
-        userJSON.prenom,
-        undefined,
-        undefined,
-        undefined
-      );
-      this.utilisateurs.push(user);
-    }
+    this._saveUtilisateurs(data);
     this.navigateur.generateContactList(this.utilisateurs);
     this.navigateur.generateCreationDiscussionContactList(this.utilisateurs);
   }
@@ -163,6 +153,48 @@ class Session {
 
   _onSetControleParental(data) {
 
+  }
+
+  _saveDiscussions(data) {
+    let discussion;
+    for (var i=0; i < data.discussions.length; i++) {
+      let estPresent = false;
+      discussion = new Discussion(
+        data.discussions[i].id,
+        data.discussions[i].utilisateurs,
+      );
+      for (var j=0; j < this.discussions.length; j++) {
+        if (this.discussions[j].id == discussion.id) {
+          estPresent = true;
+        }
+      }
+      if (!estPresent) {
+        this.discussions.push(discussion)
+      }
+    }
+  }
+
+  _saveUtilisateurs(data) {
+    let utilisateur;
+    for (var i=0; i < data.utilisateurs.length; i++) {
+      let estPresent = false;
+      utilisateur = new Utilisateur(
+        data.utilisateurs[i].pseudonyme,
+        data.utilisateurs[i].nom,
+        data.utilisateurs[i].prenom,
+        undefined,
+        undefined,
+        undefined
+      );
+      for (var j=0; j < this.utilisateurs.length; j++) {
+        if (this.utilisateurs[j].pseudonyme === utilisateur.pseudonyme) {
+          estPresent = true;
+        }
+      }
+      if (!estPresent) {
+        this.utilisateurs.push(utilisateur);
+      }
+    }
   }
 }
 
