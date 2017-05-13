@@ -131,7 +131,7 @@ class Navigateur {
         "id_discussion": $(target).data('disussion_id').toString()
       }
     }
-    session.send(message)
+    session.send(message);
   }
 
 
@@ -153,14 +153,21 @@ class Navigateur {
   }
 
   generateConversationTextuelle(data) {
-    var tag = $('#conversation_textuelle_utilisateurs');
+    var tagUsers = $('#conversation_textuelle_utilisateurs');
+    var tagContent = $('#conversation_textuelle_contenu');
     var nomUtilisateurs = "";
+
     for (var i = 0; i < data.utilisateurs.length; i++) {
       nomUtilisateurs += data.utilisateurs[i].prenom;
       if (i < data.utilisateurs.length - 1)
         nomUtilisateurs += ", ";
     }
-    tag.text(nomUtilisateurs);
+    tagUsers.text(nomUtilisateurs);
+
+    data.messages.map((message, indice) => {
+      console.log(message);
+    });
+    tagContent.html('');
   }
 
   generateMessagerie(data, session) {
@@ -214,6 +221,22 @@ class Navigateur {
     return '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.prenom + '</option>';
   }
 
+  _createConvMessageTemplate(data) {
+    return '\n\
+    <div class="conversation-message">\n\
+      <div class="message-name">Paul</div>\n\
+      <div class="message-content">Hey Salut !</div>\n\
+      <div class="message-time">6h37</div>\n\
+    </div>';
+  }
+
+  _createConvMessageReplyTemplate(data) {
+    return '\n\
+      <div class="conversation-message-reply">\n\
+        <div class="message-content-reply">Salut !</div>\n\
+        <div class="message-time-reply">7h00</div>\n\
+      </div>';
+  }
 
 // AUTRES FONCTIONS
   _getDiscussions(session) {
