@@ -1,6 +1,7 @@
 import Utilisateur from './Utilisateur.js';
 // import Discussion from './Discussion.js';
 import DiscussionTexte from './DiscussionTexte.js';
+import Message from './Message.js';
 import Navigateur from './Navigateur.js';
 require('socket.io-client');
 
@@ -116,6 +117,7 @@ class Session {
   }
 
   _onGetDiscussion(data) {
+    this._saveMessagesToDiscussion(data.id, data.messages);
     this.navigateur.generateConversationTextuelle(data);
     this.navigateur.switchToConversationTextuelle();
   }
@@ -196,6 +198,23 @@ class Session {
         this.utilisateurs.push(utilisateur);
       }
     }
+  }
+
+  _saveMessagesToDiscussion(id, messages) {
+    let message;
+    this.discussionsTextes.map((discussion, indice) => {
+      if (discussion.id === id) {
+        for (var i = discussion.messages.length; i < messages.length; i++) {
+          message = new Message(
+            messages[i].pseudonyme,
+            messages[i].message,
+            messages[i].date,
+            discussion.utilisateurs
+          );
+          discussion.messages.push(message);
+        }
+      }
+    });
   }
 }
 
