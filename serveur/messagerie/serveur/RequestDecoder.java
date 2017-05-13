@@ -174,7 +174,7 @@ public class RequestDecoder {
 			discussion = new DiscussionTexte(utilisateurs);
 			Session.getApplication().ajouterDiscussion(discussion);
 			this.session.envoyerMessage(
-				this.encodeur.creerDiscussionReponse(true, discussion.getId())
+				this.encodeur.creerDiscussionReponse(true, discussion)
 			);
 		}
 		catch (Exception e) {
@@ -182,7 +182,7 @@ public class RequestDecoder {
 
 			try {
 				this.session.envoyerMessage(
-					this.encodeur.creerDiscussionReponse(false, discussion.getId())
+					this.encodeur.creerDiscussionReponse(false, discussion)
 				);
 			}
 			catch (IOException ioe) {
