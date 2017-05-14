@@ -1,0 +1,1 @@
+java -cp classes:libs/* org.junit.runner.JUnitCore test.messagerie.serveur.ServeurSuiteUnitTest;

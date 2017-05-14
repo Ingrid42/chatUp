@@ -73,9 +73,25 @@ public class Application implements Serializable {
 	 * @throws DiscussionException Se déclenche si une discussion ayant le même identifiant existe déjà.
 	 */
 	public synchronized void ajouterDiscussion(Discussion discussion) throws DiscussionException {
-		if (this.discussions.containsKey(discussion.getId()))
+		if (this.discussionExiste(discussion))
 			throw new DiscussionException("Discussion existante.");
 		this.discussions.put(discussion.getId(), discussion);
+	}
+
+	/**
+	 * Vérifie si une discussion existe.
+	 * @param discussion Discussion à vérifier.
+	 * @throws DiscussionException Se déclenche si une discussion ayant le même identifiant existe déjà.
+	 */
+	public boolean discussionExiste(Discussion discussion) {
+		if (this.discussions.containsKey(discussion.getId()))
+			return true;
+
+		for (Discussion d : this.discussions.values())
+			if (d.getUtilisateurs().containsAll(discussion.getUtilisateurs()))
+				return true;
+
+		return false;
 	}
 
 	/**
