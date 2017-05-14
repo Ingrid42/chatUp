@@ -22,6 +22,9 @@ import java.io.InputStreamReader;
 import javax.websocket.DeploymentException;
 import org.glassfish.tyrus.server.Server;
 
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  * Classe chargée de démarrer le serveur. Celui-ci a pour objectif d'établir les 
  * communications avec les clients, ainsi que de restaurer les données après redémarrage de celui-ci.
@@ -41,9 +44,9 @@ public class Serveur {
 	 * Création d'un objet serveur.
 	 */
 	public Serveur() {
-		System.out.println("Initializing server...");
+		System.out.println("Initialisation du serveur...");
 		if (initialize("serveur.save")) {
-			System.out.println("Server restored to its previous state!");
+			System.out.println("Server restoré à son précédent état!");
 			System.out.println("Liste des utilisateurs :");
 			System.out.println(this.application.getUtilisateurs());
 		}
@@ -77,11 +80,10 @@ public class Serveur {
 				System.err.println(ue.getCause());
 			}
 
-			System.out.println("Server initialized!");
+			System.out.println("Serveur initialisé!");
 		}
 
 		Session.setApplication(this.application);
-
 		this.serveur = new Server("localhost", 4000, "/", null, Session.class);
 	}
 
@@ -143,10 +145,7 @@ public class Serveur {
 	 * @throws DeploymentException Si le serveur n'a pas pu être arrêté.
 	 */
 	public void stop() throws DeploymentException {
-		for (Utilisateur u : this.application.getUtilisateurs().values()) {
-			if (u instanceof UtilisateurHumain)
-				((UtilisateurHumain)u).setSession(null);
-		}
+		Session.closeAllSessions();
 		this.serveur.stop();
 	}
 
