@@ -43,7 +43,8 @@ public class Message implements Serializable {
         this.idDiscussion = discussion.getId();
         this.date = new Date();
 
-        discussion.addMessage(this);
+        //discussion.addMessage(this);
+		// j'ai laissé l'ajout du message lors de la reception c'est labas ou on verfie si l'user est dans la disc
     }
 
     /**

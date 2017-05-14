@@ -102,10 +102,24 @@ public class ResponseEncoder {
 	 * @param state Un état vrai indique que la création a été effectuée.
 	 * @return Réponse mise en forme au format JSON.
 	 */
-	public String creerDiscussionReponse(boolean state, long id){
+	 @SuppressWarnings("unchecked")
+	public String creerDiscussionReponse(boolean state, Discussion discussion){
 		Map<String, Object> jsonObjMap = stateReponse(state, "creer_discussion_reponse" );
 		Map<String, Object> jsonContenuMap = new HashMap<>();
-		jsonContenuMap.put("id", (new Long(id).toString()));
+		jsonContenuMap.put("id", (new Long(discussion.getId()).toString()));
+		JSONArray array_users = new JSONArray();
+		for(Utilisateur u : discussion.getUtilisateurs()){
+			Map<String, Object> jsonUserObjectMap = new HashMap<>();
+
+			jsonUserObjectMap.put("pseudonyme", u.getPseudonyme());
+			jsonUserObjectMap.put("nom", u.getNom());
+			jsonUserObjectMap.put("prenom", u.getPrenom());
+
+			JSONObject userObject = new JSONObject(jsonUserObjectMap);
+			array_users.add(userObject) ;
+		}
+		jsonContenuMap.put("utilisateurs", array_users);
+		
 		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
 		return new JSONObject(jsonObjMap).toString();
