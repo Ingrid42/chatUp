@@ -108,7 +108,8 @@ class Session {
   }
 
   _onCreerDiscussion(data) {
-    var message = {
+    this._createDiscussion(data);
+    let message = {
     	action : "get_discussion",
     	contenu : {
     		id_discussion : data.id
@@ -217,10 +218,33 @@ class Session {
     }
   }
 
+  _createDiscussion(data) {
+    let utilisateurs = [];
+    let utilisateur;
+    if (this._getDiscussion(data.id) === null) {
+      for (var i = 0; i < data.utilisateurs.length; i++) {
+        utilisateur = this._getUtilisateur(data.utilisateurs[i].pseudonyme);
+        if (utilisateur != null) {
+          utilisateurs.push(utilisateur)
+        }
+      }
+      this.discussionsTextes.push(new DiscussionTexte(data.id, utilisateurs));
+    }
+  }
+
   _getDiscussion(id) {
     for (var i = 0; i < this.discussionsTextes.length; i++) {
-      if (this.discussionsTextes[i].id === id) {
+      if (this.discussionsTextes[i].id == id) {
         return this.discussionsTextes[i];
+      }
+    }
+    return null;
+  }
+
+  _getUtilisateur(pseudonyme) {
+    for (var i = 0; i < this.utilisateurs.length; i++) {
+      if (this.utilisateurs[i].pseudonyme == pseudonyme) {
+        return this.utilisateurs[i];
       }
     }
     return null;
