@@ -208,6 +208,9 @@ public class ResponseEncoder {
 		else
 			jsonContenuMap.put("message", msg.getMessage());
 
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.FRENCH);
+		jsonContenuMap.put("date", format.format(msg.getDate()));
+
 		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
 
