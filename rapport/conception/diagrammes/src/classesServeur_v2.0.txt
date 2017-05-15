@@ -1,0 +1,91 @@
+@startuml
+interface IFiltre {
+  Object: getObject()
+}
+
+class FiltreMots {
+  - String: mot
+}
+
+class FiltreUtilisateurs {
+
+}
+
+class Utilisateur {
+  - String: pseudonyme
+  - String: nom
+  - String: prenom
+}
+
+class UtilisateurIA {
+  + Message: repondre(Message)
+}
+
+class UtilisateurHumain {
+  - String: motDePasse
+  - String: adresseMel
+  - Date: dateNaissance
+  - String: motDePasseParental
+  - String: photo
+
+  + void: addFiltre(IFiltre)
+}
+
+class Application #AAEE88 {
+
+}
+
+class ResponseEncoder #AAEE88 {
+
+}
+
+class RequestDecoder #AAEE88 {
+
+}
+
+class Session {
+  - Socket: socketClient
+
+  + bool: fermer()
+}
+
+class Discussion {
+}
+
+class Message {
+  - String: texte
+  - Date: date
+}
+
+class DiscussionTexte {
+  + bool: addMessage(message)
+}
+
+class DiscussionAudio {
+  + bool: demarrer()
+  + bool: arreter()
+}
+
+class Serveur {
+  - Socket: socketServeur
+
+  + void: addUtilisateur(utilisateur)
+  + Discussion: createDiscussion(listeUtilisateur)
+}
+
+UtilisateurHumain *-- IFiltre
+IFiltre <|.. FiltreMots
+IFiltre <|.. FiltreUtilisateurs
+Session --* Utilisateur
+Utilisateur --* FiltreUtilisateurs
+Utilisateur <|- UtilisateurIA
+Utilisateur <|-- UtilisateurHumain
+Discussion <|-- DiscussionTexte
+Discussion <|-- DiscussionAudio
+Application -* Application
+Discussion - Utilisateur
+DiscussionTexte *--- Message
+Utilisateur --* Message
+Serveur -- Utilisateur
+Serveur *-- Discussion
+@enduml
