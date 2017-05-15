@@ -1,0 +1,27 @@
+Ajout de la classe Application :
+	* À la conception nous ne savions pas si nous allions utiliser une base de données ou autre.
+		* Nous avons décidé d'utiliser la sérialisation afin de faire une sauvegarde des données, il nous fallait donc une classe englobant toutes les entités du serveur.
+
+Ajout de la classe ResponseEncoder et RequestDecoder :
+	* Toutes les fonctionnalités présentes dans ces classes étaient censées être dans la classe serveur mais à la vue de la quantité d'opérations à traiter nous avons décider de les répartir dans deux autres classes :
+		* ResponseEncoder qui est en charge de mettre en forme les messages à envoyer au client.
+		* RequestDecoder qui est en charge de faire les traitements en fonction des messages reçus par le serveur.
+
+Modification Serveur et Session:
+	* Le client fonctionnant avec des WebSockets, nous avons dû revoir la structure de ces classes pour être en accord avec ce qu'il est nécessaire de mettre en place pour utiliser des WebSockets côté serveur.
+	* Nous n'avions pas pris en compte le fait de recevoir/envoyer un message. Nous avons donc ajouté les méthodes correspondantes dans la classe Session.
+
+Modification IFiltre :
+	* Ajout de méthodes afin de simplifier les comparaisons (Savoir si un objet passé en paramètre correspond à celui stocké par le filtre).
+
+Modification des noms de FiltreUtilisateurs et FiltreMots :
+	* Du fait que nous avions prévu que ces objets contiendraient seulement un objet à filtrer et non plusieurs, nous avons corrigé le nom pour qu'il reflète cette idée. 
+
+Modification Message :
+	* Ajout d'une date afin de pouvoir garder une trace du moment de l'envoi du message.
+
+Modification Discussion :
+	* Ajout d'un attribut statique afin d'avoir un id auto-incrémenté.
+	* Ajout d'une méthode afin de savoir si un utilisateur appartient à la Discussion concernée.
+
+
