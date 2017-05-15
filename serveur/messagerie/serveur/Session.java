@@ -26,6 +26,9 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnClose;
 import javax.websocket.OnOpen;
 
+import java.util.List;
+import java.util.ArrayList;
+
 
 // https://www.jmdoudoux.fr/java/dej/chap-api_websocket.htm#api_websocket-6
 
@@ -39,6 +42,11 @@ public class Session {
 	 * Instance d'application utilisée pour requêter les données.
 	 */
 	private static Application application;
+
+	/**
+	 * Liste des sessions ouvertes.
+	 */
+	private static List<Session> sessions = new ArrayList<>();
 
 	/**
 	 * Utilisateur propriétaire de la session.
@@ -102,6 +110,7 @@ public class Session {
 	public void onOpen(javax.websocket.Session session) {
 		System.out.println("Ouverture d'une session.");
 		this.session = session;
+		Session.sessions.add(this);
 	}
 
 	/**
@@ -112,8 +121,9 @@ public class Session {
 	public void onMessage(String message) {
 		System.out.println("Réception d'un message...");
 		System.out.println(message);
-		System.out.println("\nTraitement...");
+		System.out.println("\n========= Traitement ==========");
 		this.decodeur.decode(message);
+		System.out.println("\n========= Traité ==========");
 	}
 
 	/**
@@ -125,7 +135,14 @@ public class Session {
 		if (this.utilisateur != null && this.utilisateur instanceof UtilisateurHumain)
 			((UtilisateurHumain)this.utilisateur).setSession(null);
 
-		System.out.println("Fermeture d'une session.");
+		try { session.close(); } catch (Exception e) { e.printStackTrace(); }
+		Session.sessions.remove(this);
+		System.out.println("Session fermée.");
+	}
+
+	public static void closeAllSessions() {
+		for (Session s : Session.sessions)
+			s.fermer();
 	}
 
 	/**
@@ -151,23 +168,7 @@ public class Session {
 	 * @return Vrai si la session est correctement fermée. Faux sinon.
 	 */
 	public boolean fermer() {
-		// try {
-		// 	this.input.close();
-		// 	this.output.close();
-		// 	this.socketClient.close();
-
-		// 	this.input = null;
-		// 	this.output = null;
-		// 	this.socketClient = null;
-
-		// 	if (this.utilisateur instanceof UtilisateurHumain)
-		// 		((UtilisateurHumain)this.utilisateur).setSession(null);
-			System.out.println("Serveur correctement fermé.");
-			return true;
-		// }
-		// catch (IOException ioe) {
-		// 	return false;
-		// }
-		// return true;
+		this.onClose(this.session);
+		return true;
 	}
 }

@@ -10,6 +10,11 @@ import messagerie.serveur.exceptions.*;
  */
 public class DiscussionAudio extends Discussion{
     public final static long serialVersionUID = 6854L;
+
+    /**
+     * Discussion state.
+     */
+     private boolean estDemarre;
     
     /**
      * Création d'une discussion audio.
@@ -18,6 +23,7 @@ public class DiscussionAudio extends Discussion{
      */
     public DiscussionAudio(List<Utilisateur> utilisateurs) throws DiscussionException {
         super(utilisateurs);
+        this.estDemarre = false;
     }
     
     /**
@@ -26,7 +32,11 @@ public class DiscussionAudio extends Discussion{
      */
     public boolean demarrer(){
         // sauvegarde du temps de debut
-        return true ;
+        if (estDemarre)
+            return false;
+
+        this.estDemarre = true;
+        return this.estDemarre;
     }
 
     /**
@@ -35,7 +45,11 @@ public class DiscussionAudio extends Discussion{
      */
     public boolean arreter(){
         // sauvegarde du temps de fin
-        return true ; 
+        if (!estDemarre)
+            return false;
+
+        this.estDemarre = false;
+        return !this.estDemarre; 
     }
     
 }
