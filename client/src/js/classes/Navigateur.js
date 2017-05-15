@@ -199,7 +199,6 @@ class Navigateur {
         tagContent.append(this._createConvMessageTemplate(message));
       }
     });
-
   }
 
   generateMessagerie(discussions, session) {
@@ -220,6 +219,7 @@ class Navigateur {
     else {
       tagContent.append(this._createConvMessageTemplate(message));
     }
+    tagContent.scrollTop(tagContent[0].scrollHeight);
   }
 
 
