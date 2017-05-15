@@ -212,6 +212,16 @@ class Navigateur {
     $('.getDiscussion').on('click', (evt) => this.getDiscussion(evt.target, session));
   }
 
+  addMessageInDiscussion(message) {
+    var tagContent = $('#conversation_textuelle_contenu');
+    if (message.emetteur === this.utilisateur.pseudonyme) {
+      tagContent.append(this._createConvMessageReplyTemplate(message));
+    }
+    else {
+      tagContent.append(this._createConvMessageTemplate(message));
+    }
+  }
+
 
 // FONCTIONS DE TEMPLATE
   _discussionTemplate(discussion) {

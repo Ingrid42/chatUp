@@ -66,7 +66,7 @@ class Session {
           this._onGetDiscussions(responseJSON.contenu);
           break;
         case 'message_reponse':
-          console.log(responseJSON);
+          this._onMessage(responseJSON.contenu);
           break;
       }
     }
@@ -158,6 +158,15 @@ class Session {
 
   _onSetControleParental(data) {
 
+  }
+
+  _onMessage(data) {
+    let discussion = this._getDiscussion(data.id_discussion);
+    if (discussion != null) {
+      let message = new Message(data.pseudonyme, data.message, data.date, discussion.utilisateurs);
+      discussion.messages.push(message);
+      this.navigateur.addMessageInDiscussion(message);
+    }
   }
 
   _saveDiscussions(data) {
