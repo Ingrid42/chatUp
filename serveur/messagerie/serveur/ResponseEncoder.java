@@ -211,7 +211,7 @@ public class ResponseEncoder {
 		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
 
-		JSONObject obj = new JSONObject();
+		JSONObject obj = new JSONObject(jsonObjMap);
 		return obj.toString() ;
 	}
 
