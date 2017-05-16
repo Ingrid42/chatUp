@@ -1,5 +1,8 @@
 import Utilisateur from './Utilisateur.js';
+import DiscussionTexte from './DiscussionTexte.js';
+import Message from './Message.js';
 import Navigateur from './Navigateur.js';
+
 require('socket.io-client');
 
 class Session {
@@ -9,6 +12,7 @@ class Session {
     this.socket.onmessage = (response) => this.message(response);
     this.utilisateur = null;
     this.utilisateurs = [];
+    this.discussionsTextes = [];
     this.navigateur = navigateur;
   }
 
@@ -58,6 +62,12 @@ class Session {
         case 'get_discussion_reponse':
           this._onGetDiscussion(responseJSON.contenu);
           break;
+        case 'get_discussions_reponse':
+          this._onGetDiscussions(responseJSON.contenu);
+          break;
+        case 'message_reponse':
+          this._onMessage(responseJSON.contenu);
+          break;
       }
     }
     else {
@@ -74,16 +84,21 @@ class Session {
       data.date_naissance,
       data.photo
     );
+    this.navigateur.utilisateur = this.utilisateur;
   }
 
-   _onConnexion(data) {
-    let message = {
-    	"action" : "get_utilisateurs",
-    	"contenu" : {}
-    };
-
+  _onConnexion(data) {
     this._initUtilisateur(data);
-    this.navigateur.switchToMessagerie();
+    let message = {
+      action: "get_utilisateurs",
+      contenu: {}
+    };
+    this.send(message);
+
+    message = {
+      action: "get_discussions",
+      contenu: {}
+    }
     this.send(message);
   }
 
@@ -93,40 +108,35 @@ class Session {
   }
 
   _onCreerDiscussion(data) {
-    var message = {
-    	"action" : "get_discussion",
-    	"contenu" : {
-    		"id_discussion" : data.id
+    this._createDiscussion(data);
+    let message = {
+    	action : "get_discussion",
+    	contenu : {
+    		id_discussion : data.id
     	}
     }
     this.send(message);
   }
 
   _onGetDiscussion(data) {
-    console.log(data);
+    this._saveMessagesToDiscussion(data.id, data.messages);
+    this.navigateur.generateConversationTextuelle(this._getDiscussion(data.id));
     this.navigateur.switchToConversationTextuelle();
   }
 
-  _onEnvoyerMessage(data) {
+  _onGetDiscussions(data) {
+    this._saveDiscussions(data);
+    this.navigateur.generateMessagerie(this.discussionsTextes, this);
+    this.navigateur.switchToMessagerie();
+  }
 
+  _onEnvoyerMessage(data) {
+    // console.log(data);
   }
 
   _onGetUtilisateurs(data) {
-    var user;
-    var userJSON;
-    for (var i=0; i < data.utilisateurs.length; i++) {
-      userJSON = data.utilisateurs[i];
-      user = new Utilisateur(
-        userJSON.pseudonyme,
-        userJSON.nom,
-        userJSON.prenom,
-        undefined,
-        undefined,
-        undefined
-      );
-      this.utilisateurs.push(user);
-    }
-    this.navigateur.generateContactList(this.utilisateurs);
+    this._saveUtilisateurs(data);
+    this.navigateur.generateContactList(this.utilisateurs, this);
     this.navigateur.generateCreationDiscussionContactList(this.utilisateurs);
   }
 
@@ -148,6 +158,105 @@ class Session {
 
   _onSetControleParental(data) {
 
+  }
+
+  _onMessage(data) {
+    let discussion = this._getDiscussion(data.id_discussion);
+    if (discussion != null) {
+      let message = new Message(data.pseudonyme, data.message, data.date, discussion.utilisateurs);
+      discussion.messages.push(message);
+      this.navigateur.addMessageInDiscussion(message);
+    }
+  }
+
+  _saveDiscussions(data) {
+    let discussion;
+    for (var i=0; i < data.discussions.length; i++) {
+      let estPresent = false;
+      discussion = new DiscussionTexte(
+        data.discussions[i].id,
+        data.discussions[i].utilisateurs,
+      );
+      for (var j=0; j < this.discussionsTextes.length; j++) {
+        if (this.discussionsTextes[j].id == discussion.id) {
+          estPresent = true;
+        }
+      }
+      if (!estPresent) {
+        this.discussionsTextes.push(discussion)
+      }
+    }
+  }
+
+  _saveUtilisateurs(data) {
+    let utilisateur;
+    for (var i=0; i < data.utilisateurs.length; i++) {
+      let estPresent = false;
+      utilisateur = new Utilisateur(
+        data.utilisateurs[i].pseudonyme,
+        data.utilisateurs[i].nom,
+        data.utilisateurs[i].prenom,
+        undefined,
+        undefined,
+        undefined
+      );
+      for (var j=0; j < this.utilisateurs.length; j++) {
+        if (this.utilisateurs[j].pseudonyme === utilisateur.pseudonyme) {
+          estPresent = true;
+        }
+      }
+      if (!estPresent) {
+        this.utilisateurs.push(utilisateur);
+      }
+    }
+  }
+
+  _saveMessagesToDiscussion(id, messages) {
+    let message;
+    let discussion = this._getDiscussion(id);
+    if (discussion !== null) {
+      for (var i = discussion.messages.length; i < messages.length; i++) {
+        message = new Message(
+          messages[i].pseudonyme,
+          messages[i].message,
+          messages[i].date,
+          discussion.utilisateurs
+        );
+        discussion.messages.push(message);
+      }
+    }
+  }
+
+  _createDiscussion(data) {
+    let utilisateurs = [];
+    let utilisateur;
+    if (this._getDiscussion(data.id) === null) {
+      for (var i = 0; i < data.utilisateurs.length; i++) {
+        utilisateur = this._getUtilisateur(data.utilisateurs[i].pseudonyme);
+        if (utilisateur != null) {
+          utilisateurs.push(utilisateur)
+        }
+      }
+      this.discussionsTextes.push(new DiscussionTexte(data.id, utilisateurs));
+    }
+  }
+
+  _getDiscussion(id) {
+    for (var i = 0; i < this.discussionsTextes.length; i++) {
+      if (this.discussionsTextes[i].id == id) {
+        return this.discussionsTextes[i];
+      }
+    }
+    return null;
+  }
+
+  _getUtilisateur(pseudonyme) {
+    for (var i = 0; i < this.utilisateurs.length; i++) {
+      if (this.utilisateurs[i].pseudonyme == pseudonyme) {
+        return this.utilisateurs[i];
+      }
+    }
+    return null;
   }
 }
 

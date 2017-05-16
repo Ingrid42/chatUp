@@ -1,10 +1,7 @@
 class Discussion {
-  constructor(userList) {
-    this.userList = userList;
-  }
-
-  getUtilisateurs() {
-    return this.userList;
+  constructor(id, utilisateurs) {
+    this.id = id;
+    this.utilisateurs = utilisateurs;
   }
 }
 
