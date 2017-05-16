@@ -1,4 +1,11 @@
 @startuml
+note as N1
+  Toutes les classes de ce diagramme possedent 
+  des getters et des setters que nous avons pas
+  mis dans ce diagramme
+end note
+
+
 interface IFiltre {
   Object: getObject()
 }
@@ -31,26 +38,74 @@ class UtilisateurHumain {
   + void: addFiltre(IFiltre)
 }
 
-class Application #AAEE88 {
+class Application <<Serializable>> #AAEE88 {
 
 }
 
 class ResponseEncoder #AAEE88 {
+  + RequestDecoder(Session session)
+  + void : decode(String json)
+  + void : connexion(JSONObject content)
+  + void : creer_utilisateur(JSONObject content)
+  + void : creer_discussion(JSONObject content)
+  + void : get_discussion(JSONObject content)
+  + void : envoyer_message(JSONObject content)
+  + void : get_discussions(JSONObject content)
+  + void : get_utilisateurs(JSONObject content)
+  + void : modifier_profil(JSONObject content)
+  + void : get_profil(JSONObject content)
+  + void : add_filtre_mot(JSONObject content)
+  + void : add_filtre_utilisateur(JSONObject content)
+  + void : set_controle_parental(JSONObject content)
+  + void : desactiver_controle_parental(JSONObject content)
+
 
 }
 
 class RequestDecoder #AAEE88 {
-
+  + RequestDecoder(Session session)
+  + void : decode(String json)
+  + void : connexion(JSONObject content)
+  + void : creer_utilisateur(JSONObject content)
+  + void : creer_discussion(JSONObject content)
+  + void : get_discussion(JSONObject content)
+  + void : envoyer_message(JSONObject content)
+  + void : get_discussions(JSONObject content)
+  + void : get_utilisateurs(JSONObject content)
+  + void : modifier_profil(JSONObject content)
+  + void : get_profil(JSONObject content)
+  + void : add_filtre_mot(JSONObject content)
+  + void : add_filtre_utilisateur(JSONObject content)
+  + void : set_controle_parental(JSONObject content)
+  + void : desactiver_controle_parental(JSONObject content)
 }
 
 class Session {
+  
   - Socket: socketClient
 
-  + bool: fermer()
+  + bool : fermer()
+  + void : envoyerMessage(String message)
+  + void : onOpen(javax.websocket.Session session)
+  + void : onMessage(String message)
+  + void : onClose(javax.websocket.Session session)
+  + void : onError(Throwable throwable)
 }
+note right of Session 
+  les methodes onOpen, onMessage,
+  onClose et onError sont des methodes 
+  abstraitre de WebSocket qu'il falait redefinir
+end note
+
 
 class Discussion {
+  - {static} int : idIcr
+  - int : id
 }
+note left of Discussion 
+  id est l'identifiant unique d'une discussion
+  idIcr sert a rendre id auto-incrementé
+end note
 
 class Message {
   - String: texte
@@ -67,11 +122,18 @@ class DiscussionAudio {
 }
 
 class Serveur {
-  - Socket: socketServeur
-
-  + void: addUtilisateur(utilisateur)
-  + Discussion: createDiscussion(listeUtilisateur)
+  - Socket: socketServeur 
+  + boolean : initialize(String fileName)
+  + void : enregistrer(String fileName)
+  + void : start()
+  + void : stop()
 }
+Serveur *-- Application
+Application *-- Utilisateur 
+Application *-- Discussion 
+ResponseEncoder *--Session
+RequestDecoder -- Session 
+Session *-- Application 
 
 UtilisateurHumain *-- IFiltre
 IFiltre <|.. FiltreMots
@@ -86,6 +148,4 @@ Application -* Application
 Discussion - Utilisateur
 DiscussionTexte *--- Message
 Utilisateur --* Message
-Serveur -- Utilisateur
-Serveur *-- Discussion
 @enduml
