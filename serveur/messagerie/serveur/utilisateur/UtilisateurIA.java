@@ -38,6 +38,7 @@ public class UtilisateurIA extends Utilisateur {
 		
 	}
 
+	@Override
 	public void envoyerMessage(String message) {
 		
 	}
