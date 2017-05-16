@@ -254,7 +254,10 @@ public class RequestDecoder {
 			this.session.envoyerMessage(
 				this.encodeur.envoyerMessageReponse(true)
 			);
-			
+
+			envoieMessageUtilisateurs(discussion, message);
+			if (this.session.getUtilisateur() instanceof UtilisateurHumain)
+				((UtilisateurHumain)this.session.getUtilisateur()).envoyerMessage(this.encodeur.encoderMessage(message, this.session.getUtilisateur()));;
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());
