@@ -1,18 +1,21 @@
 \section{Choix technique}
 
-\par Pour ce projet il a été décidé de réaliser l'architecture serveur/client avec un serveur en java communicant avec le client à l'aide de web socket. L’interface de la messagerie a été réalisé à l'aide de technologie web. 
+\par Pour ce projet il a été décidé de réaliser l'architecture serveur/client avec un serveur en java communicant avec le client à l'aide de web socket. L’interface de la messagerie a quant à elle été réalisé à l'aide de technologies web. 
 
 \subsection{Le serveur}
-Le serveur a entièrement été réalisé en java. 
+Le serveur a entièrement été réalisé en java.  
 
 \subsection{Les web sockets}
 \par Les web sockets permettent d'établir la communication entre un client et un serveur. Pour cela nous utilisons la bibliothèque socket.io qui permet donc de faire de la communication en temps réel. 
 
-\subsection{L'interface}
-
 
 \section{Guide d'utilisation}
 
+\par Cette application de messagerie se compose de la manière suivante : \\
+
+\par Au début l'utilisateur accède à une page de login qui lui permet de renseigner son pseudo et son mot de passe afin d'accéder au service de messagerie. Si l'utilisateur est nouveau il a la possibilité de créer son compte en renseignant son pseudo, mot de passe, email, nom, prénom et date de naissance. 
+\par Une fois l'authentification faite l'utilisateur accède à la page principale qui correspond à la page d'historique des conversations des utilisateurs. L'utilisateur peut donc  sélectionner une conversation déjà existante ou bien en créer une nouvelle. Il aura donc la possibilité de choisir parmi les membres du service messagerie, la personne qu'il veut joindre. Il accédera donc à la page de conversation.
+\par Via la navbar il est possible d'accéder au carnet d'adresse et à la page de paramètre. 
 
 
 \section{Tests de validation}
