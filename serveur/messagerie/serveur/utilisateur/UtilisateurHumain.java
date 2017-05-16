@@ -246,7 +246,10 @@ public class UtilisateurHumain extends Utilisateur {
 		return true;
 	}
 
-	@Override
+	/**
+	 * Envoi d'un message à un utilisateur.
+	 * @param message Message à envoyer
+	 */
 	public void envoyerMessage(String message) {
 		if (this.session != null) {
 			try {

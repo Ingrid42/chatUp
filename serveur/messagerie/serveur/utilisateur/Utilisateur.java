@@ -108,12 +108,6 @@ public abstract class Utilisateur implements Serializable {
 		this.discussions.remove(discussion);
 	}
 
-	/**
-	 * Envoi d'un message à un utilisateur.
-	 * @param message Message à envoyer
-	 */
-	public abstract void envoyerMessage(String message);
-
 	@Override
 	public int hashCode() {
 		return (this.pseudonyme.hashCode() % 256) * 

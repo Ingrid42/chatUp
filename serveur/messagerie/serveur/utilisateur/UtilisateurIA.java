@@ -110,9 +110,4 @@ public class UtilisateurIA extends Utilisateur {
 			throw new DiscussionException("Type de discussion incompatible");
 		}
 	}
-
-	@Override
-	public void envoyerMessage(String message) {
-
-	}
 }
