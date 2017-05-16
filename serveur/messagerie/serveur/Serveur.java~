@@ -74,7 +74,7 @@ public class Serveur {
 			UtilisateurIA mia = new UtilisateurIA(
 												"MiaBot",
 												"Mia",
-												"MiaBot"
+												"IABot"
 											);
 
 			try {
