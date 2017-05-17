@@ -117,7 +117,7 @@ public class UtilisateurHumain extends Utilisateur {
 	 * @return letat du controle parental.
 	 */
 	public boolean getControleParental() {
-		return motDePasseParental == null ;
+		return motDePasseParental != null ;
 	}
 
 	/**
@@ -137,6 +137,10 @@ public class UtilisateurHumain extends Utilisateur {
 	 */
 	public UtilisateurHumain setMotDePasseParental(String motDePasseParental) {
 		this.motDePasseParental = motDePasseParental;
+
+		if (motDePasseParental == null)
+			this.filtre.clear();
+
 		return this;
 	}
 
