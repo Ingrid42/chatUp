@@ -182,8 +182,10 @@ class Navigateur {
   }
 
   enregistrerParametres(session) {
-    let tagControleParental = $('#setControleParental');
-    console.log(tagControleParental);
+    let courriel = $('#changerCourriel').val();
+    let motDePasse = $('#changerMotDePasse').val();
+    console.log(courriel);
+    console.log(motDePasse);
   }
 
   changerControleParental(session, target) {
