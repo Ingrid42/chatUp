@@ -116,6 +116,7 @@ public class ResponseEncoder {
 			jsonUserObjectMap.put("pseudonyme", u.getPseudonyme());
 			jsonUserObjectMap.put("nom", u.getNom());
 			jsonUserObjectMap.put("prenom", u.getPrenom());
+			jsonUserObjectMap.put("photo", u.getPhoto());
 
 			JSONObject userObject = new JSONObject(jsonUserObjectMap);
 			array_users.add(userObject) ;
