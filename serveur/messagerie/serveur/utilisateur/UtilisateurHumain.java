@@ -201,6 +201,9 @@ public class UtilisateurHumain extends Utilisateur {
 	 * @return Vrai si le filtre a été ajouté. Faux sinon.
 	 */
 	public boolean ajouterFiltre(IFiltre filtre) {
+		if (this.filtres.contains(filtre))
+			return false;
+
 		return this.filtres.add(filtre);
 	}
 
