@@ -1,0 +1,48 @@
+@startuml
+class FiltreMot {
+  mots
+}
+
+class Navigateur {
+
+}
+
+class FiltreUtilisateur {
+
+}
+
+class Utilisateur {
+  pseudonyme
+  nom
+  prenom
+  adresseMel
+  dateNaissance
+  photo
+}
+
+class Session {
+  socketClient
+  IPServeur
+}
+
+class Message {
+  texte
+  date
+}
+
+class DiscussionTexte {
+}
+
+FiltreMot --* Session
+FiltreUtilisateur --* Session
+Navigateur --* Session
+Discussion --* Session
+Discussion *-- Message
+Navigateur *-- Utilisateur
+Utilisateur -* Session
+FiltreUtilisateur *-- Utilisateur
+Discussion <|-- DiscussionTexte
+Utilisateur --* Discussion
+DiscussionTexte *--- Message
+Utilisateur --* Message
+@enduml
