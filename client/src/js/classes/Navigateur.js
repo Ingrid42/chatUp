@@ -48,6 +48,7 @@ class Navigateur {
 
   switchToParameters(session) {
     this.hide();
+    this._setCourrielInParametres();
     $('#pageParametres').removeClass('hidden');
     $('#navbarParametres').removeClass('hidden');
     session.send({
@@ -367,6 +368,10 @@ class Navigateur {
         <div class="message-content-reply">' + message.texte + '</div>\n\
         <div class="message-time-reply">' + message.getLocaleDate() + '</div>\n\
       </div>';
+  }
+
+  _setCourrielInParametres() {
+    $('#changerCourriel').val(this.utilisateur.adresseMel);
   }
 
 // AUTRES FONCTIONS
