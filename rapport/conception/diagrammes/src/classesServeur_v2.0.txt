@@ -1,14 +1,24 @@
 @startuml
 note as N1
   Toutes les classes de ce diagramme possedent 
-  des getters et des setters que nous avons pas
-  mis dans ce diagramme
+  des getters et des setters que nous n'avons pas
+  inclus dans ce diagramme sauf quand nous l'avons
+  jugé nécessaire
 end note
 
 
 interface IFiltre {
-  Object: getObject()
+  + Object: getObject()
+  + boolean : compare(Object object)
 }
+
+note right of IFiltre
+  La méthode compare a été ajoutée
+  afin de pouvoir faire des 
+  comparaisons d'objet simple
+  avec les filtres et simplifier
+  les traitements du serveur.
+end note
 
 class FiltreMots {
   - String: mot
@@ -39,7 +49,14 @@ class UtilisateurHumain {
 }
 
 class Application <<Serializable>> #AAEE88 {
-
+  - Application()
+  + void : ajouterUtilisateur(Utilisateur utilisateur)
+  + Utilisateur : getUtilisateur(String pseudonyme)
+  + void : ajouterDiscussion(Discussion discussion)
+  + boolean : discussionExiste(Discussion discussion)
+  + Discussion : getDiscussion(long id)
+  + Map<String, Utilisateur> : getUtilisateurs()
+  + {static} Application : getInstance()
 }
 
 class ResponseEncoder #AAEE88 {
@@ -94,7 +111,7 @@ class Session {
 note right of Session 
   les methodes onOpen, onMessage,
   onClose et onError sont des methodes 
-  abstraitre de WebSocket qu'il falait redefinir
+  abstraitre de WebSocket qu'il fallait redéfinir
 end note
 
 
@@ -103,8 +120,9 @@ class Discussion {
   - int : id
 }
 note left of Discussion 
-  id est l'identifiant unique d'une discussion
-  idIcr sert a rendre id auto-incrementé
+  id est l'identifiant unique d'une discussion,
+  idIcr garde la trace du prochain id qui sera attribué 
+  à une discussion
 end note
 
 class Message {
@@ -148,4 +166,10 @@ Application -* Application
 Discussion - Utilisateur
 DiscussionTexte *--- Message
 Utilisateur --* Message
+
+note right of Application 
+  L'application contenue est statique
+  et permet d'avoir une classe 
+  implémentant le pattern singleton.
+end note
 @enduml

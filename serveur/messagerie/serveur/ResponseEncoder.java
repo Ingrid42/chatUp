@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import messagerie.serveur.utilisateur.*;
 import messagerie.serveur.discussion.*;
 
+import messagerie.serveur.filtre.*;
+
 /**
  * Cette classe est chargée de gérer le formattage des réponses
  * envoyées par le serveur aux clients.
@@ -313,8 +315,67 @@ public class ResponseEncoder {
 		return obj.toString() ;
 
 	}
+	
+	/**
+	 * Liste tout les  filtres utilisateurs pour le client
+	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les filtres.
+	 */
+	 @SuppressWarnings("unchecked")
+	public String getFiltreUtilisateurReponse(boolean state){
+		Map<String, Object> jsonContenuMap = new HashMap<>();
+		Map<String, Object> jsonObjMap = stateReponse(state, "get_filtre_utilisateur_reponse" );
+		JSONArray array_users = new JSONArray();
+		for(IFiltre f : ((UtilisateurHumain)this.session.getUtilisateur()).getFiltres()){
+			if(f instanceof FiltreUtilisateur){
+				String pseudonyme = ((FiltreUtilisateur)f).getUtilisateur().getPseudonyme();
+				array_users.add(pseudonyme) ;
+			}
+		}
+		jsonContenuMap.put("filtres", array_users);
+		JSONObject contenu = new JSONObject(jsonContenuMap);
+		jsonObjMap.put("contenu", contenu);
+		JSONObject obj = new JSONObject(jsonObjMap);
+		return obj.toString() ;
+	}
+	
+	
+	/**
+	 * etat du controle parental
+	 * @return l'etat du control parental
+	 */
+	 @SuppressWarnings("unchecked")
+	public String getControleParentalReponse(boolean state){
+		Map<String, Object> jsonContenuMap = new HashMap<>();
+		Map<String, Object> jsonObjMap = stateReponse(state, "get_controle_parental_reponse" );
+		jsonContenuMap.put("controle_parental", ((UtilisateurHumain)this.session.getUtilisateur()).getControleParental());
+		JSONObject contenu = new JSONObject(jsonContenuMap);
+		jsonObjMap.put("contenu", contenu);
+		JSONObject obj = new JSONObject(jsonObjMap);
+		return obj.toString() ;
+	}
 
 
+	/**
+	 * Liste tout les  filtres mots pour le client
+	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les filtres.
+	 */
+	 @SuppressWarnings("unchecked")
+	public String getFiltreMotReponse(boolean state){
+		Map<String, Object> jsonContenuMap = new HashMap<>();
+		Map<String, Object> jsonObjMap = stateReponse(state, "get_filtre_mot_reponse" );
+		JSONArray array_users = new JSONArray();
+		for(IFiltre f : ((UtilisateurHumain)this.session.getUtilisateur()).getFiltres()){
+			if(f instanceof FiltreMot){
+				String mot = ((FiltreMot)f).getMot();
+				array_users.add(mot) ;
+			}
+		}
+		jsonContenuMap.put("filtres", array_users);
+		JSONObject contenu = new JSONObject(jsonContenuMap);
+		jsonObjMap.put("contenu", contenu);
+		JSONObject obj = new JSONObject(jsonObjMap);
+		return obj.toString() ;
+	}
 	/**
 	 * Liste tout les utilisateurs pour le client
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).

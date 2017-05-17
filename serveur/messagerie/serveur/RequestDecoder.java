@@ -275,6 +275,8 @@ public class RequestDecoder {
 	}
 
 	private void envoieMessageUtilisateurs(DiscussionTexte discussion, Message message) {
+		discussion.addMessage(message);
+
 		for (Utilisateur u : discussion.getUtilisateurs())
 				if (u.equals(message.getUtilisateur()))
 					continue;
@@ -525,6 +527,49 @@ public class RequestDecoder {
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
+		}
+	}
+	/**
+	 * get filtres mot.
+	 * @param content Requête reçue par le serveur.
+	 */
+	public void get_filtres_mot(JSONObject content){
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getFiltreMotReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	
+	/**
+	 * get filtres utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
+	public void get_filtres_utilisateur(JSONObject content){
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getFiltreUtilisateurReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	/**
+	 * get controle parental.
+	 * @param content Requête reçue par le serveur.
+	 */
+	public void get_controle_parental(JSONObject content){
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getControleParentalReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 	}
 
