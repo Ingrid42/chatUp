@@ -331,8 +331,8 @@ public class ResponseEncoder {
 				array_users.add(pseudonyme) ;
 			}
 		}
-		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonContenuMap.put("filtres", array_users);
+		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
 		JSONObject obj = new JSONObject(jsonObjMap);
 		return obj.toString() ;
@@ -370,8 +370,8 @@ public class ResponseEncoder {
 				array_users.add(pseudonyme) ;
 			}
 		}
-		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonContenuMap.put("filtres", array_users);
+		JSONObject contenu = new JSONObject(jsonContenuMap);
 		jsonObjMap.put("contenu", contenu);
 		JSONObject obj = new JSONObject(jsonObjMap);
 		return obj.toString() ;
