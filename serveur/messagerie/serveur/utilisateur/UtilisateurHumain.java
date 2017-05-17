@@ -22,7 +22,7 @@ public class UtilisateurHumain extends Utilisateur {
 	/**
 	 * URL vers la photo par défaut de l'utilisateur.
 	 */
-	private static String photoDefaut = "defaut.png";
+	public final static String photoDefaut = "defaut.png";
 
 	/**
 	 * Mot de passe de l'utilisateur.
@@ -213,6 +213,11 @@ public class UtilisateurHumain extends Utilisateur {
 		return this.filtres.remove(filtre);
 	}
 
+	/**
+	 * Permet de retirer les mots filtrés d'un message.
+	 * @param message Message à filtrer
+	 * @return Chaine représentant le mot filtré
+	 */
 	public String filtrerMessage(Message message) {
 		String messageString = message.getMessage();
 
@@ -241,7 +246,10 @@ public class UtilisateurHumain extends Utilisateur {
 		return true;
 	}
 
-	@Override
+	/**
+	 * Envoi d'un message à un utilisateur.
+	 * @param message Message à envoyer
+	 */
 	public void envoyerMessage(String message) {
 		if (this.session != null) {
 			try {
@@ -255,5 +263,9 @@ public class UtilisateurHumain extends Utilisateur {
 		else {
 			this.messages.add(message);
 		}
+	}
+	
+	public Set<IFiltre> getFiltres(){
+		return this.filtres ;
 	}
 }

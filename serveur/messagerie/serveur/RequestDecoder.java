@@ -248,17 +248,17 @@ public class RequestDecoder {
 
 			Message message = new Message(this.session.getUtilisateur(), texteMessage, discussion) ;
 
-			if (discussion.possedeUtilisateur(this.session.getUtilisateur()))
-				discussion.addMessage(message);
-			else
+			if (!discussion.possedeUtilisateur(this.session.getUtilisateur()))
 				throw new DiscussionException("L'utilisateur n'est pas dans la conversation. Impossible d'envoyer un message.");
-
 
 			this.session.envoyerMessage(
 				this.encodeur.envoyerMessageReponse(true)
 			);
-			for (Utilisateur u : discussion.getUtilisateurs())
-				u.envoyerMessage(this.encodeur.encoderMessage(message, this.session.getUtilisateur()));
+			
+			if (this.session.getUtilisateur() instanceof UtilisateurHumain)
+				((UtilisateurHumain)this.session.getUtilisateur()).envoyerMessage(this.encodeur.encoderMessage(message, this.session.getUtilisateur()));
+
+			envoieMessageUtilisateurs(discussion, message);
 		}
 		catch (Exception e) {
 			System.err.println(e.getMessage());
@@ -272,6 +272,21 @@ public class RequestDecoder {
 				ioe.printStackTrace();
 			}
 		}
+	}
+
+	private void envoieMessageUtilisateurs(DiscussionTexte discussion, Message message) {
+		for (Utilisateur u : discussion.getUtilisateurs())
+				if (u.equals(message.getUtilisateur()))
+					continue;
+				else if (u instanceof UtilisateurHumain)
+					((UtilisateurHumain)u).envoyerMessage(this.encodeur.encoderMessage(message, this.session.getUtilisateur()));
+				else if (u instanceof UtilisateurIA)
+					try {
+						envoieMessageUtilisateurs(discussion, ((UtilisateurIA)u).repondre(message));
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
 	}
 
 	/**
@@ -510,6 +525,35 @@ public class RequestDecoder {
 		}
 		catch (Exception pe) {
 			pe.printStackTrace();
+		}
+	}
+	/**
+	 * get filtres mot.
+	 * @param content Requête reçue par le serveur.
+	 */
+	public void get_filtres_mot(JSONObject content){
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getFiltreMotReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	
+	/**
+	 * get filtres utilisateur.
+	 * @param content Requête reçue par le serveur.
+	 */
+	public void get_filtres_utilisateur(JSONObject content){
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getFiltreUtilisateurReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 	}
 

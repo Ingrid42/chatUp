@@ -41,10 +41,10 @@ public class UtilisateurIA extends Utilisateur {
 	*/
 	public UtilisateurIA(String pseudonyme, String nom, String prenom) {
 		super(pseudonyme, nom, prenom);
-		this.setAllChainesXML("UserQuestion/salutationUser.xml", categorieSalutation, false);
-		this.setAllChainesXML("UserQuestion/feelingUser.xml", feeling, false);
-		this.setAllChainesXML("MiaReponse/salutationMia.xml", categorieSalutation, true);
-		this.setAllChainesXML("MiaReponse/feelingMia.xml", feeling, true);
+		this.setAllChainesXML("ressources/UserQuestion/salutationUser.xml", categorieSalutation, false);
+		this.setAllChainesXML("ressources/UserQuestion/feelingUser.xml", feeling, false);
+		this.setAllChainesXML("ressources/MiaReponse/salutationMia.xml", categorieSalutation, true);
+		this.setAllChainesXML("ressources/MiaReponse/feelingMia.xml", feeling, true);
 	}
 
 	public void setCategorie(String str, ArrayList<String> categorie) {
@@ -109,9 +109,5 @@ public class UtilisateurIA extends Utilisateur {
 		} else {
 			throw new DiscussionException("Type de discussion incompatible");
 		}
-	}
-
-	public void envoyerMessage(String message) {
-
 	}
 }
