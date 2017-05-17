@@ -45,13 +45,14 @@ Cette partie présente la conception préliminaire qui a été réalisée.
 	\newpage
 
 	\subsection{Diagramme de navigation}
-	Lorsque l'utilisateur arrive sur l'application, il arrive d'abord sur une "Page de login" où l'utilisateur a le choix entre (les champs en italique représente les modifications qui ont été effectuées) :
+	Lorsque l'utilisateur arrive sur l'application, il arrive d'abord sur une "Page de login" où l'utilisateur a le choix entre (les champs en italique représentent les modifications qui ont été effectuées) :
 	\begin{itemize}
 		\item connexion : entrer ses identifiants dans "Pseudonyme" et "Mot de passe" afin de se connecter en appuyant sur le bouton de validation
 		\item inscription : créer un compte en cliquant sur "Pas encore inscrit ?".
 		Dans ce cas, l'utilisateur arrive sur la "Page d'inscription" où il est possible d'indiquer ses identifiants "Pseudonyme", "Adresse mél", "Mot de passe", "Confirmation", "Nom", "Prénom", et "Date de naissance".
 		L'utilisateur s'inscrit en appuyant sur le bouton de validation.
-		L'utilisateur peut également retourner sur la "Page de connexion" en appuyant \textit{sur le bouton d'accueil}.\\
+		L'utilisateur peut également retourner sur la "Page de connexion" en appuyant \textit{sur le bouton d'accueil}.
+		Les erreurs de saisies de l'utilisateur sont détéctées. Ainsi si une adresse mèl invalide ou bien la confirmation du mot de passe diffère du mot de passe initial, la demande d'inscription est bloquée.\\
 	\end{itemize}
 
 	Lorsque l'utilisateur a passé l'étape de connexion ou d'inscription, il arrive sur la "Page de Messagerie" où il visualise les différentes conversations déjà créées. Sur cette page, différentes possibilités s'offre à lui :
