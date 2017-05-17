@@ -68,14 +68,14 @@ class Session {
         case 'add_filtre_utilisateur_reponse':
           this._onAddFiltreUtilisateur(responseJSON.contenu);
           break;
-        case 'get_filtres_mot_reponse':
+        case 'get_filtre_mot_reponse':
           this._onGetFiltresMot(responseJSON.contenu);
           break;
-        case 'get_filtres_utilisateur_reponse':
+        case 'get_filtre_utilisateur_reponse':
           this._onGetFiltresUtilisateur(responseJSON.contenu);
           break;
         case 'get_controle_parental_reponse':
-          this._onGetFiltresUtilisateur(responseJSON.contenu);
+          this._onGetControleParental(responseJSON.contenu);
           break;
         case 'set_controle_parental_reponse':
           this._onSetControleParental(responseJSON.contenu);
@@ -110,17 +110,10 @@ class Session {
 
   _onConnexion(data) {
     this._initUtilisateur(data);
-    let message = {
-      action: "get_utilisateurs",
-      contenu: {}
-    };
-    this.send(message);
-
-    message = {
+    this.send({
       action: "get_discussions",
       contenu: {}
-    }
-    this.send(message);
+    });
   }
 
   _onCreerUtilisateur(data) {
@@ -148,7 +141,11 @@ class Session {
   _onGetDiscussions(data) {
     this._saveDiscussions(data);
     this.navigateur.generateMessagerie(this.discussionsTextes, this);
-    this.navigateur.switchToMessagerie();
+    this.navigateur.switchToMessagerie(this);
+    this.send({
+      action: "get_utilisateurs",
+      contenu: {}
+    });
   }
 
   _onEnvoyerMessage(data) {
@@ -181,21 +178,27 @@ class Session {
 
   }
 
-  _onGetFiltreMot(data) {
-    console.log("getFiltreMot");
-    console.log(data.filtres_mot);
-    this.navigateur.completeFiltresMot(data.filtres_mot);
+  _onGetFiltresMot(data) {
+    for (var i = 0; i < data.filtres.length; i++) {
+      if (!this._motEstFiltre(data.filtres[i])) {
+        this.filtreMot.mots.push(data.filtres[i]);
+      }
+    }
+    this.navigateur.completeFiltresMot(this.filtreMot);
   }
 
-  _onGetFiltreUtilisateur(data) {
-    console.log("getFiltreUtilisateur");
-    console.log(data.filtres_utilisateur);
-    this.navigateur.completeFiltresUtilisateur(data.filtres_utilisateur);
+  _onGetFiltresUtilisateur(data) {
+    for (var i = 0; i < data.filtres.length; i++) {
+      if (!this._motEstFiltre(data.filtres[i])) {
+        this.filtreUtilisateur.mots.push(data.filtres[i]);
+      }
+    }
+    this.navigateur.completeFiltresUtilisateur(this.filtreUtilisateur);
   }
 
   _onGetControleParental(data) {
-    console.log("getControleParental");
-    console.log(data.controle_parental);
+    // console.log("getControleParental");
+    // console.log(data.controle_parental);
     this.navigateur.setControleParental(data.controle_parental);
   }
 
@@ -296,6 +299,24 @@ class Session {
       }
     }
     return null;
+  }
+
+  _utilisateurEstFiltre(pseudonyme) {
+    for (var i = 0; i < this.filtresUtilisateur.utilisateurs.length; i++) {
+      if (this.filtresUtilisateur.utilisateurs[i] == pseudonyme) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  _motEstFiltre(mot) {
+    for (var i = 0; i < this.filtresMot.mots.length; i++) {
+      if (this.filtresMot.mots[i].mot == mot) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 

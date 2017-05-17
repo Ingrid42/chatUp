@@ -21,7 +21,7 @@ class Navigateur {
     $('.switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('.switchToMessagerie').on('click', () => this.getDiscussions(session));
     $('.switchToParameters').on('click', () => this.switchToParameters(session));
-    $('.switchToContacts').on('click', () => this.switchToContacts());
+    $('.switchToContacts').on('click', () => this.switchToContacts(session));
     $('.switchToConversationCreation').on('click', () => this.switchToConversationCreation());
     $('.switchToConversationTextuelle').on('click', () => this.switchToConversationTextuelle());
     $('.switchToConversationAudio').on('click', () => this.switchToConversationAudio());
@@ -67,16 +67,24 @@ class Navigateur {
     session.send
   };
 
-  switchToContacts() {
+  switchToContacts(session) {
     this.hide();
     $('#pageContacts').removeClass('hidden');
     $('#navbarContacts').removeClass('hidden');
+    session.send({
+      action: "get_utilisateurs",
+      contenu: {}
+    });
   };
 
-  switchToMessagerie() {
+  switchToMessagerie(session) {
     this.hide();
     $('#pageMessagerie').removeClass('hidden');
     $('#navbarMessagerie').removeClass('hidden');
+    session.send({
+      action: "get_utilisateurs",
+      contenu: {}
+    });
   };
 
   switchToConversationCreation() {
@@ -305,10 +313,12 @@ class Navigateur {
   }
 
   completeFiltresUtilisateur(filtresUtilisateur) {
+    // console.log(filtresUtilisateur.toString());
      $('#filtresUtilisateur').val(filtresUtilisateur.toString());
   }
 
   completeFiltresMot(filtresMot) {
+    // console.log(filtresMot);
     $('#filtresMot').val(filtresMot.toString());
   }
 
