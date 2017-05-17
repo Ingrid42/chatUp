@@ -224,6 +224,9 @@ public class UtilisateurHumain extends Utilisateur {
 		if (this.filtres.contains(filtre))
 			return false;
 
+		if (!this.etatMotDePasseParental)
+			return false;
+
 		return this.filtres.add(filtre);
 	}
 
