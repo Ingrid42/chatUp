@@ -32,6 +32,9 @@ public class UtilisateurIA extends Utilisateur {
 	private static ArrayList<String> categorieSalutation = new ArrayList<String>();
 	private static ArrayList<String> feeling = new ArrayList<String>();
 	private static ArrayList<String> affirmation = new ArrayList<String>();
+	private static ArrayList<String> negation = new ArrayList<String>();
+	private static ArrayList<String> questionTuAimes = new ArrayList<String>();
+	private static ArrayList<String> age = new ArrayList<String>();
 	private Random randomGenerator = new Random();
 
 	/**
@@ -45,9 +48,16 @@ public class UtilisateurIA extends Utilisateur {
 		this.setAllChainesXML("ressources/UserQuestion/salutationUser.xml", categorieSalutation, false);
 		this.setAllChainesXML("ressources/UserQuestion/feelingUser.xml", feeling, false);
 		this.setAllChainesXML("ressources/UserQuestion/affirmationUser.xml", affirmation, false);
+		this.setAllChainesXML("ressources/UserQuestion/negationUser.xml", negation, false);
+		this.setAllChainesXML("ressources/UserQuestion/questionTuAimesUser.xml", questionTuAimes, false);
+		this.setAllChainesXML("ressources/UserQuestion/ageUser.xml", age, false);
+
 		this.setAllChainesXML("ressources/MiaReponse/salutationMia.xml", categorieSalutation, true);
 		this.setAllChainesXML("ressources/MiaReponse/feelingMia.xml", feeling, true);
 		this.setAllChainesXML("ressources/MiaReponse/affirmationMia.xml", affirmation, true);
+		this.setAllChainesXML("ressources/MiaReponse/negationMia.xml", negation, true);
+		this.setAllChainesXML("ressources/MiaReponse/questionTuAimesMia.xml", questionTuAimes, true);
+		this.setAllChainesXML("ressources/MiaReponse/ageMia.xml", age, true);
 	}
 
 	public void setCategorie(String str, ArrayList<String> categorie) {
@@ -103,6 +113,7 @@ public class UtilisateurIA extends Utilisateur {
 			msgUser = msgUser.toLowerCase();
 			ArrayList<String> selectionRep = this.voc.get(msgUser);
 			if (selectionRep == null) {
+				System.out.println(selectionRep);
 				return new Message(this,"Désolé, je n'ai pas compris..",(DiscussionTexte)discussion);
 			} else {
 				int index = randomGenerator.nextInt(selectionRep.size());

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<expressions>
+    <expression>tu aimes le sport</expression>
+    <expression>tu aimes la musique</expression>
+    <expression>tu aimes le chocolat</expression>
+    <expression>tu aimes danser</expression>
+		<expression>tu aimes les jeux videos</expression>
+		<expression>tu aimes manger</expression>
+    <expression>tu aimes les cours</expression>
+    <expression>tu aimes travailler</expression>
+    <expression>tu aimes le sport ?</expression>
+    <expression>tu aimes la musique ?</expression>
+    <expression>tu aimes le chocolat ?</expression>
+    <expression>tu aimes danser ?</expression>
+    <expression>tu aimes les jeux videos ?</expression>
+    <expression>tu aimes manger ?</expression>
+    <expression>tu aimes les cours ?</expression>
+    <expression>tu aimes travailler ?</expression>
+</expressions>
