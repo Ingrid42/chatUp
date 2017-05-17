@@ -14,7 +14,6 @@ class Navigateur {
     $('#filtresMot').on('change', (evt) => this.setFiltresMot(session, evt.target));
     $('#filtresUtilisateur').on('change', (evt) => this.setFiltresUtilisateur(session, evt.target));
 
-
     $('#switchToInscription').on('click', () => this.switchToInscription());
     $('#switchToMotDePasse').on('click', () => this.switchToMotDePasse());
     $('.switchToConnexion').on('click', () =>  this.switchToConnexion(session));
