@@ -1,6 +1,12 @@
 class FiltreMot {
   constructor() {
-    this.mot = [];
+    this.mots = [];
+  }
+
+  toString() {
+    return this.mots.map((mot, indice) => {
+      return mot + ', ';
+    });
   }
 }
 

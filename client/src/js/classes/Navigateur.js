@@ -7,13 +7,19 @@ class Navigateur {
     $('#connexionUtilisateur').on('click', () => this.connexionUtilisateur(session));
     $('#inscriptionUtilisateur').on('click', () => this.inscriptionUtilisateur(session));
     $('#creationDiscussion').on('click', () => this.creationDiscussion(session, $('#createConvContactList').val()));
-    $('#switchToInscription').on('click', () => this.switchToInscription());
     $('#envoyer_message_bouton').on('click', () => this.envoyerMessage(session));
-    $('.switchToConnexion').on('click', () =>  this.switchToConnexion(session));
+    $('#enregistrerParametres').on('click', () => this.enregistrerParametres(session));
     $('.deconnexionUtilisateur').on('click', () => this.deconnexionUtilisateur(session));
-    $('.switchToParameters').on('click', () => this.switchToParameters());
-    $('.switchToContacts').on('click', () => this.switchToContacts());
+    $('#setControleParental').on('change', (evt) => this.changerControleParental(session, evt.target));
+    $('#filtresMot').on('change', (evt) => this.setFiltresMot(session, evt.target));
+    $('#filtresUtilisateur').on('change', (evt) => this.setFiltresUtilisateur(session, evt.target));
+
+
+    $('#switchToInscription').on('click', () => this.switchToInscription());
+    $('.switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('.switchToMessagerie').on('click', () => this.getDiscussions(session));
+    $('.switchToParameters').on('click', () => this.switchToParameters(session));
+    $('.switchToContacts').on('click', () => this.switchToContacts());
     $('.switchToConversationCreation').on('click', () => this.switchToConversationCreation());
     $('.switchToConversationTextuelle').on('click', () => this.switchToConversationTextuelle());
     $('.switchToConversationAudio').on('click', () => this.switchToConversationAudio());
@@ -33,10 +39,23 @@ class Navigateur {
     $('#navbarAccueil').removeClass('hidden');
   };
 
-  switchToParameters() {
+  switchToParameters(session) {
     this.hide();
     $('#pageParametres').removeClass('hidden');
     $('#navbarParametres').removeClass('hidden');
+    session.send({
+      action: "get_filtres_utilisateur",
+      contenu : {}
+    });
+    session.send({
+      action: "get_filtres_mot",
+      contenu : {}
+    });
+    session.send({
+      action: "get_controle_parental",
+      contenu : {}
+    });
+    session.send
   };
 
   switchToContacts() {
@@ -155,6 +174,56 @@ class Navigateur {
     session.send(message);
   }
 
+  enregistrerParametres(session) {
+    let tagControleParental = $('#setControleParental');
+    console.log(tagControleParental);
+  }
+
+  changerControleParental(session, target) {
+    let value = $(target).is(":checked");
+    let action = 'desactiver_controle_parental';
+    if (value) {
+      action = 'set_controle_parental';
+    }
+    let message = {
+      action,
+      contenu: {
+        mot_de_passe_parental: null
+      }
+    }
+    session.send(message);
+  }
+
+  setFiltresMot(session, target) {
+    let contenu = $(target).val();
+    contenu.split(',').map((mot, indice) => {
+      if (mot.trim().length > 0) {
+        session.send({
+          action: "add_filtre_mot",
+          contenu: {
+            mot_de_passe_parental : null,
+        		mot : mot.trim()
+          }
+        });
+      }
+    });
+  }
+
+  setFiltresUtilisateur(session, target) {
+    let contenu = $(target).val();
+    contenu.split(',').map((utilisateur, indice) => {
+      if (utilisateur.trim().length > 0) {
+        session.send({
+          action: "add_filtre_utilisateur",
+          contenu: {
+            mot_de_passe_parental : null,
+        		utilisateur : utilisateur.trim()
+          }
+        });
+      }
+    });
+  }
+
 
 // FONCTIONS DE GÉNÉRATION
   generateContactList(utilisateurs, session) {
@@ -219,6 +288,18 @@ class Navigateur {
       tagContent.append(this._createConvMessageTemplate(message));
     }
     tagContent.scrollTop(tagContent[0].scrollHeight);
+  }
+
+  completeFiltresUtilisateur(filtresUtilisateur) {
+     $('#filtresUtilisateur').val(filtresUtilisateur.toString());
+  }
+
+  completeFiltresMot(filtresMot) {
+    $('#filtresMot').val(filtresMot.toString());
+  }
+
+  setControleParental(isTrue) {
+    $('#setControleParental');
   }
 
 

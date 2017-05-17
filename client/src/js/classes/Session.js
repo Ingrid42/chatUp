@@ -1,5 +1,7 @@
 import Utilisateur from './Utilisateur.js';
 import DiscussionTexte from './DiscussionTexte.js';
+import FiltreMot from './FiltreMot.js';
+import FiltreUtilisateur from './FiltreUtilisateur.js';
 import Message from './Message.js';
 import Navigateur from './Navigateur.js';
 
@@ -12,6 +14,8 @@ class Session {
     this.utilisateurs = [];
     this.discussionsTextes = [];
     this.navigateur = navigateur;
+    this.filtreMot = new FiltreMot();
+    this.filtreUtilisateur = new FiltreUtilisateur();
     this.initConnexion();
   }
 
@@ -62,6 +66,15 @@ class Session {
           break;
         case 'add_filtre_utilisateur_reponse':
           this._onAddFiltreUtilisateur(responseJSON.contenu);
+          break;
+        case 'get_filtres_mot_reponse':
+          this._onGetFiltresMot(responseJSON.contenu);
+          break;
+        case 'get_filtres_utilisateur_reponse':
+          this._onGetFiltresUtilisateur(responseJSON.contenu);
+          break;
+        case 'get_controle_parental_reponse':
+          this._onGetFiltresUtilisateur(responseJSON.contenu);
           break;
         case 'set_controle_parental_reponse':
           this._onSetControleParental(responseJSON.contenu);
@@ -165,6 +178,24 @@ class Session {
 
   _onSetControleParental(data) {
 
+  }
+
+  _onGetFiltreMot(data) {
+    console.log("getFiltreMot");
+    console.log(data.filtres_mot);
+    this.navigateur.completeFiltresMot(data.filtres_mot);
+  }
+
+  _onGetFiltreUtilisateur(data) {
+    console.log("getFiltreUtilisateur");
+    console.log(data.filtres_utilisateur);
+    this.navigateur.completeFiltresUtilisateur(data.filtres_utilisateur);
+  }
+
+  _onGetControleParental(data) {
+    console.log("getControleParental");
+    console.log(data.controle_parental);
+    this.navigateur.setControleParental(data.controle_parental);
   }
 
   _onMessage(data) {

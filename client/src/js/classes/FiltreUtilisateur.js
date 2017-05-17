@@ -1,6 +1,12 @@
 class FiltreUtilisateur {
   constructor() {
-    this.utilisateur = [];
+    this.utilisateurs = [];
+  }
+
+  toString() {
+    return this.utilisateurs.map((utilisateur, indice) => {
+      return utilisateur + ', ';
+    });
   }
 }
 
