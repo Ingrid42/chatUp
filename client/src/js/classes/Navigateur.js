@@ -208,19 +208,28 @@ class Navigateur {
   }
 
   enregistrerParametres(session) {
-    let courriel = $('#changerCourriel').val();
-    let motDePasse = $('#changerMotDePasse').val();
-    motDePasse = this._encrypt(motDePasse);
-    session.send({
-      action: "modifier_profil",
-      contenu: {
-        mot_de_passe: motDePasse,
-        adresse_mel: courriel,
-        nom: this.utilisateur.nom,
-        prenom: this.utilisateur.prenom,
-        date_naissance: this.utilisateur.dateNaissance
-      }
-    })
+    let adresse_mel = $('#changerCourriel').val();
+    let mot_de_passe = $('#changerMotDePasse').val();
+    mot_de_passe = this._encrypt(mot_de_passe);
+
+    if ( !adresse_mel.match('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i')){
+      alert('Erreur: adresse mel invalide');
+    }
+    if (adresse_mel && mot_de_passe) {
+      session.send({
+        action: "modifier_profil",
+        contenu: {
+          mot_de_passe,
+          adresse_mel,
+          nom: this.utilisateur.nom,
+          prenom: this.utilisateur.prenom,
+          date_naissance: this.utilisateur.dateNaissance
+        }
+      });
+    }
+    else {
+      alert('Erreur: Champ(s) vide(s)');
+    }
   }
 
   changerControleParental(session, target) {
