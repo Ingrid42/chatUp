@@ -29,6 +29,9 @@ public class FiltreMot implements IFiltre {
 		return false;
 	}
 
+	public String getMot(){
+		return this.mot ;
+	}
 	@Override
 	public boolean equals(Object objet) {
 		if (objet == this)

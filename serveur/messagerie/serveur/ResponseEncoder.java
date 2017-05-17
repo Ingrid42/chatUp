@@ -366,8 +366,8 @@ public class ResponseEncoder {
 		JSONArray array_users = new JSONArray();
 		for(IFiltre f : ((UtilisateurHumain)this.session.getUtilisateur()).getFiltres()){
 			if(f instanceof FiltreMot){
-				String pseudonyme = ((FiltreUtilisateur)f).getUtilisateur().getPseudonyme();
-				array_users.add(pseudonyme) ;
+				String mot = ((FiltreMot)f).getMot();
+				array_users.add(mot) ;
 			}
 		}
 		jsonContenuMap.put("filtres", array_users);
