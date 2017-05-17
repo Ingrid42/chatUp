@@ -110,6 +110,15 @@ public class UtilisateurHumain extends Utilisateur {
 		this.adresseMel = adresseMel;
 		return this;
 	}
+	
+	
+	/**
+	 * retourne letat du controle parental
+	 * @return letat du controle parental.
+	 */
+	public boolean getControleParental() {
+		return motDePasseParental == null ;
+	}
 
 	/**
 	 * Changer de date de naissance.

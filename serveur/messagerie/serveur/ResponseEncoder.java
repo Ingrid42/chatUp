@@ -337,6 +337,23 @@ public class ResponseEncoder {
 		JSONObject obj = new JSONObject(jsonObjMap);
 		return obj.toString() ;
 	}
+	
+	
+	/**
+	 * etat du controle parental
+	 * @return l'etat du control parental
+	 */
+	 @SuppressWarnings("unchecked")
+	public String getControleParentalReponse(boolean state){
+		Map<String, Object> jsonContenuMap = new HashMap<>();
+		Map<String, Object> jsonObjMap = stateReponse(state, "get_controle_parental_reponse" );
+		jsonContenuMap.put("controle_parental", ((UtilisateurHumain)this.session.getUtilisateur()).getControleParental());
+		JSONObject contenu = new JSONObject(jsonContenuMap);
+		jsonObjMap.put("contenu", contenu);
+		JSONObject obj = new JSONObject(jsonObjMap);
+		return obj.toString() ;
+	}
+
 
 	/**
 	 * Liste tout les  filtres mots pour le client

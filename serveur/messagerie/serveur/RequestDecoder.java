@@ -558,6 +558,20 @@ public class RequestDecoder {
 			ioe.printStackTrace();
 		}
 	}
+	/**
+	 * get controle parental.
+	 * @param content Requête reçue par le serveur.
+	 */
+	public void get_controle_parental(JSONObject content){
+		try {
+			this.session.envoyerMessage(
+				this.encodeur.getControleParentalReponse(true)
+			);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
 		RequestDecoder rd = new RequestDecoder(null);
