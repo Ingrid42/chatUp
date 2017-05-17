@@ -275,6 +275,8 @@ public class RequestDecoder {
 	}
 
 	private void envoieMessageUtilisateurs(DiscussionTexte discussion, Message message) {
+		discussion.addMessage(message);
+
 		for (Utilisateur u : discussion.getUtilisateurs())
 				if (u.equals(message.getUtilisateur()))
 					continue;

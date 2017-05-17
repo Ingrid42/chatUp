@@ -52,7 +52,7 @@ public class UtilisateurHumain extends Utilisateur {
 	/**
 	 * Session de l'utilisateur.
 	 */
-	private Session session;
+	private transient Session session;
 
 	/**
 	 * Liste des messages reçus hors connexion
