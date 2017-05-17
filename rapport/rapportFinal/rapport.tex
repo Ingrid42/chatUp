@@ -18,15 +18,8 @@
 \usepackage{array}
 \usepackage{svg}
 
-\usepackage{pdfpages}
-\usepackage{titling}
-\usepackage{soul}
-\usepackage{titlesec}
-\def\cleardoublepage{\clearpage}
-\def\clearpage{\newpage}
-
 %%%%%%%%%%%%%%%%%%%% Presentation %%%%%%%%%%%%%%%%%%%
-\title{Informatique Répartie\\Rapport\\Sujet : Messagerie instantanée 2}
+\title{\huge Informatique Répartie\\Rapport\\Sujet : Messagerie instantanée 2}
 \author{Ingrid FIQUET\\Morgane LEGROS\\Florian MARTIN\\Thibault THÉOLOGIEN\\Youssef ZERHOUNI ABDOU}
 \date{\today}
 
@@ -40,10 +33,12 @@
 
 		\maketitle
 		
-		\begin{center}
-			\addvspace{10mm}
-			À l'attention de Cecilia Zanni$-$Merk.
-		\end{center}
+		     
+    \begin{center} 
+    \LARGE
+      \addvspace{10mm} 
+      À l'attention de Cecilia Zanni$-$Merk. 
+    \end{center} 
 
 		\vfill
 		\noindent \hrulefill
@@ -57,8 +52,7 @@
 \tableofcontents{}
 
 \newpage
-\part*{Introduction} \addcontentsline{toc}{part}{Introduction}
-\markboth{Introduction}{Introduction}
+\part{Introduction}
 	\input{src/Intro.tex}
 
 \newpage
@@ -74,16 +68,14 @@
 	\input{src/conception_detaillee.tex}
 
 \newpage
-\part{Implémentation et tests}
+\part{Perspectives}
 	\input{src/implementation_tests.tex}
 	
 \newpage
-\part*{Conclusion et perspective}\addcontentsline{toc}{part}{Conclusion}
-\markboth{Conclusion}{Conclusion}
+\part{Conclusion}
 	\input{src/Conclusion.tex}
 
 \newpage
-\part*{Annexe}\addcontentsline{toc}{part}{Annexe}
-\markboth{Annexe}{Annexe}
+\part{Annexe}
 
 \end{document}

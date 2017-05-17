@@ -1,29 +1,39 @@
 \section{Conception préliminaire}
 
+Cette partir présente la conception préliminaire qui a été réalisée.
+
 	\subsection{Diagramme de modèle du domaine}
 	Cette partie présente les diagrammes de modèle du domaine du client et du serveur.
-	Le diagramme de Modèle du Domaine serveur montre la structure envisagée pour notre serveur.
-	On y trouve donc une entité Serveur chargée de la communication avec les clients.
-	Les autres entités représentent la structure des données pour le fonctionnement de notre application.
+	Le diagramme de Modèle du Domaine serveur, sur la figure \ref{diagModeleServeur}, montre la structure envisagée pour notre serveur.
+	On y trouve donc une entité Serveur chargée de la communication avec le client.
+	Les autres entités représentent la structure des données pour le fonctionnement de notre application.\\
+	
+	Les mises à jours suite à la réalisation sont apparente sur la figure.
 
 	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{img/modeleDomaineServeur.png}}
-		\caption{Diagramme de modèle du domaine côté serveur}
+		\centerline{\includegraphics[width=16.5cm]{img/modeleDomaineServeurV2.png}}
+		
+		\caption{\label{diagModeleServeur}Diagramme de modèle du domaine côté serveur}
 	\end{figure}
 
 	\newpage
 
-	Ce diagramme de Modèle du Domaine présente la structure générale de notre application du côté du client.
+	Ce diagramme de Modèle du Domaine présente la structure générale de l'application du côté du client.
 	Celui-ci réutilise la plupart des entités présentes dans le modèle du domaine du côté serveur.
-	Ainsi, nous avons une cohérence entre les données des deux côtés.
+	Ainsi, nous avons une cohérence entre les données des deux côtés. \\
+	
+		Les mises à jours suite à la réalisation sont apparente sur la figure \ref{modeleDomaineClient}.
 	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{img/modeleDomaineClient.png}}
+		\centerline{\includegraphics[width=16.5cm]{img/modeleDomaineClientV2.png}}
 		\caption{Diagramme de modèle du domaine côté client}
+		\label{modeleDomaineClient}
 	\end{figure}
 
 	\newpage
 
 	\subsection{Diagramme de séquence système}
+	
+	
 	Voici un diagramme séquence système correspondant au cas d'utilisation le plus important du projet : envoyer un message
 	\begin{figure}[H]
 		\centerline{\includegraphics[width=12.5cm]{img/sequenceSystemeEnvoiMessage.png}}
@@ -32,46 +42,46 @@
 
 	\newpage
 
-	\subsection{Diagramme d'activités de navigation}
-	Lorsque l'utilisateur arrive sur l'application, il arrive d'abord sur un "Page de login" où l'utilisateur a le choix entre :
+	\subsection{Diagramme de navigation}
+	Lorsque l'utilisateur arrive sur l'application, il arrive d'abord sur une "Page de login" où l'utilisateur a le choix entre (les champs en italique représente les modifications qui ont été effectuées) :
 	\begin{itemize}
-		\item connexion : rentrer ses identifiants dans "pseudonyme" et "mot de passe" afin de se connecter en appuyant sur le bouton de validation
+		\item connexion : entrer ses identifiants dans "Pseudonyme" et "Mot de passe" afin de se connecter en appuyant sur le bouton de validation
 		\item inscription : créer un compte en cliquant sur "Pas encore inscrit ?".
-		Dans ce cas, l'utilisateur arrive sur la "Page d'inscription" où il est possible de rentrer ses identifiants "Pseudonyme", "Adresse mél", "Mot de passe", "Confirmation", "Nom", "Prénom", et "Date de naissance".
-		L'utilisateur s'inscrira en appuyant sur le bouton de validation.
-		L'utilisateur peut également retourner sur la "Page de login" en appuyant sur le bouton d'annulation.\\
+		Dans ce cas, l'utilisateur arrive sur la "Page d'inscription" où il est possible d'indiquer ses identifiants "Pseudonyme", "Adresse mél", "Mot de passe", "Confirmation", "Nom", "Prénom", et "Date de naissance".
+		L'utilisateur s'inscrit en appuyant sur le bouton de validation.
+		L'utilisateur peut également retourner sur la "Page de connexion" en appuyant \textit{sur le bouton d'accueil}.\\
 	\end{itemize}
 
-	Lorsque l'utilisateur a passé l'étape de connexion ou d'inscription, il arrive sur la "Page de Messagerie" où l'utilisateur visualise les différentes conversations déjà créées. Sur cette page, différentes possibilités s'offre à lui :
+	Lorsque l'utilisateur a passé l'étape de connexion ou d'inscription, il arrive sur la "Page de Messagerie" où il visualise les différentes conversations déjà créées. Sur cette page, différentes possibilités s'offre à lui :
 	\begin{itemize}
-		\item "Page de conversation" : l'utilisateur peut cliquer sur une conversation déjà existante et dans ce cas il arrive sur une "Page de conversation"
-		\item "Page de paramètres" : l'utilisateur peut cliquer sur l'émoticone de paramètres et dans ce cas il arrive sur la "Page de paramètres"
-		\item "Page de contacts" : l'utilisateur peut cliquer sur l'émoticone des contacts, à gauche du nom de l'application, et dans ce cas il arrive sur la "Page de contacts"
-		\item "Nouvelle conversation" : l'utilisateur peut cliquer sur l'émoticone "+" afin de créer une nouvelle conversation, dans ce cas une pop-up s'ouvrira pour choisir un ou plusieurs utilisateurs, il validera et arrivera sur une "Page de conversation" associée\\
+		\item L'utilisateur peut cliquer sur une conversation déjà existante et dans ce cas il arrive sur une "Page de conversation"
+		\item "Page de paramètres" : l'utilisateur peut cliquer sur l’émoticône de paramètres et dans ce cas il arrive sur la "Page de paramètres"
+		\item "Page de contacts" : l'utilisateur peut cliquer sur l’émoticône des contacts, à gauche du nom de l'application, et dans ce cas il arrive sur la "Page de contacts"
+		\item "Nouvelle conversation" : l'utilisateur peut cliquer sur l’émoticône "+" afin de créer une nouvelle conversation, dans ce cas une pop-up s'ouvre pour choisir un ou plusieurs utilisateurs. Il peut valider et arriver sur la "Page de conversation" associée\\
 	\end{itemize}
 
 	Lorsque l'utilisateur se situe sur une "Page de conversation", différentes possibilités s'offre à lui :
 	\begin{itemize}
-		\item envoyer un message en remplissant le champ "Saisie" et cliquer sur l'émoticone envoyer
+		\item envoyer un message en remplissant le champ et cliquer sur \textit{le bouton} envoyer
 		\item "Page de paramètres" : de la même manière
-		\item "Page de Messagerie" : l'utilisateur peut cliquer sur l'émoticone de retour et dans ce cas il retournera sur la "Page de Messagerie"\\
+		\item "Page de Messagerie" : l'utilisateur peut cliquer sur l’émoticône de \textit{Messagerie} et dans ce cas il retournera sur la "Page de Messagerie"\\
 	\end{itemize}
 
 	\newpage
 
 	Lorsque l'utilisateur se situe sur une "Page de contacts", différentes possibilités s'offre à lui :
 	\begin{itemize}
-		\item appeler un contact en cliquant sur l'émoticone d'appel.
-		Dans ce cas une popup de "Conversation Audio" s'ouvre, l'utilisateur pourra raccrocher en appuyant sur l'émoticone d'appel rouge afin de couper la conversation audio et retourner sur la "Page de contacts"
-		\item "Page d'un conversation" : l'utilisateur peut cliquer sur l'émoticone de message pour contacter un contact dans une conversation privée et dans ce cas il arrive sur la "Page de conversation" associée
+		\item appeler un contact en cliquant sur l’émoticône d'appel.
+		Dans ce cas une "\textit{Page} Conversation Audio" s'ouvre, l'utilisateur pourra raccrocher en appuyant sur l’émoticône d'appel \textit{rose} afin de couper la conversation audio et retourner sur la "Page de contacts"
+		\item "Page de conversation" : l'utilisateur peut cliquer sur l’émoticône de message pour contacter un contact dans une conversation privée et dans ce cas il arrive sur la "Page de Conversation" associée
 		\item "Page de paramètres" : de la même manière
-		\item "Page de Messagerie" : l'utilisateur peut cliquer sur l'émoticone de Messagerie, à gauche du nom de l'application, et dans ce cas il arrive sur la "Page de Messagerie"\\
+		\item "Page de Messagerie" : l'utilisateur peut cliquer sur l’émoticône de Messagerie, à gauche du nom de l'application, et dans ce cas il arrive sur la "Page de Messagerie"\\
 	\end{itemize}
 
 	Lorsque l'utilisateur se situe sur la "Page de paramètres", différentes possibilités s'offre à lui :
 	\begin{itemize}
 		\item modifier ses paramètres en remplissant les champs
-		\item retourner sur la page précédente en cliquant sur l'émoticone de retour
+		\item retourner sur la page précédente en cliquant sur l’émoticône de retour
 		\item se déconnecter en cliquant sur le bouton "Déconnexion"\\
 	\end{itemize}
 
