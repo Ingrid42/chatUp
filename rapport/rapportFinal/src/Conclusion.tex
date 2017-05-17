@@ -1,36 +1,36 @@
-%\section{Perspective}
-
-\par Parmi les fonctionnalités principales prévu nous avons réalisé les fonctionnalités suivantes : 
-
-\begin{itemize}
-	\item Création de compte, connexion et déconnexion ;
-	\item Discussion en ligne ;
-	\item Contrôle parentale et filtrage
-	\item Création d’une IA en tant qu’utilisateur de la messagerie ;
-	\item Image de profil pour chaque utilisateur.
-\end{itemize}
 
 Parmi les fonctionnalités que nous n'avons pas réalisé figurent : 
 
 \begin{itemize}
 	\item Discussion audio ;
+	\item Indiquer si l'utilisateur est connecté ou hors ligne ;
 	\item Avatar 3D lors de la conversation audio ;
-	\item Affichage d’emoji ;
+	\item Affichage d’emojis ;
 \end{itemize}
 
-\par Cela s'explique principalement par le fait que nous avons manqué de temps pour la réalisation des discussions audio qui aurait nécessitait beaucoup de temps.
+\par Cela s'explique principalement par le fait que nous avons manqué de temps pour la réalisation des discussions audio qui aurait nécessité beaucoup de temps.
 
-\par De même pour la mise en place d'avatar animé et de l'affichage d'emoji dans les conversation qui n'était pas des fonctionnalité primordiale au projet.  \\
-
-
-
-\par En ce qui concerne l’amélioration de notre projet nous pouvons suggéré une amélioration du point de vu de l'IA.
-
-\par En effet, la version actuelle de l'IA est très minimaliste. Elle fonctionne avec une reconnaissance de la question de l'utilisateur au mot près afin d'y associer une réponse. Pour cela le programme de l'IA définit des catégorie de questions de l'utilisateur et de réponses de l'IA par thématique. Ces catégorie sont chacune décris par un fichier xml qui contient tous les réponses de l'IA possible selon la thématique et toutes les questions possibles de l’utilisateur selon la catégorie. Ainsi quand l'utilisateur pose une question le programme reconnaît la catégorie de la conversation et choisi une réponse de façon aléatoire dans le fichier de réponse correspondant à la bonne catégories de l'IA. 
-
-\par Cette solution n'est donc pas efficace pour une vraie conversation car il faut prévoir à chaque fois tous les cas possibles. Actuellement divers solution permettent d'intégrer des chatbots à des sites web en définissant à travers une API, ou un language (par exemple AIML) toutes les régles de fonctionnement de l'IA. Ainsi les plateformes qui proposent ces services mettent à disposition des algorithmes très puissant de réseau de neurone notamment qui permettent de simuler une conversation humaine. Parmi les solution actuelle on peut citer l'api de Google : API.AI qui permet de développer, entrainer et déployer son propre chatbot. 
+\par De même pour la mise en place d'avatar animé et de l'affichage d'emoji dans les conversations qui n'étaient pas des fonctionnalités primordiales.  \\
 
 
-%\newpage
+\par En ce qui concerne l’amélioration de notre projet nous pouvons suggérer une amélioration du point de vu de l'IA.
 
-%\section{Conclusion}
+\par En effet, la version actuelle de l'IA est très minimaliste. Elle fonctionne avec une reconnaissance de la question de l'utilisateur au mot près afin d'y associer une réponse. Pour cela le programme de l'IA définit des catégories de questions de l'utilisateur et de réponses de l'IA par thématique. Ces catégories sont chacune décris par un fichier xml qui contient toutes les réponses de l'IA possibles selon la thématique et toutes les questions possibles de l’utilisateur selon la catégorie. Ainsi quand l'utilisateur pose une question, le programme reconnaît la catégorie de la conversation et choisit une réponse de façon aléatoire dans le fichier de réponses correspondant à la bonne catégorie de l'IA. 
+
+\par Cette solution n'est donc pas efficace pour une vraie conversation car il faut prévoir à chaque fois tous les cas possibles. Actuellement diverses solutions permettent d'intégrer des chatbots à des sites web en définissant à travers une API, ou un langage (par exemple AIML) toutes les règles de fonctionnement de l'IA. Ainsi les plate-formes qui proposent ces services mettent à disposition des algorithmes très puissants de réseau de neurones notamment qui permettent de simuler une conversation humaine. Parmi les solutions actuelles on peut citer l'API de Google : API.AI qui permet de développer, entraîner et déployer son propre chatbot. 
+
+\newpage
+\part{Conclusion}
+
+\par Parmi les fonctionnalités principales prévues nous avons réalisé toutes les fonctionnalités basiques et implémentés des fonctionnalités supplémentaires. \\
+
+\par Ainsi, l'utilisateur peut créer un compte sur l'application, se connecter et se déconnecter. L'utilisateur a la possibilité de créer une conversation avec un ou plusieurs utilisateurs. 
+\par Lors d'une conversation à plusieurs, alors tous les utilisateurs reçoivent les messages des autres utilisateurs instantanément. Après avoir créé ses conversations, alors l'utilisateur peut avoir accès à la liste des ses conversations existantes.
+\par Lorsque l'utilisateur retourne sur une conversation déjà existante, alors l'historique de cette conversation apparaît.
+\par Un système de contrôle parental a été mis en place avec la possibilité de filtrer certains mots. Il suffit de rentrer les mots à filtrer séparés par des espaces, dans le système de filtre présent dans les paramètres. Ainsi lorsque le mot sera envoyé par un contact, alors ce mot sera remplacé par des étoiles.
+\par Enfin nous avons mis en place \\
+
+
+	%TODO Image de profil pour chaque utilisateur. ??
+
+En ce qui concerne, les fonctionnalités qui auraient pu être ajoutées mais qui n’ont même pas été prévues dans les spécifications, après les discussions discussion audio, il serait parfait d'ajouter une fonctionnalité de vidéo et de visio conférence. 

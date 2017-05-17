@@ -1,21 +1,116 @@
 \section{Choix technique}
 
-\par Pour ce projet il a été décidé de réaliser l'architecture serveur/client avec un serveur en java communicant avec le client à l'aide de web socket. L’interface de la messagerie a quant à elle été réalisé à l'aide de technologies web. 
+\par Pour ce projet il a été décidé de réaliser l'architecture serveur/client avec un serveur en java communicant avec le client à l'aide de web socket. L’interface de la messagerie a quant à elle été réalisée à l'aide de technologies web, tout en restant dans le cadre de l'informatique réparti. 
 
 \subsection{Le serveur}
 Le serveur a entièrement été réalisé en java.  
 
 \subsection{Les web sockets}
-\par Les web sockets permettent d'établir la communication entre un client et un serveur. Pour cela nous utilisons la bibliothèque socket.io qui permet donc de faire de la communication en temps réel. 
+\par Les web sockets permettent d'établir la communication entre un client et un serveur. Pour cela nous avons utilisé la bibliothèque socket.io qui permet de faire de la communication en temps réel. 
 
 
 \section{Guide d'utilisation}
 
 \par Cette application de messagerie se compose de la manière suivante : \\
 
-\par Au début l'utilisateur accède à une page de login qui lui permet de renseigner son pseudo et son mot de passe afin d'accéder au service de messagerie. Si l'utilisateur est nouveau il a la possibilité de créer son compte en renseignant son pseudo, mot de passe, email, nom, prénom et date de naissance. 
-\par Une fois l'authentification faite l'utilisateur accède à la page principale qui correspond à la page d'historique des conversations des utilisateurs. L'utilisateur peut donc  sélectionner une conversation déjà existante ou bien en créer une nouvelle. Il aura donc la possibilité de choisir parmi les membres du service messagerie, la personne qu'il veut joindre. Il accédera donc à la page de conversation.
-\par Via la navbar il est possible d'accéder au carnet d'adresse et à la page de paramètre. 
+\par Au début l'utilisateur accède à une page de login qui lui permet de renseigner son pseudonyme et son mot de passe afin d'accéder au service de messagerie. Si l'utilisateur est nouveau, il a la possibilité de créer son compte en renseignant son pseudonyme, adresse mél, mot de passe, nom, prénom et date de naissance. 
+\par Une fois l'authentification faite l'utilisateur accède à la page principale qui correspond à la page d'historique des conversations des utilisateurs. L'utilisateur peut ainsi sélectionner une conversation déjà existante ou bien en créer une nouvelle. Il a la possibilité de choisir parmi les membres du service messagerie la personne qu'il veut joindre. Il accède ensuite à la page de cette nouvelle conversation.
+\par Via la navbar il est possible d'accéder au carnet d'adresse et à la page de paramètres. \\
+
+Voici les captures d'écran de l'application que nous avons réalisée.
+
+
+
+\begin{figure}[H]
+   \begin{minipage}[c]{.46\linewidth}
+      \includegraphics[scale=0.5]{img/01Login.png}
+      \caption{Page de connexion}
+   \end{minipage} \hfill
+   \begin{minipage}[c]{.46\linewidth}
+      \includegraphics[scale=0.5]{img/02InscriptionChamp.png}
+      \caption{Page d'inscription}
+   \end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+   \begin{minipage}[c]{.46\linewidth}
+		\centering \includegraphics[scale=0.5]{img/03ChoixMsg.png}
+		\caption{Page de Création d'une conversation}
+   \end{minipage} \hfill
+   \begin{minipage}[c]{.46\linewidth}
+		\centering \includegraphics[scale=0.5]{img/05HistoriqueMessagerie.png}
+		\caption{Page de Messagerie}
+   \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+   \begin{minipage}[c]{.46\linewidth}
+		\centering \includegraphics[scale=0.5]{img/04Messagerie.png}
+		\caption{Conversation textuelle}
+   \end{minipage} \hfill
+   \begin{minipage}[c]{.46\linewidth}
+		\centering \includegraphics[scale=0.5]{img/06ContactMessagerie.png}
+		\caption{Page de contacts}
+   \end{minipage}
+\end{figure}
+
+
+\begin{figure}[H]
+   \begin{minipage}[c]{.46\linewidth}
+		\centering \includegraphics[scale=0.5]{img/07Param.png}
+		\caption{Page de paramètres}
+   \end{minipage} \hfill
+   \begin{minipage}[c]{.46\linewidth}
+		\centering \includegraphics[scale=0.5]{img/08paramsuite.png}
+		\caption{Page de paramètres}
+   \end{minipage}
+\end{figure}
+
+ 
 
 
 \section{Tests de validation}
+
+Voici la liste des tests de validation qui ont été réalisés. \\
+
+%TODO mettre que les tests qui ont été réalisé 
+
+\paragraph{Spécifications fonctionnelles\\} 
+
+Dans la version 1 :
+\begin{itemize}
+	\item Créer un nouveau compte ;
+	\item Se connecter ;
+	\item Se déconnecter ;
+	\item Voir la liste des autres utilisateurs ;
+	\item Créer une conversation ;
+	\item Envoyer un message dans une conversation ;
+	\item Recevoir un message dans une conversation ;
+	\item Faire une conversation avec plusieurs utilisateurs dans une conversation textuelle ;
+	\item Voir la liste des conversations en cours ;
+	\item Voir l'historique d'une conversation après reprise ; \\
+\end{itemize}
+
+Dans la version 2 :
+\begin{itemize}
+	\item Activer et désactiver le contrôle parental ;
+	\item Créer des filtres ;
+	\item Filtrer des messages ; \\
+\end{itemize}
+
+Dans la version 3 :
+\begin{itemize}
+	\item Avoir une conversation minimaliste avec l'IA ;
+\end{itemize}
+
+\paragraph{Spécifications d'interface \\}
+
+En ce qui concerne les spécifications d'interface, nous avons bien réalisé une application responsive design, consultable sur un écran de taille d'ordinateur, de tablette ou de smartphone. De plus, l'application est intuitive et facile d'utilisation.
+
+\paragraph{Spécifications opérationnelles \\}
+\begin{itemize}
+	\item Discussion instantanée : rapide ; 
+	\item Discussions privées et uniquement visibles par les membres de la conversation ;
+	\item Mot de passe hashé. \\
+\end{itemize}

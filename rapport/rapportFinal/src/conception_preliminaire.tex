@@ -10,10 +10,10 @@ Cette partir présente la conception préliminaire qui a été réalisée.
 	
 	Les mises à jours suite à la réalisation sont apparente sur la figure.
 
+%TODO mettre nouveau diag
 	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{img/modeleDomaineServeurV2.png}}
-		
-		\caption{\label{diagModeleServeur}Diagramme de modèle du domaine côté serveur}
+	\centerline{\includegraphics[width=16.5cm]{img/modeleDomaineServeur.png}}
+	\caption{\label{diagModeleServeur}Diagramme de modèle du domaine côté serveur}
 	\end{figure}
 
 	\newpage
@@ -23,8 +23,10 @@ Cette partir présente la conception préliminaire qui a été réalisée.
 	Ainsi, nous avons une cohérence entre les données des deux côtés. \\
 	
 		Les mises à jours suite à la réalisation sont apparente sur la figure \ref{modeleDomaineClient}.
+		
+		%TODO mettre nouveau diag
 	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{img/modeleDomaineClientV2.png}}
+	\centerline{\includegraphics[width=16.5cm]{img/modeleDomaineClient.png}}
 		\caption{Diagramme de modèle du domaine côté client}
 		\label{modeleDomaineClient}
 	\end{figure}
@@ -92,7 +94,8 @@ Cette partir présente la conception préliminaire qui a été réalisée.
 
 
 	\subsection{Tableau d’Interaction}
-	Dans cette partie nous allons vous présenter toutes les interactions qui interviennent lors de l'envoi d'un message de la part d'un utilisateur à l'aide d'un tableau d’interaction et d'un diagramme d’interaction.
+	
+	Dans cette partie nous allons vous présenter toutes les interactions qui interviennent lors de l'envoi d'un message de la part d'un utilisateur à l'aide d'un tableau d’interaction et d'un diagramme d’interaction. \\
 
 	\textbf{Tableau d’interaction pour envoyer un message :} \\
 
@@ -121,7 +124,7 @@ Cette partir présente la conception préliminaire qui a été réalisée.
 
 	Action de fin  : Message affiché dans la discussion. \\
 
-	Exception A : Si l'utilisateur n'a pas encore de compte, la première action est de cliquer sur pas encore inscrit, ce qui envoie l'utilisateur sur la page d'inscription où il remplie le formulaire et valide.
+	Exception A : Si l'utilisateur n'a pas encore de compte, la première action est de cliquer sur "Pas encore inscrit ?", ce qui envoie l'utilisateur sur la page d'inscription où il remplie le formulaire et valide.
 
 	\begin{figure}[H]
 		\centerline{\includegraphics[width=12.5cm]{img/interaction.png}}
@@ -130,15 +133,18 @@ Cette partir présente la conception préliminaire qui a été réalisée.
 
 	\newpage
 
-	\subsection{Découpage en packages et les signatures externes de chaque package}
+	\subsection{Découpage en packages et signatures externes de chaque package}
 	Les deux diagrammes suivants représentent le découpage en package de notre application.
-	Les packages du coté serveur et client sont idépendants même si ils utilisent des classes communes puisqu'il ne sont pas dans le même langage.
+	Les packages du coté serveur et client sont indépendants même si ils utilisent des classes communes puisqu'il ne sont pas dans le même langage.
+	
+	%TODO diag à jour ??
 	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{img/packageServeur.png}}
+	\centerline{\includegraphics[width=16.5cm]{img/packageServeur.png}}
 		\caption{Diagramme de package côté serveur}
 	\end{figure}
 
+	%TODO diag à jour ??
 	\begin{figure}[H]
-		\centerline{\includegraphics[width=16.5cm]{img/packageClient.png}}
-		\caption{Diagramme de package côté client}
+	\centerline{\includegraphics[width=16.5cm]{img/packageClient.png}}
+	\caption{Diagramme de package côté client}
 	\end{figure}
