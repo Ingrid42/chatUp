@@ -383,7 +383,7 @@ class Navigateur {
         <div class="contact-name">' + utilisateur.nom.toUpperCase() + " " + utilisateur.prenom + " (<i>" + utilisateur.pseudonyme + '</i>)</div> <!-- Nom du contact -->\n\
       </div>\n\
       <div class="pull-right">\n\
-        <button type="button" class="btn btn-secondary text-center button-icon switchToConversationAudio" >\n\
+        <button type="button" class="btn btn-secondary text-center button-icon switchToConversationAudio" disabled>\n\
           <i class="fa fa-phone fa-2x" aria-hidden="true"></i>\n\
         </button>\n\
         <button type="button" class="btn btn-secondary text-center button-icon creationDiscussionFromContactList" data-pseudonyme="' + utilisateur.pseudonyme + '">\n\
