@@ -4,9 +4,11 @@ class FiltreUtilisateur {
   }
 
   toString() {
-    return this.utilisateurs.map((utilisateur, indice) => {
-      return utilisateur + ', ';
-    });
+    let string = "";
+    for (var i = 0; i < this.utilisateurs.length; i++) {
+      string += this.utilisateurs[i] + " ";
+    }
+    return string;
   }
 }
 

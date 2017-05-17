@@ -4,9 +4,11 @@ class FiltreMot {
   }
 
   toString() {
-    return this.mots.map((mot, indice) => {
-      return mot + ', ';
-    });
+    let string = "";
+    for (var i = 0; i < this.mots.length; i++) {
+      string += this.mots[i] + " ";
+    }
+    return string;
   }
 }
 

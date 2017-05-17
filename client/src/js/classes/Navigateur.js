@@ -218,7 +218,7 @@ class Navigateur {
 
   setFiltresMot(session, target) {
     let contenu = $(target).val();
-    contenu.split(',').map((mot, indice) => {
+    contenu.split(' ').map((mot, indice) => {
       if (mot.trim().length > 0) {
         session.send({
           action: "add_filtre_mot",
@@ -233,7 +233,7 @@ class Navigateur {
 
   setFiltresUtilisateur(session, target) {
     let contenu = $(target).val();
-    contenu.split(',').map((utilisateur, indice) => {
+    contenu.split(' ').map((utilisateur, indice) => {
       if (utilisateur.trim().length > 0) {
         session.send({
           action: "add_filtre_utilisateur",
@@ -313,12 +313,10 @@ class Navigateur {
   }
 
   completeFiltresUtilisateur(filtresUtilisateur) {
-    // console.log(filtresUtilisateur.toString());
      $('#filtresUtilisateur').val(filtresUtilisateur.toString());
   }
 
   completeFiltresMot(filtresMot) {
-    // console.log(filtresMot);
     $('#filtresMot').val(filtresMot.toString());
   }
 

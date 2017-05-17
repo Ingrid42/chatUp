@@ -302,8 +302,8 @@ class Session {
   }
 
   _utilisateurEstFiltre(pseudonyme) {
-    for (var i = 0; i < this.filtresUtilisateur.utilisateurs.length; i++) {
-      if (this.filtresUtilisateur.utilisateurs[i] == pseudonyme) {
+    for (var i = 0; i < this.filtreUtilisateur.utilisateurs.length; i++) {
+      if (this.filtreUtilisateur.utilisateurs[i] == pseudonyme) {
         return true;
       }
     }
@@ -311,8 +311,8 @@ class Session {
   }
 
   _motEstFiltre(mot) {
-    for (var i = 0; i < this.filtresMot.mots.length; i++) {
-      if (this.filtresMot.mots[i].mot == mot) {
+    for (var i = 0; i < this.filtreMot.mots.length; i++) {
+      if (this.filtreMot.mots[i] == mot) {
         return true;
       }
     }
