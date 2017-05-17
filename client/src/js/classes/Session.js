@@ -38,7 +38,6 @@ class Session {
 
   message(response) {
     var responseJSON = JSON.parse(response.data);
-    // console.log(response);
     if (responseJSON.etat !== false) {
       switch (responseJSON.action) {
         case 'connexion_reponse':
@@ -77,9 +76,6 @@ class Session {
         case 'get_controle_parental_reponse':
           this._onGetControleParental(responseJSON.contenu);
           break;
-        case 'set_controle_parental_reponse':
-          this._onSetControleParental(responseJSON.contenu);
-          break;
         case 'get_discussion_reponse':
           this._onGetDiscussion(responseJSON.contenu);
           break;
@@ -89,11 +85,24 @@ class Session {
         case 'message_reponse':
           this._onMessage(responseJSON.contenu);
           break;
+        case 'desactiver_controle_parental_reponse':
+          this._onDesactiverControleParental(responseJSON);
+          break;
+        case 'set_controle_parental_reponse':
+          this._onSetControleParental(responseJSON.contenu);
+          break;
       }
     }
     else {
       console.log("Error from server");
     }
+  }
+
+  resetObjects() {
+    this.utilisateurs = [];
+    this.discussionsTextes = [];
+    this.filtreMot = new FiltreMot();
+    this.filtreUtilisateur = new FiltreUtilisateur();
   }
 
   _initUtilisateur(data) {
@@ -178,6 +187,10 @@ class Session {
 
   }
 
+  _onDesactiverControleParental(data) {
+
+  }
+
   _onGetFiltresMot(data) {
     for (var i = 0; i < data.filtres.length; i++) {
       if (!this._motEstFiltre(data.filtres[i])) {
@@ -189,8 +202,8 @@ class Session {
 
   _onGetFiltresUtilisateur(data) {
     for (var i = 0; i < data.filtres.length; i++) {
-      if (!this._motEstFiltre(data.filtres[i])) {
-        this.filtreUtilisateur.mots.push(data.filtres[i]);
+      if (!this._utilisateurEstFiltre(data.filtres[i])) {
+        this.filtreUtilisateur.utilisateurs.push(data.filtres[i]);
       }
     }
     this.navigateur.completeFiltresUtilisateur(this.filtreUtilisateur);
