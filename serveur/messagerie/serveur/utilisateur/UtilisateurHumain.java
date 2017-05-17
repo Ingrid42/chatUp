@@ -45,6 +45,11 @@ public class UtilisateurHumain extends Utilisateur {
 	private String motDePasseParental;
 
 	/**
+	 * Etat du mot de passe parental (activé ou non).
+	 */
+	private boolean etatMotDePasseParental;
+
+	/**
 	 * URL vers la photo de l'utilisateur.
 	 */
 	private String photo;
@@ -79,6 +84,7 @@ public class UtilisateurHumain extends Utilisateur {
 		super(pseudonyme, nom, prenom);
 
 		this.motDePasse = motDePasse;
+		this.etatMotDePasseParental = false;
 		this.adresseMel = adresseMel;
 		this.dateNaissance = dateNaissance;
 
@@ -117,7 +123,7 @@ public class UtilisateurHumain extends Utilisateur {
 	 * @return letat du controle parental.
 	 */
 	public boolean getControleParental() {
-		return motDePasseParental != null ;
+		return this.etatMotDePasseParental;
 	}
 
 	/**
@@ -135,7 +141,8 @@ public class UtilisateurHumain extends Utilisateur {
 	 * @param motDePasseParental Mot de passe du contrôle parental.
 	 * @return L'utilisateur courant.
 	 */
-	public UtilisateurHumain setMotDePasseParental(String motDePasseParental) {
+	public UtilisateurHumain setMotDePasseParental(boolean etat, String motDePasseParental) {
+		this.etatMotDePasseParental = etat;
 		this.motDePasseParental = motDePasseParental;
 
 		if (motDePasseParental == null)
