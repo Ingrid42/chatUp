@@ -16,6 +16,7 @@ class Navigateur {
 
 
     $('#switchToInscription').on('click', () => this.switchToInscription());
+    $('#switchToMotDePasse').on('click', () => this.switchToMotDePasse());
     $('.switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('.switchToMessagerie').on('click', () => this.getDiscussions(session));
     $('.switchToParameters').on('click', () => this.switchToParameters(session));
@@ -36,6 +37,12 @@ class Navigateur {
   switchToInscription() {
     this.hide();
     $('#pageInscription').removeClass('hidden');
+    $('#navbarAccueil').removeClass('hidden');
+  };
+
+  switchToMotDePasse() {
+    this.hide();
+    $('#pageMotDePasse').removeClass('hidden');
     $('#navbarAccueil').removeClass('hidden');
   };
 
