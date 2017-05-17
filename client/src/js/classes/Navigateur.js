@@ -8,6 +8,7 @@ class Navigateur {
     $('#inscriptionUtilisateur').on('click', () => this.inscriptionUtilisateur(session));
     $('#creationDiscussion').on('click', () => this.creationDiscussion(session, $('#createConvContactList').val()));
     $('#switchToInscription').on('click', () => this.switchToInscription());
+    $('#switchToMotDePasse').on('click', () => this.switchToMotDePasse());
     $('#envoyer_message_bouton').on('click', () => this.envoyerMessage(session));
     $('.switchToConnexion').on('click', () =>  this.switchToConnexion(session));
     $('.deconnexionUtilisateur').on('click', () => this.deconnexionUtilisateur(session));
@@ -30,6 +31,12 @@ class Navigateur {
   switchToInscription() {
     this.hide();
     $('#pageInscription').removeClass('hidden');
+    $('#navbarAccueil').removeClass('hidden');
+  };
+
+  switchToMotDePasse() {
+    this.hide();
+    $('#pageMotDePasse').removeClass('hidden');
     $('#navbarAccueil').removeClass('hidden');
   };
 
