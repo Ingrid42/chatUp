@@ -1,0 +1,101 @@
+@startuml
+interface IFiltre {
+}
+
+note right of IFiltre
+  La méthode compare a été ajoutée
+  afin de pouvoir faire des 
+  comparaisons d'objet simple
+  avec les filtres et simplifier
+  les traitements du serveur.
+end note
+
+class FiltreMots {
+  - String: mot
+}
+
+class FiltreUtilisateurs {
+
+}
+
+class Utilisateur {
+  - String: pseudonyme
+  - String: nom
+  - String: prenom
+}
+
+class UtilisateurIA {
+}
+
+class UtilisateurHumain {
+  - String: motDePasse
+  - String: adresseMel
+  - Date: dateNaissance
+  - String: motDePasseParental
+  - String: photo
+}
+
+class Application <<Serializable>> #AAEE88 {
+}
+
+class ResponseEncoder #AAEE88 {
+}
+
+class RequestDecoder #AAEE88 {
+}
+
+class Session {
+  - Socket: socketClient
+}
+
+class Discussion {
+  - {static} int : idIcr
+  - int : id
+}
+note left of Discussion 
+  id est l'identifiant unique d'une discussion,
+  idIcr garde la trace du prochain id qui sera attribué 
+  à une discussion
+end note
+
+class Message {
+  - String: texte
+  - Date: date
+}
+
+class DiscussionTexte {
+}
+
+class DiscussionAudio {
+}
+
+class Serveur {
+  - Socket: socketServeur 
+}
+Serveur *-- Application
+Application *-- Utilisateur 
+Application *-- Discussion 
+ResponseEncoder *--Session
+RequestDecoder -- Session 
+Session *-- Application 
+
+UtilisateurHumain *-- IFiltre
+IFiltre <|.. FiltreMots
+IFiltre <|.. FiltreUtilisateurs
+Session --* Utilisateur
+Utilisateur --* FiltreUtilisateurs
+Utilisateur <|- UtilisateurIA
+Utilisateur <|-- UtilisateurHumain
+Discussion <|-- DiscussionTexte
+Discussion <|-- DiscussionAudio
+Application -* Application
+Discussion - Utilisateur
+DiscussionTexte *--- Message
+Utilisateur --* Message
+
+note right of Application 
+  L'application contenue est statique
+  et permet d'avoir une classe 
+  implémentant le pattern singleton.
+end note
+@enduml
