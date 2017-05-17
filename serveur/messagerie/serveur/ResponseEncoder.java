@@ -292,7 +292,7 @@ public class ResponseEncoder {
 		for(Discussion dsc : this.session.getUtilisateur().getDiscussions()){
 			boolean shouldIgnore = false;
 			for (Utilisateur utilisateur : dsc.getUtilisateurs())
-				if (!this.session.getUtilisateur().peutVoir(utilisateur))
+				if (!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(utilisateur))
 					shouldIgnore = true;
 
 			if (shouldIgnore)
