@@ -249,7 +249,7 @@ public class UtilisateurHumain extends Utilisateur {
 				continue;
 			
 			String mot = (String)filtre.getObject();
-			messageString = messageString.replaceAll(mot, String.join("", Collections.nCopies(mot.length(), "*")));
+			messageString = messageString.replaceAll("(?i)" + mot, String.join("", Collections.nCopies(mot.length(), "*")));
 		}
 
 		return messageString;
