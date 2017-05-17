@@ -116,6 +116,8 @@ public class ResponseEncoder {
 			jsonUserObjectMap.put("pseudonyme", u.getPseudonyme());
 			jsonUserObjectMap.put("nom", u.getNom());
 			jsonUserObjectMap.put("prenom", u.getPrenom());
+			if (u instanceof UtilisateurHumain)
+				jsonUserObjectMap.put("photo", ((UtilisateurHumain)u).getPhoto());
 
 			JSONObject userObject = new JSONObject(jsonUserObjectMap);
 			array_users.add(userObject) ;
@@ -237,7 +239,10 @@ public class ResponseEncoder {
 			JSONArray array_msg = new JSONArray();
 			for(Message msg : disc.getMessages()){
 				Map<String, Object> jsonMessageObjectMap = new HashMap<>();
-				jsonMessageObjectMap.put("message", msg.getMessage());
+				if (this.session.getUtilisateur() instanceof UtilisateurHumain)
+					jsonMessageObjectMap.put("message", ((UtilisateurHumain)this.session.getUtilisateur()).filtrerMessage(msg));
+				else
+					jsonMessageObjectMap.put("message", msg.getMessage());
 				jsonMessageObjectMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme());
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.FRENCH);
 				jsonMessageObjectMap.put("date", format.format(msg.getDate()));
@@ -285,6 +290,13 @@ public class ResponseEncoder {
 		Map<String, Object> jsonObjMap = stateReponse(state, "get_discussions_reponse" );
 		JSONArray array_disc = new JSONArray();
 		for(Discussion dsc : this.session.getUtilisateur().getDiscussions()){
+			boolean shouldIgnore = false;
+			for (Utilisateur utilisateur : dsc.getUtilisateurs())
+				if (!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(utilisateur))
+					shouldIgnore = true;
+
+			if (shouldIgnore)
+				continue;
 
 			Map<String, Object> jsonDiscObjectMap = new HashMap<>();
 			jsonDiscObjectMap.put("id", dsc.getId());
