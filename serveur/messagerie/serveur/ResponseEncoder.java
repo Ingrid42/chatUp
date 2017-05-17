@@ -290,6 +290,13 @@ public class ResponseEncoder {
 		Map<String, Object> jsonObjMap = stateReponse(state, "get_discussions_reponse" );
 		JSONArray array_disc = new JSONArray();
 		for(Discussion dsc : this.session.getUtilisateur().getDiscussions()){
+			boolean shouldIgnore = false;
+			for (Utilisateur utilisateur : dsc.getUtilisateurs())
+				if (!((UtilisateurHumain)this.session.getUtilisateur()).peutVoir(utilisateur))
+					shouldIgnore = true;
+
+			if (shouldIgnore)
+				continue;
 
 			Map<String, Object> jsonDiscObjectMap = new HashMap<>();
 			jsonDiscObjectMap.put("id", dsc.getId());
