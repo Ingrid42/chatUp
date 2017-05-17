@@ -237,7 +237,10 @@ public class ResponseEncoder {
 			JSONArray array_msg = new JSONArray();
 			for(Message msg : disc.getMessages()){
 				Map<String, Object> jsonMessageObjectMap = new HashMap<>();
-				jsonMessageObjectMap.put("message", msg.getMessage());
+				if (this.session.getUtilisateur() instanceof UtilisateurHumain)
+					jsonMessageObjectMap.put("message", ((UtilisateurHumain)this.session.getUtilisateur()).filtrerMessage(msg));
+				else
+					jsonMessageObjectMap.put("message", msg.getMessage());
 				jsonMessageObjectMap.put("pseudonyme", msg.getUtilisateur().getPseudonyme());
 				DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.FRENCH);
 				jsonMessageObjectMap.put("date", format.format(msg.getDate()));

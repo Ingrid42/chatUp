@@ -427,7 +427,7 @@ public class RequestDecoder {
 	public void add_filtre_utilisateur(JSONObject content) {
 		try {
 			String mdp = (String)content.get("mot_de_passe_parental");
-			String nom = (String)content.get("mot");
+			String nom = (String)content.get("utilisateur");
 
 			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 			if (utilisateur.verifieMotDePasseParental(mdp)){

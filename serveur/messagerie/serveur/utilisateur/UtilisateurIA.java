@@ -31,6 +31,7 @@ public class UtilisateurIA extends Utilisateur {
 	private Map<String, ArrayList<String>> voc = new HashMap<>();
 	private static ArrayList<String> categorieSalutation = new ArrayList<String>();
 	private static ArrayList<String> feeling = new ArrayList<String>();
+	private static ArrayList<String> affirmation = new ArrayList<String>();
 	private Random randomGenerator = new Random();
 
 	/**
@@ -43,8 +44,10 @@ public class UtilisateurIA extends Utilisateur {
 		super(pseudonyme, nom, prenom);
 		this.setAllChainesXML("ressources/UserQuestion/salutationUser.xml", categorieSalutation, false);
 		this.setAllChainesXML("ressources/UserQuestion/feelingUser.xml", feeling, false);
+		this.setAllChainesXML("ressources/UserQuestion/affirmationUser.xml", affirmation, false);
 		this.setAllChainesXML("ressources/MiaReponse/salutationMia.xml", categorieSalutation, true);
 		this.setAllChainesXML("ressources/MiaReponse/feelingMia.xml", feeling, true);
+		this.setAllChainesXML("ressources/MiaReponse/affirmationMia.xml", affirmation, true);
 	}
 
 	public void setCategorie(String str, ArrayList<String> categorie) {
