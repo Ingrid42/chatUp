@@ -7,13 +7,18 @@ require('socket.io-client');
 
 class Session {
   constructor(IPServer, navigateur) {
-    this.socket = new WebSocket(IPServer);
-    this.socket.onopen = () => console.log('Connexion au serveur ok');
-    this.socket.onmessage = (response) => this.message(response);
+    this.IPServer = IPServer;
     this.utilisateur = null;
     this.utilisateurs = [];
     this.discussionsTextes = [];
     this.navigateur = navigateur;
+    this.initConnexion();
+  }
+
+  initConnexion() {
+    this.socket = new WebSocket(this.IPServer);
+    this.socket.onopen = () => console.log('Connexion au serveur ouverte');
+    this.socket.onmessage = (response) => this.message(response);
   }
 
   send(message) {
@@ -21,8 +26,10 @@ class Session {
   }
 
   deconnexion() {
+    console.log('Connexion au serveur close');
     this.socket.close();
-    this.socket = undefined;
+    this.initConnexion();
+    this.navigateur.switchToConnexion();
   }
 
   message(response) {

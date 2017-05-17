@@ -122,7 +122,6 @@ class Navigateur {
 
   deconnexionUtilisateur(session) {
     session.deconnexion();
-    this.switchToConnexion();
   }
 
   envoyerMessage(session) {
