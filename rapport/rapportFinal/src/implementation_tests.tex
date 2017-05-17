@@ -3,18 +3,18 @@
 \par Pour ce projet il a été décidé de réaliser l'architecture serveur/client avec un serveur en java communicant avec le client à l'aide de web socket. L’interface de la messagerie a quant à elle été réalisée à l'aide de technologies web, tout en restant dans le cadre de l'informatique réparti. 
 
 \subsection{Le serveur}
-\par Le serveur a entièrement été réalisé en java, et utilise les webSocket de la librairie java-ws pour faire la communication avec le client.
-\par L'une des problématiques rencontrées lors du développement du serveur était la persistance des informations, nous avons alors exploré deux options : la sérialisation ou une base de donnée.
-Au final notre choix c'est plutôt porté sur la sérialisation parce que c'est la solution simple à implémenter et convient le mieux pour un petit projet comme celui-la.
-\par Les connexions reçus par le serveur sont traiter avec un système de session, chaque client a une session qui lui ai attribué lors de sa connexion, c'est la session qui permet d'envoyer et de recevoir les requêtes et réponses.
-\par Les requêtes prennent forme d'objets JSON avec une action et un contenu. A la réception d'une requête la session fait appelle a un module de décodage qui décode ces requêtes en faisant un Parsing du JSON et appelle la méthode correspondante a l'action grâce a de l'introspection, le reste du contenu de la requête sera mis en paramètre de cette méthode.
-\par Chaque requête déclenche l'envoi d'un objet JSON en réponse qui contient à son tour une action, un contenu et un état pour dire si le traitement c'est bien passé.
+\par Le serveur a entièrement été réalisé en java, et utilise les webSockets de la librairie java-ws pour faire la communication avec le client.
+\par L'un des problèmes rencontrés lors du développement du serveur était la persistance des informations, nous avons alors exploré deux options : la sérialisation ou une base de donnée.
+Au final notre choix c'est plutôt porté sur la sérialisation parce qu'il s'agissait de la solution la plus simple à implémenter qu'elle convenait mieux pour un petit projet comme celui-ci.
+\par Les connexions reçus par le serveur sont traitées avec un système de session, chaque client a une session qui lui est attribuée lors de sa connexion, c'est la session qui permet d'envoyer et de recevoir les requêtes et réponses.
+\par Les requêtes prennent forme d'objets JSON avec une action et un contenu. A la réception d'une requête la session fait appelle à un module de décodage qui décode ces requêtes en faisant un Parsing du JSON et appelle la méthode correspondante à l'action grâce à de l'introspection, le reste du contenu de la requête sera mis en paramètre de cette méthode.
+\par Chaque requête déclenche l'envoi d'un objet JSON en réponse qui contient à son tour une action, un contenu et un état pour dire si le traitement s'est bien passé.
 
 \subsection{Les web sockets}
 \par Les web sockets permettent d'établir la communication entre un client et un serveur. Pour cela nous avons utilisé l'API websocket proposée par HTML pour le client 
 et l'API websocket de Java pour le serveur, ce qui nous permet de faire de la communication en temps réel.
 
-\par Les websocket sont une surcouche aux sockets intégrant au dessus un protocole en différentes étapes.
+\par Les websockets sont une surcouche aux sockets intégrant au dessus un protocole en différentes étapes.
 Tout d'abord, au moment de la connexion, le client et le serveur doivent effectuer ce que l'on appelle une poignée de main.
 Cette étape permet d'assurer qu'ils sont capables de communiquer sans problème et de définir les modalités d'envoi de message.
 Après cette étape, la communication est établit entre le client et le serveur et ils peuvent décider de communiquer l'un avec l'autre 
