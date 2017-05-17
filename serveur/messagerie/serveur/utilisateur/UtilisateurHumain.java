@@ -264,4 +264,8 @@ public class UtilisateurHumain extends Utilisateur {
 			this.messages.add(message);
 		}
 	}
+	
+	public Set<IFiltre> getFiltres(){
+		return this.filtres ;
+	}
 }

@@ -31,6 +31,9 @@ public class FiltreUtilisateur implements IFiltre {
 		return false;
 	}
 
+	public Utilisateur getUtilisateur(){
+		return this.utilisateur ;
+	}
 	@Override
 	public boolean equals(Object objet) {
 		if (objet == this)
