@@ -16,7 +16,7 @@ public class FiltreMot implements IFiltre {
 	 * @param mot Mot à filtrer.
 	 */
 	public FiltreMot(String mot) {
-		this.mot = mot;
+		this.mot = mot.toUpperCase();
 	}
 	
 	@Override
@@ -25,7 +25,7 @@ public class FiltreMot implements IFiltre {
 	@Override
 	public boolean compare(Object objet) {
 		if (objet instanceof String)
-			return ((String)objet).equals(this.mot);
+			return ((String)objet).toUpperCase().equals(this.mot);
 		return false;
 	}
 
@@ -40,7 +40,7 @@ public class FiltreMot implements IFiltre {
 		if (objet.getClass() != this.getClass())
 			return false;
 
-		return ((FiltreMot)objet).mot.equals(this.mot);
+		return ((FiltreMot)objet).mot.toUpperCase().equals(this.mot);
 	}
 
 	@Override
