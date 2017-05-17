@@ -196,9 +196,17 @@ class Navigateur {
   enregistrerParametres(session) {
     let courriel = $('#changerCourriel').val();
     let motDePasse = $('#changerMotDePasse').val();
-    mot_de_passe = this._encrypt(mot_de_passe);
-    console.log(courriel);
-    console.log(motDePasse);
+    motDePasse = this._encrypt(motDePasse);
+    session.send({
+      action: "modifier_profil",
+      contenu: {
+        mot_de_passe: motDePasse,
+        adresse_mel: courriel,
+        nom: this.utilisateur.nom,
+        prenom: this.utilisateur.prenom,
+        date_naissance: this.utilisateur.dateNaissance
+      }
+    })
   }
 
   changerControleParental(session, target) {
@@ -321,7 +329,8 @@ class Navigateur {
   }
 
   setControleParental(isTrue) {
-    $('#setControleParental');
+    console.log(isTrue);
+    $('#setControleParental').prop("checked", isTrue);
   }
 
 
