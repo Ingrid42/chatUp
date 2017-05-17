@@ -19,6 +19,10 @@ Parmi les fonctionnalités que nous n'avons pas réalisé figurent :
 
 \par Cette solution n'est donc pas efficace pour une vraie conversation car il faut prévoir à chaque fois tous les cas possibles. Actuellement diverses solutions permettent d'intégrer des chatbots à des sites web en définissant à travers une API, ou un langage (par exemple AIML) toutes les règles de fonctionnement de l'IA. Ainsi les plate-formes qui proposent ces services mettent à disposition des algorithmes très puissants de réseau de neurones notamment qui permettent de simuler une conversation humaine. Parmi les solutions actuelles on peut citer l'API de Google : API.AI qui permet de développer, entraîner et déployer son propre chatbot. 
 
+\par Une autre amélioration serait de mettre en place un base de donnée pour sauvegarder les données. La sérialisation mise en place actuellement a quelques défauts notamment l'impossibilité de lire la sauvegarde après n'importe quelle modification du code.
+
+\par Un dernier point d’amélioration serait d’améliorer la gestion des erreurs entre le client et le serveur, actuellement le serveur envoie un simple attribut boolean qui prend la valeur faux sans avoir plus d'information sur l'erreur. Ce qui serais intéressant, c'est de mettre des codes d'erreurs pour les différents types d'erreur (comme pour le protocole http) et la possibilité d'ajouter un message d'erreur.
+
 \newpage
 \part{Conclusion}
 
