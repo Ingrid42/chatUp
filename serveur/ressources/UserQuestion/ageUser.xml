@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<expressions>
+    <expression>quel âge as-tu ?</expression>
+    <expression>t'as quel âge ?</expression>
+    <expression>c'est quoi ton âge ?</expression>
+		<expression>dis moi ton âge ?</expression>
+    <expression>quel age as-tu ?</expression>
+    <expression>t'as quel age ?</expression>
+    <expression>c'est quoi ton age ?</expression>
+		<expression>dis moi ton age ?</expression>
+    <expression>quel âge as-tu</expression>
+    <expression>t'as quel âge</expression>
+    <expression>c'est quoi ton âge</expression>
+    <expression>dis moi ton âge</expression>
+    <expression>quel age as-tu</expression>
+    <expression>t'as quel age</expression>
+    <expression>c'est quoi ton age</expression>
+    <expression>dis moi ton age</expression>
+</expressions>
