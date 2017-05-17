@@ -130,20 +130,34 @@ class Navigateur {
     let prenom = $('#inputInscriptionPrenom').val();
     let adresse_mel = $('#inputInscriptionEmail').val();
     let date_naissance = $('#inputInscriptionDatePicker').val();
-    mot_de_passe = this._encrypt(mot_de_passe);
-    let message = {
-      action : "creer_utilisateur",
-      contenu : {
-        pseudonyme,
-        mot_de_passe,
-        nom,
-        prenom,
-        adresse_mel,
-        date_naissance
-      }
-    };
-    session.send(message);
-  };
+
+
+    if (mot_de_passe !== mot_de_passe_confirmation) {
+      alert('Erreur: mots de passes différents');
+    }
+
+    if ( !adresse_mel.match('^[0-9a-z._-]+@{1}[0-9a-z.-]{2,}[.]{1}[a-z]{2,5}$','i')){
+      alert('Erreur: adresse mel invalide');
+    }
+
+    if (pseudonyme && mot_de_passe && mot_de_passe_confirmation && nom && prenom && adresse_mel && date_naissance) {
+      mot_de_passe = this._encrypt(mot_de_passe);
+      session.send({
+        action : "creer_utilisateur",
+        contenu : {
+          pseudonyme,
+          mot_de_passe,
+          nom,
+          prenom,
+          adresse_mel,
+          date_naissance
+        }
+      });
+    }
+    else {
+      alert('Erreur: champ(s) vide(s)')
+    }
+  }
 
   creationDiscussion(session, utilisateurs) {
     var message = {
