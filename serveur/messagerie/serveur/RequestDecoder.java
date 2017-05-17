@@ -467,7 +467,7 @@ public class RequestDecoder {
 
 			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 			if (utilisateur.verifieMotDePasseParental(null)) {
-				utilisateur.setMotDePasseParental(mdp);
+				utilisateur.setMotDePasseParental(true, mdp);
 				try {
 					this.session.envoyerMessage(
 						this.encodeur.setControleParentalReponse(true)
@@ -503,7 +503,7 @@ public class RequestDecoder {
 
 			UtilisateurHumain utilisateur = (UtilisateurHumain)this.session.getUtilisateur();
 			if (utilisateur.verifieMotDePasseParental(mdp)){
-				utilisateur.setMotDePasseParental(null);
+				utilisateur.setMotDePasseParental(false, null);
 				try {
 					this.session.envoyerMessage(
 						this.encodeur.desactiverControleParentalReponse(true)
