@@ -15,7 +15,7 @@ class Navigateur {
     $('#setControleParental').on('change', (evt) => this.changerControleParental(session, evt.target));
     $('#filtresMot').on('change', (evt) => this.setFiltresMot(session, evt.target));
     $('#filtresUtilisateur').on('change', (evt) => this.setFiltresUtilisateur(session, evt.target));
-    $('#quitterParametres').on('click', (evt) => {session.resetObjects(); console.log("ici");});
+    $('#quitterParametres').on('click', (evt) => session.resetObjects());
 
     $('#switchToInscription').on('click', () => this.switchToInscription());
     $('#switchToMotDePasse').on('click', () => this.switchToMotDePasse());
@@ -353,7 +353,6 @@ class Navigateur {
   }
 
   setControleParental(isTrue) {
-    console.log(isTrue);
     $('#setControleParental').prop("checked", isTrue);
   }
 

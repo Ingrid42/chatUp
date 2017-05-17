@@ -158,7 +158,7 @@ class Session {
   }
 
   _onEnvoyerMessage(data) {
-    // console.log(data);
+
   }
 
   _onGetUtilisateurs(data) {
