@@ -33,6 +33,10 @@ class Message {
 class DiscussionTexte {
 }
 
+class Discussion {
+  id
+}
+
 FiltreMot --* Session
 FiltreUtilisateur --* Session
 Navigateur --* Session
