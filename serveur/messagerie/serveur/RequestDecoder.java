@@ -333,7 +333,7 @@ public class RequestDecoder {
 	 * @param content Requête reçue par le serveur.
 	 */
 	public void modifier_profil(JSONObject content) {
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+		//DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 
 		try {
 			Utilisateur utilisateur = this.session.getUtilisateur();
@@ -343,7 +343,7 @@ public class RequestDecoder {
 			UtilisateurHumain utilHumain = (UtilisateurHumain)utilisateur;
 			utilHumain.setMotDePasse((String)content.get("mot_de_passe"))
 					  .setAdresseMel((String)content.get("adresse_mel"))
-					  .setDateNaissance(format.parse((String)content.get("date_naissance")))
+					  //.setDateNaissance(format.parse((String)content.get("date_naissance")))
 					  .setNom((String)content.get("nom"))
 					  .setPrenom((String)content.get("prenom"));
 
