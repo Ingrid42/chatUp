@@ -359,17 +359,17 @@ class Navigateur {
 
 // FONCTIONS DE TEMPLATE
   _discussionTemplate(discussion) {
-    let nomUtilisateurs = "";
+    let pseudonymes = "";
     for (var i = 0; i < discussion.utilisateurs.length; i++) {
-      nomUtilisateurs += discussion.utilisateurs[i].prenom;
+      pseudonymes += discussion.utilisateurs[i].pseudonyme;
       if (i < discussion.utilisateurs.length - 1)
-        nomUtilisateurs += ", ";
+        pseudonymes += ", ";
     }
     return '\
     <button data-disussion_id="'+ discussion.id + '" class="btn btn-secondary messagerie getDiscussion" >\n\
       <div data-disussion_id="'+ discussion.id + '" class="vcenter">\n\
         <i data-disussion_id="'+ discussion.id + '" class="fa fa-users contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->\n\
-        <div data-disussion_id="'+ discussion.id + '" class="contact-name">' + nomUtilisateurs + '</div> <!-- Nom du contact -->\n\
+        <div data-disussion_id="'+ discussion.id + '" class="contact-name">' + pseudonymes + '</div> <!-- Nom du contact -->\n\
         <i data-disussion_id="'+ discussion.id + '" class="fa fa-circle contact-notification pull-right" aria-hidden="true"></i> <!-- pull-right ne fonctionne pas à cause du vcenter de la div -->\n\
       </div>\n\
     </button>';
@@ -380,7 +380,7 @@ class Navigateur {
     <div class="contact-case">\n\
       <div class="contact vcenter pull-left">\n\
         <i class="fa fa-user contact-icon pull-left" aria-hidden="true"></i> <!-- Photo du contact -->\n\
-        <div class="contact-name">' + utilisateur.prenom + '</div> <!-- Nom du contact -->\n\
+        <div class="contact-name">' + utilisateur.nom.toUpperCase() + " " + utilisateur.prenom + " (<i>" + utilisateur.pseudonyme + '</i>)</div> <!-- Nom du contact -->\n\
       </div>\n\
       <div class="pull-right">\n\
         <button type="button" class="btn btn-secondary text-center button-icon switchToConversationAudio" >\n\
@@ -394,7 +394,7 @@ class Navigateur {
   }
 
   _createConvContactTemplate(utilisateur) {
-    return '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.prenom + '</option>';
+    return '<option value="' + utilisateur.pseudonyme + '">' + utilisateur.pseudonyme + '</option>';
   }
 
   _createConvMessageTemplate(message) {
