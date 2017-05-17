@@ -11,8 +11,15 @@ Au final notre choix c'est plutôt porté sur la sérialisation parce que c'est 
 \par Chaque requête déclenche l'envoi d'un objet JSON en réponse qui contient à son tour une action, un contenu et un état pour dire si le traitement c'est bien passé.
 
 \subsection{Les web sockets}
-\par Les web sockets permettent d'établir la communication entre un client et un serveur. Pour cela nous avons utilisé la bibliothèque socket.io qui permet de faire de la communication en temps réel. 
+\par Les web sockets permettent d'établir la communication entre un client et un serveur. Pour cela nous avons utilisé l'API websocket proposée par HTML pour le client 
+et l'API websocket de Java pour le serveur, ce qui nous permet de faire de la communication en temps réel.
 
+\par Les websocket sont une surcouche aux sockets intégrant au dessus un protocole en différentes étapes.
+Tout d'abord, au moment de la connexion, le client et le serveur doivent effectuer ce que l'on appelle une poignée de main.
+Cette étape permet d'assurer qu'ils sont capables de communiquer sans problème et de définir les modalités d'envoi de message.
+Après cette étape, la communication est établit entre le client et le serveur et ils peuvent décider de communiquer l'un avec l'autre 
+quand ils le souhaitent sans contrainte de temps, la connexion mise en place étant permanente. 
+L'envoi des messages est masqué à l'aide d'un cryptage XOR que le destinataire est capable de décoder.
 
 \section{Guide d'utilisation}
 
