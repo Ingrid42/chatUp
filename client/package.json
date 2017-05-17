@@ -31,6 +31,7 @@
     "gulp-uglify": "^2.1.0",
     "jquery": "^3.1.1",
     "opener": "^1.4.3",
+    "password-hash": "^1.2.2",
     "socket.io-client": "^1.7.3",
     "webpack-stream": "^3.2.0"
   }
