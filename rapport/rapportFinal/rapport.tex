@@ -1,0 +1,74 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[top=3cm, bottom=3cm, left=3cm, right=3cm]{geometry}	%dimension de la feuille
+\usepackage[utf8]{inputenc}%codage linux
+\usepackage[T1]{fontenc}%les fontes
+\usepackage[french]{babel}%caractères français
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{hyperref}%liens pdf
+\usepackage{listings}%pour mettre du code
+\usepackage{color}%pour la couleur dans le code
+\usepackage{graphicx}%pour \includegraphics
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[table]{xcolor}
+\lstset{breaklines=true}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{svg}
+
+%%%%%%%%%%%%%%%%%%%% Presentation %%%%%%%%%%%%%%%%%%%
+\title{Informatique Répartie\\Rapport\\Sujet : Messagerie instantanée 2}
+\author{Ingrid FIQUET\\Morgane LEGROS\\Florian MARTIN\\Thibault THÉOLOGIEN\\Youssef ZERHOUNI ABDOU}
+\date{\today}
+
+
+\begin{document}
+	\begin{titlepage}
+		\vfill
+		\begin{figure}
+			\includegraphics[scale=0.3]{img/logoINSARouen.png}
+		\end{figure}
+
+		\maketitle
+
+		\vfill
+		\noindent \hrulefill
+
+	\end{titlepage}
+
+
+%%%%%%%%%%%%%%%%%%%% Corps %%%%%%%%%%%%%%%%%%%
+
+\newpage
+\tableofcontents{}
+
+\newpage
+\part{Introduction}
+	\input{src/Intro.tex}
+
+\newpage
+\part{Spécification}
+	\input{src/spec.tex}
+	
+\newpage
+\part{Conception Préliminaire}
+	\input{src/conception_preliminaire.tex}
+	
+\newpage
+\part{Perspectives}
+	\input{src/conception_detaillee.tex}
+
+\newpage
+\part{Perspectives}
+	\input{src/implementation_tests.tex}
+	
+\newpage
+\part{Conclusion}
+	\input{src/Conclusion.tex}
+
+\newpage
+\part{Annexe}
+
+\end{document}

@@ -1,0 +1,175 @@
+@startuml
+note as N1
+  Toutes les classes de ce diagramme possedent 
+  des getters et des setters que nous n'avons pas
+  inclus dans ce diagramme sauf quand nous l'avons
+  jugé nécessaire
+end note
+
+
+interface IFiltre {
+  + Object: getObject()
+  + boolean : compare(Object object)
+}
+
+note right of IFiltre
+  La méthode compare a été ajoutée
+  afin de pouvoir faire des 
+  comparaisons d'objet simple
+  avec les filtres et simplifier
+  les traitements du serveur.
+end note
+
+class FiltreMots {
+  - String: mot
+}
+
+class FiltreUtilisateurs {
+
+}
+
+class Utilisateur {
+  - String: pseudonyme
+  - String: nom
+  - String: prenom
+}
+
+class UtilisateurIA {
+  + Message: repondre(Message)
+}
+
+class UtilisateurHumain {
+  - String: motDePasse
+  - String: adresseMel
+  - Date: dateNaissance
+  - String: motDePasseParental
+  - String: photo
+
+  + void: addFiltre(IFiltre)
+}
+
+class Application <<Serializable>> #AAEE88 {
+  - Application()
+  + void : ajouterUtilisateur(Utilisateur utilisateur)
+  + Utilisateur : getUtilisateur(String pseudonyme)
+  + void : ajouterDiscussion(Discussion discussion)
+  + boolean : discussionExiste(Discussion discussion)
+  + Discussion : getDiscussion(long id)
+  + Map<String, Utilisateur> : getUtilisateurs()
+  + {static} Application : getInstance()
+}
+
+class ResponseEncoder #AAEE88 {
+  + RequestDecoder(Session session)
+  + void : decode(String json)
+  + void : connexion(JSONObject content)
+  + void : creer_utilisateur(JSONObject content)
+  + void : creer_discussion(JSONObject content)
+  + void : get_discussion(JSONObject content)
+  + void : envoyer_message(JSONObject content)
+  + void : get_discussions(JSONObject content)
+  + void : get_utilisateurs(JSONObject content)
+  + void : modifier_profil(JSONObject content)
+  + void : get_profil(JSONObject content)
+  + void : add_filtre_mot(JSONObject content)
+  + void : add_filtre_utilisateur(JSONObject content)
+  + void : set_controle_parental(JSONObject content)
+  + void : desactiver_controle_parental(JSONObject content)
+
+
+}
+
+class RequestDecoder #AAEE88 {
+  + RequestDecoder(Session session)
+  + void : decode(String json)
+  + void : connexion(JSONObject content)
+  + void : creer_utilisateur(JSONObject content)
+  + void : creer_discussion(JSONObject content)
+  + void : get_discussion(JSONObject content)
+  + void : envoyer_message(JSONObject content)
+  + void : get_discussions(JSONObject content)
+  + void : get_utilisateurs(JSONObject content)
+  + void : modifier_profil(JSONObject content)
+  + void : get_profil(JSONObject content)
+  + void : add_filtre_mot(JSONObject content)
+  + void : add_filtre_utilisateur(JSONObject content)
+  + void : set_controle_parental(JSONObject content)
+  + void : desactiver_controle_parental(JSONObject content)
+}
+
+class Session {
+  
+  - Socket: socketClient
+
+  + bool : fermer()
+  + void : envoyerMessage(String message)
+  + void : onOpen(javax.websocket.Session session)
+  + void : onMessage(String message)
+  + void : onClose(javax.websocket.Session session)
+  + void : onError(Throwable throwable)
+}
+note right of Session 
+  les methodes onOpen, onMessage,
+  onClose et onError sont des methodes 
+  abstraitre de WebSocket qu'il fallait redéfinir
+end note
+
+
+class Discussion {
+  - {static} int : idIcr
+  - int : id
+}
+note left of Discussion 
+  id est l'identifiant unique d'une discussion,
+  idIcr garde la trace du prochain id qui sera attribué 
+  à une discussion
+end note
+
+class Message {
+  - String: texte
+  - Date: date
+}
+
+class DiscussionTexte {
+  + bool: addMessage(message)
+}
+
+class DiscussionAudio {
+  + bool: demarrer()
+  + bool: arreter()
+}
+
+class Serveur {
+  - Socket: socketServeur 
+  + boolean : initialize(String fileName)
+  + void : enregistrer(String fileName)
+  + void : start()
+  + void : stop()
+}
+Serveur *-- Application
+Application *-- Utilisateur 
+Application *-- Discussion 
+ResponseEncoder *--Session
+RequestDecoder -- Session 
+Session *-- Application 
+
+UtilisateurHumain *-- IFiltre
+IFiltre <|.. FiltreMots
+IFiltre <|.. FiltreUtilisateurs
+Session --* Utilisateur
+Utilisateur --* FiltreUtilisateurs
+Utilisateur <|- UtilisateurIA
+Utilisateur <|-- UtilisateurHumain
+Discussion <|-- DiscussionTexte
+Discussion <|-- DiscussionAudio
+Application -* Application
+Discussion - Utilisateur
+DiscussionTexte *--- Message
+Utilisateur --* Message
+
+note right of Application 
+  L'application contenue est statique
+  et permet d'avoir une classe 
+  implémentant le pattern singleton.
+end note
+@enduml

@@ -1,5 +1,6 @@
 // Messages Client -> Serveur
 
+@fait
 {
 	"action" : "connexion",
 	"contenu" : {
@@ -7,26 +8,26 @@
 		"mot_de_passe" : "motDePasse"
 	}
 }
-
+@fait
 {
-	"action" : "creer",
+	"action" : "creer_utilisateur",
 	"contenu" : {
 		"pseudonyme" : "Orionis",
 		"mot_de_passe" : "motDePasse",
 		"nom" : "Zerhouni",
 		"prenom" : "Youssef",
 		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",
-		"date_naissance" : "28/01/1996"
+		"date_naissance" : "1996-01-01"
 	}
 }
-
+@fait
 {
 	"action" : "creer_discussion",
 	"contenu" : {
 		"utilisateurs" : ["Orionis", "TheLegend27", "Nistof"]
 	}
 }
-
+@fait
 {
 	"action" : "envoyer_message",
 	"contenu" : {
@@ -34,12 +35,12 @@
 		"message" : "Hello! It's me!"
 	}
 }
-
+@fait
 {
 	"action" : "get_utilisateurs",
 	"contenu" : {}
 }
-
+@fait
 {
 	"action" : "modifier_profil",
 	"contenu" : {
@@ -50,13 +51,13 @@
 		"date_naissance" : "28/01/1996"
 	}
 }
-
+@fait
 {
 	"action" : "get_profil",
 	"contenu" : {}
 }
 
-
+@fait
 {
 	"action" : "add_filtre_mot",
 	"contenu" : {
@@ -64,7 +65,7 @@
 		"mot" : "fuck"
 	}
 }
-
+@fait
 {
 	"action" : "add_filtre_utilisateur",
 	"contenu" : {
@@ -73,9 +74,16 @@
 	}
 }
 
-
+@fait
 {
 	"action" : "set_controle_parental",
+	"contenu" : {
+		"mot_de_passe_parental" : "motDePasse",
+	}
+}
+@fait
+{
+	"action" : "desactiver_controle_parental",
 	"contenu" : {
 		"mot_de_passe_parental" : "motDePasse",
 	}
@@ -84,9 +92,78 @@
 
 
 // Messages Serveur -> Client
-
+@fait Serveur
+@fait Client
 {
-	"action" : "utilisateurs",
+	"action" : "connexion_reponse" ,
+	"etat" : true,
+	"contenu" : {
+		"pseudonyme" : "pseudo",
+		"nom" : "nom",
+		"prenom" : "prenom",
+		"adresse_mel" : "mail",
+		"date_naissance" : "2017-05-02"
+	}
+}
+
+@fait Serveur
+@fait Client
+{
+	"action" : "creer_utilisateur_reponse" ,
+	"etat" : true,
+	"contenu": {
+		"pseudonyme" : "pseudo",
+		"nom" : "nom",
+		"prenom" : "prenom",
+		"adresse_mel" : "mail",
+		"date_naissance" : "2017-05-02"
+	}
+}
+
+@fait
+{
+	"action" : "creer_discussion_reponse" ,
+	"etat" : true,
+	"contenu" : {
+		"id" : 123
+	}
+}
+
+@fait
+{
+	"action" : "envoyer_message_reponse" ,
+	"etat" : true
+}
+
+@fait
+{
+	"action" : "desactiver_controle_parental_reponse" ,
+	"etat" : true
+}
+
+@fait
+{
+	"action" : "set_controle_parental_reponse" ,
+	"etat" : true
+}
+
+@fait
+{
+	"action" : "add_filtre_utilisateur_reponse" ,
+	"etat" : true
+}
+
+@fait
+{
+	"action" : "add_filtre_mot_reponse" ,
+	"etat" : true
+}
+
+@fait Serveur
+@enCours Client
+{
+	"action" : "get_utilisateurs_reponse",
+	"etat" : true,
 	"contenu" : {
 		"utilisateurs" : [
 			{
@@ -102,36 +179,54 @@
 		]
 	}
 }
-
+@ en cours
 {
-	"action" : "discussion",
+	"action" : "get_discussion_reponse",
+	"etat" : true,
 	"contenu" : {
 		"id_discussion" : 123,
 		"messages" : [
 			{
 				"pseudonyme" : "Orionis",
 				"message" : "Hello! It's me!"
+				"date" : 2017-05-02
 			},
 			{
 				"pseudonyme" : "Mario",
 				"message" : "It's me, Mario!"
+				"date" : 2017-05-02
 			}
 		]
 	}
 }
-
+@fait
 {
-	"action" : "message",
+	"action" : "message_reponse",
+	"etat" : true,
 	"contenu" : {
 		"id_discussion" : 123,
 		"pseudonyme" : "Orionis",
 		"message" : "Hello! It's me!"
 	}
 }
-
+@fait
 {
-	"action" : "profil",
+	"action" : "get_profil_reponse",
+	"etat" : true,
 	"contenu" : {
+		"pseudonyme" : "orionis132"
+		"nom" : "Zerhouni",
+		"prenom" : "Youssef",
+		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",
+		"date_naissance" : "28/01/1996"
+	}
+}
+@fait
+{
+	"action" : "modifier_profil_reponse",
+	"etat" : true,
+	"contenu" : {
+		"pseudonyme" : "orionis132"
 		"nom" : "Zerhouni",
 		"prenom" : "Youssef",
 		"adresse_mel" : "youssef.zerhouni_abdou@insa-rouen.fr",
@@ -140,15 +235,34 @@
 }
 
 {
-	"action" : "get_filtres_utilisateur",
+	"action" : "get_filtres_utilisateur_reponse",
+	"etat" : true,
 	"contenu" : {
 		"utilisateurs" : ["PussySlayer69", "Pierrick"]
 	}
 }
 
 {
-	"action" : "get_filtres_mot",
+	"action" : "get_filtres_mot_reponse",
+	"etat" : true,
 	"contenu" : {
 		"mots" : ["Fuck", "kill yourself", "kys"]
 	}
+}
+@fait
+{
+	"action" : "get_discussions_reponse",
+	"etat" :  true,
+	"contenu" :{
+		"discussions" : [
+			{
+				"id" : 123
+				"utilisateurs" : ["u1", "u2"]
+			}
+		]
+	}
+
+
+
+
 }

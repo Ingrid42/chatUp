@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<expressions>
+    <expression>ça va</expression>
+    <expression>bien</expression>
+    <expression>nickel</expression>
+    <expression>génial</expression>
+    <expression>super</expression>
+    <expression>très bien</expression>
+    <expression>tres bien</expression>
+    <expression>super bien</expression>
+    <expression>ok</expression>
+    <expression>oui</expression>
+    <expression>d'accord</expression>
+    <expression>okok</expression>
+		<expression>ça va bien</expression>
+		<expression>ça va très bien</expression>
+		<expression>moyen</expression>
+		<expression>ça peut aller</expression>
+		<expression>ouai</expression>
+		<expression>ouais</expression>
+    <expression>moi ça va</expression>
+		<expression>yep</expression>
+</expressions>

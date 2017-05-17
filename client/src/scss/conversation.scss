@@ -1,0 +1,132 @@
+.conversation {
+  height: 100%;
+
+  .row {
+    height: 100%;
+  }
+
+  .col-lg-7 .col-md-10 .col-xs-12 {
+    height: 100%;
+  }
+  .contact-picture {
+    border: 1px solid;
+    border-color: $rose;
+    border-radius: $button_size_little;
+    height : $button_size_little;
+    width: $button_size_little;
+    opacity: $opacity;
+
+    .contact-picture-icon {
+      height: 100%;
+      position: relative;
+      @include calc("top", "50% - " + $icon_size + " / 2 "); /* 50% - 1/2 of icon height */
+    }
+  }
+
+  .contact-name {
+    font-size: 20px;
+    padding-left: 10px;
+  }
+
+  .conversation-header {
+    height: $button_size_little;
+    margin-bottom: $margin;
+  }
+
+  .conversation-content {
+    text-align: center;
+    padding: 20px;
+    //@include shadowBox($gray-lighter);
+    //border-radius: $button_size;
+    height : $button_size;
+    margin-top: $margin10;
+    width: 100%;
+    min-width: $conversation_min_width;
+    @include calc("height", "100% - " + $button_size_little + " - " + $margin10 + " - " + $margin + " - " + $margin20 + " - " + $conversation-reply-size);
+    overflow: auto;
+
+    .message-content {
+      background-color: $blanc;
+      border: 1px solid $rose;
+      border-radius: 10px;
+      width: 70%;
+      text-align: left;
+      padding-left: $padding;
+      margin-left: $margin10;
+    }
+
+    .message-time {
+      text-align: left;
+      margin-left: $margin20;
+      padding-top: $mini_padding;
+      font-size: 10px;
+    }
+
+    .message-name {
+     text-align: left;
+   }
+
+    .conversation-message-reply {
+      margin-right: 0px;
+
+      .message-content-reply {
+        text-align: left;
+        padding-right: $padding;
+        padding-top: $mini_padding;
+        background-color: $rose;
+        color: white;
+        border-radius: 10px;
+        width: 75%;
+        float: right;
+        padding-left: $padding;
+        max-width: 60%;
+        margin-right: $margin20;
+      }
+
+      .message-time-reply {
+        text-align: right;
+        padding-right: $padding;
+        padding-top: $mini_padding;
+        font-size: 10px;
+        margin-right: $margin20;
+        clear: right;
+      }
+    }
+  }
+
+  .conversation-reply {
+    height: $conversation-reply-size !important;
+    text-align: left;
+    padding: 20px;
+    //@include shadowBox($gray-lighter);
+    //border-radius: $button_size;
+    height : $button_size;
+    margin-top: $margin20;
+    width: 100%;
+    min-width: $conversation_min_width;
+    height: $button_size;
+    overflow: auto;
+
+    input:focus {
+      border: 2px solid $rose;
+      outline : none;
+      border-radius: 10px;
+    }
+
+    .conversation-reply-content {
+      background-color: $blanc;
+      border: 1px solid $rose;
+      border-radius: 10px;
+      @include calc("width", "100% - " + $reply_button_width + " - 2 * " + $padding + " - " + $margin20);
+      text-align: left;
+      padding-left: $padding;
+      margin-left: $margin10;
+    }
+
+    .conversation-reply-button {
+      background-color: $rose;
+      border: 1px solid $rose;
+      margin-left: $margin20 !important;
+    }
+  }
+}

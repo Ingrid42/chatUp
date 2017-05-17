@@ -8,34 +8,33 @@
 
   <link href="./css/index.css" rel="stylesheet">
 
-  <link rel="import" href="html/navbar.html">
-  <link rel="import" href="html/connexion.html">
+  <link rel="import" href="html/accueil/navbar.html">
+  <link rel="import" href="html/accueil/connexion/page.html">
+  <link rel="import" href="html/accueil/inscription/page.html">
+
+  <link rel="import" href="html/accueil/motDePasse/page.html">
+
+  <link rel="import" href="html/contacts/navbar.html">
+  <link rel="import" href="html/contacts/page.html">
+
+  <link rel="import" href="html/conversation/navbar.html">
+  <link rel="import" href="html/conversation/audio/page.html">
+  <link rel="import" href="html/conversation/textuelle/page.html">
+  <link rel="import" href="html/conversation/creation/page.html">
+
+  <link rel="import" href="html/messagerie/navbar.html">
+  <link rel="import" href="html/messagerie/page.html">
+
+  <link rel="import" href="html/parametre/navbar.html">
+  <link rel="import" href="html/parametre/page.html">
+
   <link rel="import" href="html/footer.html">
-  <link rel="import" href="html/inscription.html">
-    <link rel="import" href="html/navbarContacts.html">
-    <link rel="import" href="html/contacts.html">
-    <link rel="import" href="html/navbarMessagerie.html">
-    <link rel="import" href="html/messagerie.html">
 
   <script src="/jquery/jquery.min.js" charset="utf-8"></script>
   <script src="/tether/js/tether.min.js" charset="utf-8"></script>
   <script src="/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-  <script src="/socketio/socket.io.min.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-  <script>
-  	$(document).ready(function(){
-  		var date_input=$('input[name="date"]'); //our date input has the name "date"
-  		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-  		date_input.datepicker({
-  			format: 'mm/dd/yyyy',
-  			container: container,
-  			todayHighlight: true,
-  			autoclose: true,
-  		})
-  	})
-  </script>
 
 </head>
 
@@ -43,6 +42,5 @@
   <div id="import"></div>
 </body>
 
-<script src="js/import.js" charset="utf-8"></script>
-<script src="js/index.js" charset="utf-8"></script>
+<script src="js/bundle.js" charset="utf-8"></script>
 </html>

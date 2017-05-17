@@ -1,0 +1,55 @@
+<div id="pageInscription" class="component page hidden">
+  <div class="container blocConnexion">
+    <form class="formInscription" onsubmit="return false">
+      <div class="inscription">
+        <h2>Inscription</h2>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-user-o fa-lg" aria-hidden="true"></i></div>
+            <input type="text" class="form-control" id="inputInscriptionPseudo" placeholder="Pseudonyme" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-envelope-o fa-lg" aria-hidden="true"></i></div>
+            <input type="email" class="form-control" id="inputInscriptionEmail" placeholder="Adresse Mèl" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></div>
+            <input type="password" class="form-control" id="inputInscriptionPassword" placeholder="Mot de Passe" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-unlock-alt fa-lg" aria-hidden="true"></i></div>
+            <input type="password" class="form-control" id="inputInscriptionPasswordConfirmation" placeholder="Confirmation" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-id-badge fa-lg" aria-hidden="true"></i></div>
+            <input type="text" class="form-control" id="inputInscriptionNom" placeholder="Nom" />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-id-badge fa-lg" aria-hidden="true"></i></div>
+            <input type="text" class="form-control" id="inputInscriptionPrenom" placeholder="Prénom" />
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+            <input class="form-date" id="inputInscriptionDatePicker" name="datepicker" placeholder="MM/DD/YYYY" type="date"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary" id="inscriptionUtilisateur">Valider</button>
+        </div>
+        <div id="msgError"></div>
+      </div>
+    </form>
+  </div>
+</div>

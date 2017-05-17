@@ -2,14 +2,27 @@ package messagerie.serveur.filtre;
 
 import messagerie.serveur.utilisateur.Utilisateur;
 
+/**
+ * Classe permettant de filtrer un utilisateur particulier.
+ */
 public class FiltreUtilisateur implements IFiltre {
 	public final static long serialVersionUID = 147L;
 
+	/**
+	 * Utilisateur à filtrer.
+	 */
 	private Utilisateur utilisateur;
 
+	/**
+	 * Création d'un filtre.
+	 * @param utilisateur Utilisateur à filtrer.
+	 */
 	public FiltreUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+
+	@Override
+	public Object getObject() { return this.utilisateur; }
 
 	@Override
 	public boolean compare(Object objet) {
@@ -18,6 +31,9 @@ public class FiltreUtilisateur implements IFiltre {
 		return false;
 	}
 
+	public Utilisateur getUtilisateur(){
+		return this.utilisateur ;
+	}
 	@Override
 	public boolean equals(Object objet) {
 		if (objet == this)

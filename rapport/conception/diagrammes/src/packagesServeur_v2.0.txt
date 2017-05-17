@@ -1,0 +1,70 @@
+@startuml
+package messagerie {
+package messagerie.serveur{
+  package messagerie.serveur.filtre {
+    interface IFiltre
+    class FiltreMots {
+		- String: mot
+    }
+
+   class FiltreUtilisateurs {
+   }
+
+  }
+  package messagerie.serveur.utilisateur {
+     class Utilisateur {
+		- String: pseudonyme
+		- String: nom
+		- String: prenom
+     }
+
+     class UtilisateurIA {
+     }
+
+     class UtilisateurHumain {
+		- String: motDePasse
+		- String: adresseMel
+		- Date: dateNaissance
+		- String: motDePasseParental
+		- String: photo
+     }
+
+  }
+
+    class Session {
+       - Socket: socketClient
+    }
+    class Serveur {
+       socketServeur
+    }
+	class Application <<Serializable>> #AAEE88 {
+	}
+
+	class ResponseEncoder #AAEE88 {
+	}
+
+	class RequestDecoder #AAEE88 {
+	}
+
+
+  package messagerie.serveur.discussion {
+    class Discussion {
+		- {static} int : idIcr
+		- int : id
+    }
+
+    class Message {
+		- String: texte
+		- Date: date
+    }
+
+    class DiscussionTexte {
+    }
+
+    class DiscussionAudio {
+    }
+  
+  }
+}
+}
+@enduml

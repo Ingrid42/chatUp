@@ -1,10 +1,10 @@
 .contact {
-  border: 1px solid;
-  border-color: $rose !important;
-  border-radius: 40px;
-  margin-top: $contact_marging;
-  margin-bottom: $contact_marging;
-  @include calc(width, "98% - ( " + $button_size + " * 2 ) " + " - ( " + $button_margin + " * 2 ) ");
+  // border: 1px solid;
+  // border-color: $rose !important;
+  // border-radius: 40px;
+  margin-top: $contact_margin;
+  margin-bottom: $contact_margin;
+  @include calc(width, "98% - ( " + $button_size + " * 2 ) " + " - ( " + $button_margin_left + " * 2 ) ");
   height : $button_size;
   opacity: $opacity;
   padding-left: $contact_padding;
@@ -24,9 +24,9 @@
   border-radius: $button_size;
   height : $button_size;
   width: $button_size;
-  margin-top: $contact_marging;
+  margin-top: $button_margin_top;
   opacity: $opacity;
-  margin-left: $button_margin;
+  margin-left: $button_margin_left;
 }
 
 .messagerie {
@@ -56,8 +56,7 @@
   margin-right: auto;
 }
 
-.new-conversation {
-  margin-top: $contact_padding;
-  // position: fixed;
-  // bottom: $new-conversation_position;
+.messagerie-page {
+  @include calc("height", "100% - " + $new-conversation_height);
+  overflow: auto;
 }

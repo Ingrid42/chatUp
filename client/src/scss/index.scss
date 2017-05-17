@@ -6,6 +6,12 @@
 @import "./connexion.scss";
 @import "./inscription.scss";
 @import "./contacts.scss";
+@import "./conversationAudio.scss";
+@import "./conversation.scss";
+@import "./conversationCreation.scss";
+@import "./parametre.scss";
+@import "./motDePasse.scss";
+
 
 html, body {
   height: 100%;
@@ -20,14 +26,13 @@ html, body {
 }
 
 .page {
-  @include calc("height", "100% - " + $navbar_height + " - " $space);
-  padding-top: 5%;
+  @include calc("height", "100% - " + $navbar_height + " - " + $space);
+  padding-top: $padding_top;
 }
 
 .container {
   height: 100%;
   width: 100%;
-  margin-top: $navbar_height;
   overflow: auto;
 }
 
@@ -42,4 +47,8 @@ html, body {
   bottom: 0px;
   left: 0px;
   background-color: $rose;
+}
+
+button {
+  cursor: pointer;
 }

@@ -1,0 +1,2 @@
+javac -Xlint -d classes -cp classes:libs/* messagerie/serveur/*.java messagerie/serveur/discussion/*.java messagerie/serveur/exceptions/*.java messagerie/serveur/filtre/*.java messagerie/serveur/utilisateur/*.java
+javac -Xlint -d classes -cp classes:libs/* test/messagerie/serveur/*.java test/messagerie/serveur/discussion/*.java test/messagerie/serveur/filtre/*.java test/messagerie/serveur/utilisateur/*.java
