@@ -531,7 +531,7 @@ public class RequestDecoder {
 	 * get filtres mot.
 	 * @param content Requête reçue par le serveur.
 	 */
-	/*public void get_filtres_mot(JSONObject content){
+	public void get_filtres_mot(JSONObject content){
 		try {
 			this.session.envoyerMessage(
 				this.encodeur.getFiltreMotReponse(true)
@@ -540,7 +540,7 @@ public class RequestDecoder {
 		catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-	}*/
+	}
 	
 	/**
 	 * get filtres utilisateur.

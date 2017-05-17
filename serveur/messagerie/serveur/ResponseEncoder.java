@@ -338,7 +338,27 @@ public class ResponseEncoder {
 		return obj.toString() ;
 	}
 
-
+	/**
+	 * Liste tout les  filtres mots pour le client
+	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les filtres.
+	 */
+	 @SuppressWarnings("unchecked")
+	public String getFiltreMotReponse(boolean state){
+		Map<String, Object> jsonContenuMap = new HashMap<>();
+		Map<String, Object> jsonObjMap = stateReponse(state, "get_filtre_mot_reponse" );
+		JSONArray array_users = new JSONArray();
+		for(IFiltre f : ((UtilisateurHumain)this.session.getUtilisateur()).getFiltres()){
+			if(f instanceof FiltreMot){
+				String pseudonyme = ((FiltreUtilisateur)f).getUtilisateur().getPseudonyme();
+				array_users.add(pseudonyme) ;
+			}
+		}
+		JSONObject contenu = new JSONObject(jsonContenuMap);
+		jsonContenuMap.put("filtres", array_users);
+		jsonObjMap.put("contenu", contenu);
+		JSONObject obj = new JSONObject(jsonObjMap);
+		return obj.toString() ;
+	}
 	/**
 	 * Liste tout les utilisateurs pour le client
 	 * @return Réponse mise en forme au format JSON. Cette réponse contient une liste de tout les utilisateurs autorisés (N'étant pas filtrés).
