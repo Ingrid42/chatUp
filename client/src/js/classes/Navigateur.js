@@ -1,3 +1,5 @@
+var crypto = require('crypto');
+
 class Navigateur {
   constructor() {
     this.utilisateur = undefined;
@@ -101,6 +103,7 @@ class Navigateur {
   connexionUtilisateur(session) {
     let pseudonyme = $('#inputConnexionPseudo').val();
     let mot_de_passe = $('#inputConnexionPassword').val();
+    mot_de_passe = this._encrypt(mot_de_passe);
     let message = {
       action : "connexion",
       contenu : {
@@ -119,6 +122,7 @@ class Navigateur {
     let prenom = $('#inputInscriptionPrenom').val();
     let adresse_mel = $('#inputInscriptionEmail').val();
     let date_naissance = $('#inputInscriptionDatePicker').val();
+    mot_de_passe = this._encrypt(mot_de_passe);
     let message = {
       action : "creer_utilisateur",
       contenu : {
@@ -184,6 +188,7 @@ class Navigateur {
   enregistrerParametres(session) {
     let courriel = $('#changerCourriel').val();
     let motDePasse = $('#changerMotDePasse').val();
+    mot_de_passe = this._encrypt(mot_de_passe);
     console.log(courriel);
     console.log(motDePasse);
   }
@@ -371,6 +376,10 @@ class Navigateur {
 
   _setCourrielInParametres() {
     $('#changerCourriel').val(this.utilisateur.adresseMel);
+  }
+
+  _encrypt(motDePasse) {
+    return crypto.createHash('sha256').update(motDePasse).digest('base64');
   }
 
 // AUTRES FONCTIONS
