@@ -139,7 +139,7 @@ public class UtilisateurHumain extends Utilisateur {
 		this.motDePasseParental = motDePasseParental;
 
 		if (motDePasseParental == null)
-			this.filtre.clear();
+			this.filtres.clear();
 
 		return this;
 	}
