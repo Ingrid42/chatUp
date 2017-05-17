@@ -52,7 +52,7 @@ public class UtilisateurHumain extends Utilisateur {
 	/**
 	 * Session de l'utilisateur.
 	 */
-	private Session session;
+	private transient Session session;
 
 	/**
 	 * Liste des messages reçus hors connexion
@@ -109,6 +109,15 @@ public class UtilisateurHumain extends Utilisateur {
 	public UtilisateurHumain setAdresseMel(String adresseMel) {
 		this.adresseMel = adresseMel;
 		return this;
+	}
+	
+	
+	/**
+	 * retourne letat du controle parental
+	 * @return letat du controle parental.
+	 */
+	public boolean getControleParental() {
+		return motDePasseParental == null ;
 	}
 
 	/**
@@ -201,6 +210,9 @@ public class UtilisateurHumain extends Utilisateur {
 	 * @return Vrai si le filtre a été ajouté. Faux sinon.
 	 */
 	public boolean ajouterFiltre(IFiltre filtre) {
+		if (this.filtres.contains(filtre))
+			return false;
+
 		return this.filtres.add(filtre);
 	}
 
